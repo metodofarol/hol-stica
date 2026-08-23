@@ -19,27 +19,30 @@
           <p>PROTOCOLO DE LIMPEZA E PROTEÇÃO</p>
         </div>
         <div class="header-actions no-print">
+          <button class="button button-secondary" type="button" id="saveData">Salvar dados</button>
+          <button class="button button-secondary" type="button" id="loadData">Carregar dados</button>
           <button class="button button-secondary" type="button" id="clearForm">Limpar</button>
-          <button class="button button-primary" type="button" id="printForm">Imprimir / salvar PDF</button>
+          <button class="button button-primary" type="button" id="printForm">Salvar formulário em PDF</button>
+          <input class="file-input" id="loadDataFile" type="file" accept="application/json" />
         </div>
       </header>
 
       <main>
         <form id="sessionForm" autocomplete="off">
-          <details class="section" open>
+          <details class="section">
             <summary><h2>1. Identificação</h2></summary>
-            <div class="grid grid-4">
+            <div class="grid grid-2">
               <label class="field">
                 <span>Nome</span>
                 <input type="text" name="nome" />
               </label>
               <label class="field">
-                <span>Terapeuta</span>
-                <input type="text" name="terapeuta" />
-              </label>
-              <label class="field">
                 <span>Data de nascimento</span>
                 <input type="date" name="nascimento" />
+              </label>
+              <label class="field">
+                <span>Terapeuta</span>
+                <input type="text" name="terapeuta" />
               </label>
               <label class="field">
                 <span>Data da sessão</span>
@@ -48,7 +51,7 @@
             </div>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary><h2>2. Vitalidade - Escala / Unidades Bovis</h2></summary>
             <div class="table-wrap">
               <table class="bovis-table">
@@ -80,12 +83,27 @@
                     <td><input type="number" name="espiritual_inicial" placeholder="U.B." /></td>
                     <td><input type="number" name="espiritual_final" placeholder="U.B." /></td>
                   </tr>
+                  <tr>
+                    <td>Vitalidade geral</td>
+                    <td><input type="number" name="vitalidade_geral_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="vitalidade_geral_final" placeholder="U.B." /></td>
+                  </tr>
+                  <tr>
+                    <td>Vitalidade do ambiente pessoal</td>
+                    <td><input type="number" name="ambiente_pessoal_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="ambiente_pessoal_final" placeholder="U.B." /></td>
+                  </tr>
+                  <tr>
+                    <td>Vitalidade do/no ambiente de trabalho</td>
+                    <td><input type="number" name="ambiente_trabalho_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="ambiente_trabalho_final" placeholder="U.B." /></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
 
-            <div class="bovis-scale" aria-label="Régua descritiva do Biômetro de Bovis">
-              <h3>Régua de referência Bovis</h3>
+            <details class="bovis-scale" aria-label="Régua descritiva do Biômetro de Bovis">
+              <summary><h3>Régua de referência Bovis</h3></summary>
               <div class="bovis-track" aria-hidden="true">
                 <span class="zone zone-critical"></span>
                 <span class="zone zone-low"></span>
@@ -120,10 +138,10 @@
                   <p>Indica alta expansão energética, locais sagrados, forte conexão espiritual ou estados vibratórios muito sutis.</p>
                 </article>
               </div>
-            </div>
+            </details>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary><h2>3. Chakra e Campo do Desequilíbrio</h2></summary>
             <div class="grid grid-3 chakra-section">
               <div class="field-group chakra-picker">
@@ -144,7 +162,7 @@
             </div>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary>
             <div class="section-title-row">
               <h2>4. Causa</h2>
@@ -154,12 +172,12 @@
             <div id="causePanel" class="cause-panel"></div>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary><h2>5. Tratamento Radiônico com Geometrias Sagradas</h2></summary>
             <div id="graphGroups" class="group-list"></div>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary><h2>6. Outros tratamentos holísticos identificados pela radiestesia</h2></summary>
             <div id="holisticList" class="choice-grid choice-grid-wide"></div>
             <label class="field therapy-detail">
@@ -168,12 +186,12 @@
             </label>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary><h2>7. Despertar</h2></summary>
             <div id="awakeningList" class="choice-grid choice-grid-wide"></div>
           </details>
 
-          <details class="section" open>
+          <details class="section">
             <summary><h2>8. Registro da sessão</h2></summary>
             <div class="grid grid-2">
               <label class="field">
@@ -201,9 +219,9 @@
             </div>
           </details>
 
-          <details class="section" id="reportSection" open>
-            <summary><h2>9. Relatório integrativo automático</h2></summary>
-            <p class="hint">O relatório integra as informações preenchidas e sugere interpretações possíveis com base nos dados textuais do formulário. O texto pode ser editado pelo terapeuta antes de imprimir ou salvar em PDF.</p>
+          <details class="section" id="reportSection">
+            <summary><h2>9. Relatório automático - gerado com base nos dados e fontes fornecidas pelo terapeuta</h2></summary>
+            <p class="hint">O texto pode ser editado pelo terapeuta antes de imprimir ou salvar em PDF.</p>
             <div class="report-actions no-print">
               <button class="button button-secondary" type="button" id="generateReport">Gerar / atualizar relatório</button>
               <button class="button button-primary" type="button" id="saveReportPdf">Salvar relatório em PDF</button>
@@ -213,11 +231,13 @@
               <textarea id="integrativeReport" name="relatorio_integrativo" rows="16"></textarea>
             </label>
             <pre class="report-print-view" id="reportPrintView"></pre>
+            <div class="report-visual-view" id="reportVisualView"></div>
           </details>
 
           <div class="bottom-actions no-print">
+            <button class="button button-secondary" type="button" id="saveDataBottom">Salvar dados</button>
             <button class="button button-secondary" type="button" id="clearFormBottom">Limpar</button>
-            <button class="button button-primary" type="button" id="printFormBottom">Imprimir / salvar PDF</button>
+            <button class="button button-primary" type="button" id="printFormBottom">Salvar formulário em PDF</button>
           </div>
         </form>
       </main>

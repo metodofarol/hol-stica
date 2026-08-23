@@ -6,7 +6,7 @@ const chakras = [
     top: "8%",
     represents: "Conexão espiritual, propósito, fé, sentido de vida e integração com o sutil.",
     associations:
-      "Pode se associar a desconexão, falta de sentido, isolamento, confusão espiritual, exaustão mental, enxaquecas e alterações do sono.",
+      "Quando em desequilíbrio, pode estar associado a desconexão, falta de sentido, isolamento, confusão espiritual, exaustão mental, enxaquecas e alterações do sono.",
     lifeAreas: "Trabalho: propósito. Estudo: visão ampla. Amor/relações: conexão. Saúde geral: equilíbrio espiritual e mental.",
   },
   {
@@ -16,7 +16,7 @@ const chakras = [
     top: "18%",
     represents: "Intuição, percepção, clareza mental, imaginação, discernimento e visão interior.",
     associations:
-      "Pode se associar a excesso de pensamentos, dificuldade de foco, ansiedade mental, dores de cabeça, tensão ocular e confusão psíquica.",
+      "Quando em desequilíbrio, pode estar associado a excesso de pensamentos, dificuldade de foco, ansiedade mental, dores de cabeça, tensão ocular e confusão psíquica.",
     lifeAreas: "Trabalho: estratégia. Estudo: concentração. Amor/relações: percepção clara. Saúde geral: mente e sistema nervoso.",
   },
   {
@@ -26,7 +26,7 @@ const chakras = [
     top: "30%",
     represents: "Comunicação, expressão, verdade pessoal, escuta e capacidade de manifestar ideias.",
     associations:
-      "Pode se associar a bloqueio de fala, medo de se posicionar, timidez, rigidez na comunicação, garganta, tireoide e região cervical.",
+      "Quando em desequilíbrio, pode estar associado a bloqueio de fala, medo de se posicionar, timidez, rigidez na comunicação, alterações na garganta, tireoide e região cervical.",
     lifeAreas: "Trabalho: expressão profissional. Estudo: comunicação. Amor/relações: diálogo. Saúde geral: garganta e pescoço.",
   },
   {
@@ -36,7 +36,7 @@ const chakras = [
     top: "42%",
     represents: "Amor, vínculo, compaixão, perdão, pertencimento e equilíbrio entre dar e receber.",
     associations:
-      "Pode se associar a mágoas, tristeza, fechamento afetivo, dependência, solidão, peito, pulmões, circulação e imunidade.",
+      "Quando em desequilíbrio, pode estar associado a mágoas, tristeza, fechamento afetivo, dependência, solidão, alterações no peito, pulmões, circulação e imunidade.",
     lifeAreas: "Trabalho: cooperação. Estudo: motivação afetiva. Amor/relações: vínculos. Saúde geral: coração, respiração e imunidade.",
   },
   {
@@ -46,7 +46,7 @@ const chakras = [
     top: "54%",
     represents: "Autonomia, autoestima, poder pessoal, ação, decisão e digestão das experiências.",
     associations:
-      "Pode se associar a insegurança, controle, raiva contida, baixa autoestima, estômago, fígado, pâncreas e sistema digestivo.",
+      "Quando em desequilíbrio, pode estar associado a insegurança, necessidade de controle, raiva contida, baixa autoestima, alterações no estômago, fígado, pâncreas e sistema digestivo.",
     lifeAreas: "Trabalho: liderança. Estudo: disciplina. Amor/relações: limites pessoais. Saúde geral: digestão e energia de ação.",
   },
   {
@@ -56,7 +56,7 @@ const chakras = [
     top: "67%",
     represents: "Prazer, criatividade, sexualidade, fluidez emocional, fertilidade e movimento da vida.",
     associations:
-      "Pode se associar a culpa, bloqueios afetivos, dependência emocional, compulsões, região pélvica, rins, bexiga e sistema reprodutor.",
+      "Quando em desequilíbrio, pode estar associado a culpa, bloqueios afetivos, dependência emocional, compulsões, alterações na região pélvica, rins, bexiga e sistema reprodutor.",
     lifeAreas: "Trabalho: criatividade. Estudo: prazer em aprender. Amor/relações: intimidade. Saúde geral: vitalidade pélvica.",
   },
   {
@@ -66,7 +66,7 @@ const chakras = [
     top: "80%",
     represents: "Segurança, presença, aterramento, sobrevivência, corpo físico, estabilidade e recursos materiais.",
     associations:
-      "Pode se associar a medo, instabilidade, insegurança financeira, apatia, pernas, coluna, ossos, intestino e vitalidade física.",
+      "Quando em desequilíbrio, pode estar associado a medo, instabilidade, insegurança financeira, apatia, alterações nas pernas, coluna, ossos, intestino e vitalidade física.",
     lifeAreas: "Trabalho: estabilidade. Estudo: constância. Amor/relações: segurança. Saúde geral: estrutura corporal e energia vital.",
   },
 ];
@@ -540,15 +540,31 @@ const bovisFields = [
   { key: "mental", label: "Mental" },
   { key: "emocional", label: "Emocional" },
   { key: "espiritual", label: "Espiritual" },
+  { key: "vitalidade_geral", label: "Vitalidade geral" },
+  { key: "ambiente_pessoal", label: "Vitalidade do ambiente pessoal" },
+  { key: "ambiente_trabalho", label: "Vitalidade do/no ambiente de trabalho" },
 ];
 
+const promotionalCard = {
+  title: "Radiestesia, Reiki, Tarô e escrita terapêutica",
+  text:
+    "A radiestesia é uma prática de escuta sutil que ajuda a mapear padrões energéticos, identificar pontos de desequilíbrio e orientar caminhos de limpeza, proteção e reorganização do campo pessoal. Quando associada ao Reiki, ao Tarô terapêutico e à escrita criativa/terapêutica, amplia-se um percurso de autoconhecimento: o cliente compreende melhor seus movimentos internos, reconhece símbolos importantes da própria história e encontra recursos para cuidar de si com mais presença.",
+  duration:
+    "As sessões radiônicas (com geometrias sagradas, conhecidas como gráficos radiônicos) atuam nos campos sutis por aproximadamente 28 dias. Recomenda-se reconsulta e reenergização ao final desse período, ou antes, se houver necessidade percebida no acompanhamento.",
+  invite:
+    "Para aprofundar este processo, é possível realizar sessões complementares de Reiki, leituras terapêuticas de Tarô e práticas de escrita orientada, conforme a necessidade identificada no atendimento. Entre em contato para mais informações.",
+};
+
 const selected = {
-  field: "",
-  limit: "",
+  field: "emocional",
+  limit: "rigido",
   chakras: new Set(),
 };
 
 let reportManuallyEdited = false;
+let printMode = "";
+const storageKey = "registro-sessao-terapeutica-dados";
+const defaultDocumentTitle = document.title;
 
 const byId = (id) => document.getElementById(id);
 
@@ -590,6 +606,9 @@ function makeRadio(name, item, onChange) {
   input.name = name;
   input.value = item.id;
   input.id = id;
+  input.checked =
+    (name === "campo_desequilibrio" && item.id === selected.field) ||
+    (name === "tipo_limite" && item.id === selected.limit);
   input.addEventListener("change", onChange);
 
   const label = document.createElement("label");
@@ -782,19 +801,28 @@ function renderCauses() {
   const panel = byId("causePanel");
   panel.innerHTML = "";
 
-  if (!selected.field || !selected.limit) {
-    panel.className = "cause-panel is-empty";
-    panel.textContent = "Escolha o campo do desequilíbrio e o tipo de limite para liberar as causas.";
-    return;
-  }
-
   panel.className = "cause-panel";
-  const list = document.createElement("div");
-  list.className = "choice-grid choice-grid-wide";
+  const groups =
+    selected.field && selected.limit
+      ? [{ field: selected.field, limit: selected.limit }]
+      : fields.flatMap((field) => limitTypes.map((limit) => ({ field: field.id, limit: limit.id })));
 
-  causes
-    .filter((cause) => cause.field === selected.field && cause.limit === selected.limit)
-    .forEach((cause) => {
+  groups.forEach((group) => {
+    const matchingCauses = causes.filter(
+      (cause) => cause.field === group.field && cause.limit === group.limit
+    );
+    if (!matchingCauses.length) return;
+
+    const groupBlock = document.createElement("article");
+    groupBlock.className = "cause-group";
+
+    const title = document.createElement("h3");
+    title.textContent = `${getLabel(fields, group.field)} - Limite ${getLabel(limitTypes, group.limit)}`;
+
+    const list = document.createElement("div");
+    list.className = "choice-grid choice-grid-wide";
+
+    matchingCauses.forEach((cause) => {
       const button = document.createElement("button");
       button.className = "clickable-name";
       button.type = "button";
@@ -804,20 +832,24 @@ function renderCauses() {
       list.appendChild(makeCheckbox("causa", cause.id, cause.name, button));
     });
 
-  panel.appendChild(list);
+    groupBlock.append(title, list);
+    panel.appendChild(groupBlock);
+  });
 }
 
 function renderGraphs() {
   const container = byId("graphGroups");
 
   graphGroups.forEach((group) => {
-    const section = document.createElement("article");
+    const section = document.createElement("details");
     section.className = "graph-group";
+    section.open = false;
 
+    const summary = document.createElement("summary");
     const title = document.createElement("h3");
-    title.textContent = group.name;
-
     const typeChoice = makeCheckbox("tipo_grafico", group.name, `Tipo: ${group.name}`);
+    title.appendChild(typeChoice);
+    summary.appendChild(title);
 
     const items = document.createElement("div");
     items.className = "choice-grid choice-grid-wide";
@@ -827,7 +859,7 @@ function renderGraphs() {
       items.appendChild(makeInfoChoice("grafico", item, item, info, `grafico_${slug(group.name)}`));
     });
 
-    section.append(title, typeChoice, items);
+    section.append(summary, items);
     container.appendChild(section);
   });
 }
@@ -882,16 +914,28 @@ function getLabel(collection, id) {
 function getCauseReportText(cause) {
   const fieldLabel = getLabel(fields, cause.field);
   const limitLabel = getLabel(limitTypes, cause.limit);
-  const fieldText = fieldInterpretations[cause.field];
-  const limitText = limitInterpretations[cause.limit];
 
   return [
-    `- Campo ${fieldLabel} + limite ${limitLabel} + causa "${cause.name}":`,
-    `  Campo: ${fieldText}`,
-    `  Tipo de limite: ${limitText}`,
-    `  Causa: ${cause.description}`,
-    `  Leitura integrada: esta combinação sugere que o tema "${cause.name.toLowerCase()}" deve ser observado dentro do campo ${fieldLabel.toLowerCase()}, especialmente na forma como o limite ${limitLabel.toLowerCase()} influencia proteção, abertura, vínculo, autonomia e autorregulação.`,
+    `Causa: ${cause.name}`,
+    `Campo relacionado: ${fieldLabel}`,
+    `Tipo de limite relacionado: ${limitLabel}`,
+    `Texto-base: ${cause.description}`,
   ].join("\n");
+}
+
+function addReportSection(report, number, title, lines) {
+  if (!lines.length) return;
+  report.push(`${number}. ${title.toUpperCase()}`);
+  report.push("-".repeat(48));
+  report.push(...lines);
+  report.push("");
+}
+
+function addReportBlockTitle(report, title) {
+  report.push("=".repeat(56));
+  report.push(title.toUpperCase());
+  report.push("=".repeat(56));
+  report.push("");
 }
 
 function getFormValue(name) {
@@ -911,13 +955,13 @@ function formatDate(value) {
 function getBovisLevel(value) {
   const number = Number(value);
   if (!Number.isFinite(number) || number <= 0) return "";
-  if (number < 3000) return "nível crítico / degenerativo, sugerindo forte desvitalização.";
-  if (number < 6000) return "nível baixo / descendente, sugerindo perda de vitalidade ou desgaste.";
-  if (number < 6500) return "nível de alerta / desequilíbrio, sugerindo queda ou instabilidade energética.";
-  if (number === 6500) return "nível neutro / referência, próximo ao ponto básico de equilíbrio.";
-  if (number <= 8500) return "nível saudável / vitalidade alta, sugerindo boa sustentação energética.";
-  if (number <= 10000) return "nível elevado / espiritual, sugerindo expansão energética e conexão sutil.";
-  return "nível acima da régua principal, pedindo leitura cautelosa e contextualizada.";
+  if (number < 3000) return "Nível crítico / Degenerativo";
+  if (number < 6000) return "Nível baixo / Descendente";
+  if (number < 6500) return "Nível de alerta / Desequilíbrio";
+  if (number === 6500) return "Nível neutro / Referência";
+  if (number <= 8500) return "Nível saudável / Vitalidade alta";
+  if (number <= 10000) return "Nível elevado / Espiritual";
+  return "Acima da régua principal";
 }
 
 function buildBovisReport() {
@@ -928,19 +972,12 @@ function buildBovisReport() {
     const final = getFormValue(`${field.key}_final`);
     if (!initial && !final) return;
 
-    const initialText = initial ? `${initial} Å (${getBovisLevel(initial)})` : "não informado";
-    const finalText = final ? `${final} Å (${getBovisLevel(final)})` : "não informado";
-    const delta = initial && final ? Number(final) - Number(initial) : null;
-    const movement =
-      delta === null
-        ? ""
-        : delta > 0
-          ? ` Houve elevação de ${delta} Å após a sessão.`
-          : delta < 0
-            ? ` Houve redução de ${Math.abs(delta)} Å após a sessão, recomendando nova observação.`
-            : " A medição permaneceu estável após a sessão.";
-
-    lines.push(`- ${field.label}: inicial ${initialText}; após a sessão ${finalText}.${movement}`);
+    if (initial) {
+      lines.push(`- ${field.label} - medição inicial: ${initial} Å - ${getBovisLevel(initial)}.`);
+    }
+    if (final) {
+      lines.push(`- ${field.label} - medição após a sessão: ${final} Å - ${getBovisLevel(final)}.`);
+    }
   });
 
   return lines;
@@ -974,85 +1011,134 @@ function buildIntegrativeReport() {
   const nextDate = formatDate(getFormValue("nova_afericao"));
 
   const report = [
-    "RELATÓRIO INTEGRATIVO AUTOMÁTICO",
-    "",
-    `Cliente: ${name}${therapist ? ` | Terapeuta: ${therapist}` : ""}${birth ? ` | Nascimento: ${birth}` : ""}${sessionDate ? ` | Sessão: ${sessionDate}` : ""}`,
-    "",
-    "Síntese geral:",
-    `A leitura integrada desta sessão considera as medições Bovis, os chakras assinalados, o campo de desequilíbrio, o tipo de limite, as causas selecionadas e os tratamentos indicados pela radiestesia. As interpretações abaixo são possibilidades de leitura terapêutica e devem ser ajustadas pelo terapeuta conforme a escuta, o contexto e a evolução do atendimento.`,
+    "RELATÓRIO AUTOMÁTICO - GERADO COM BASE NOS DADOS E FONTES FORNECIDAS PELO TERAPEUTA",
+    "PROTOCOLO DE LIMPEZA E PROTEÇÃO",
     "",
   ];
 
-  if (bovisLines.length) {
-    report.push("Aferição Bovis:", ...bovisLines, "");
-  }
+  addReportBlockTitle(report, "Resultado do formulário");
+
+  addReportSection(report, 1, "Dados do cliente e da sessão", [
+    `Cliente: ${name}`,
+    therapist ? `Terapeuta: ${therapist}` : "Terapeuta: não informado",
+    birth ? `Data de nascimento: ${birth}` : "Data de nascimento: não informada",
+    sessionDate ? `Data da sessão: ${sessionDate}` : "Data da sessão: não informada",
+  ]);
+
+  addReportSection(report, 2, "Avaliação - escala Bovis", bovisLines.length ? bovisLines : ["Nenhuma medição Bovis informada."]);
 
   if (selectedChakraData.length) {
-    report.push("Chakras em desequilíbrio:");
-    selectedChakraData.forEach((chakra) => {
-      report.push(`- ${chakra.name}: ${chakra.represents} Possíveis associações: ${chakra.associations} ${chakra.lifeAreas}`);
-    });
-    report.push("");
+    addReportSection(
+      report,
+      3,
+      "Chakras em desequilíbrio",
+      selectedChakraData.map(
+        (chakra) =>
+          `${chakra.name}\nRepresenta: ${chakra.represents}\nAssociações: ${chakra.associations}\nÁreas da vida: ${chakra.lifeAreas}`
+      )
+    );
   }
 
   if (fieldLabel || limitLabel || selectedCauseData.length) {
-    report.push("Campo, tipo de limite e causas selecionadas:");
+    const lines = [];
     if (fieldLabel) {
-      report.push(`- Campo predominante observado: ${fieldLabel}. ${fieldInterpretations[selected.field]}`);
+      lines.push(`Campo selecionado: ${fieldLabel}.`);
     }
     if (limitLabel) {
-      report.push(`- Tipo de limite identificado: ${limitLabel}. ${limitInterpretations[selected.limit]}`);
+      lines.push(`Tipo de limite selecionado: ${limitLabel}.`);
     }
     selectedCauseData.forEach((cause) => {
-      report.push(getCauseReportText(cause));
+      lines.push(getCauseReportText(cause));
     });
-    report.push("");
+    addReportSection(report, 4, "Campo, tipo de limite e causas selecionadas", lines);
   }
 
   if (graphTypes.length || selectedGraphData.length) {
-    report.push("Tratamento radiônico com geometrias sagradas:");
-    if (graphTypes.length) report.push(`- Tipos indicados: ${graphTypes.join(", ")}.`);
+    const lines = [];
+    if (graphTypes.length) lines.push(`Tipos indicados: ${graphTypes.join(", ")}.`);
     if (selectedGraphData.length) {
       selectedGraphData.forEach((graph) => {
-        report.push(`- ${graph.name} (${graph.groupName}): ${graph.interpretation}`);
+        lines.push(`${graph.name} (${graph.groupName}): ${graph.description}`);
       });
     }
-    report.push("A combinação sugere uma estratégia de reorganização energética conforme os gráficos marcados, articulando harmonização, limpeza, proteção, suporte psicoemocional e vitalidade.");
-    report.push("");
+    addReportSection(report, 5, "Tratamento radiônico com geometrias sagradas", lines);
   }
 
   if (holistic.length || therapyDetail) {
-    report.push("Outros tratamentos holísticos:");
-    if (holistic.length) report.push(`- Terapias indicadas: ${holistic.join(", ")}.`);
-    if (therapyDetail) report.push(`- Detalhamento terapêutico: ${therapyDetail}`);
-    report.push("");
+    const lines = [];
+    if (holistic.length) lines.push(`Terapias indicadas: ${holistic.join(", ")}.`);
+    if (therapyDetail) lines.push(`Detalhamento terapêutico: ${therapyDetail}`);
+    addReportSection(report, 6, "Outros tratamentos holísticos", lines);
   }
 
   if (awakening.length) {
-    report.push("Despertar:");
-    selectedAwakeningData.forEach((graph) => {
-      report.push(`- ${graph.name}: ${graph.interpretation}`);
-    });
-    report.push("");
+    addReportSection(
+      report,
+      7,
+      "Despertar",
+      selectedAwakeningData.map((graph) => `${graph.name}: ${graph.description}`)
+    );
   }
 
   if (witnesses || intention || notes || treatmentTime || nextDate) {
-    report.push("Registro complementar da sessão:");
-    if (witnesses) report.push(`- Testemunho(s): ${witnesses}`);
-    if (intention) report.push(`- Comando / intenção: ${intention}`);
-    if (notes) report.push(`- Observações: ${notes}`);
-    if (treatmentTime) report.push(`- Tempo de permanência / tratamento indicado: ${treatmentTime}`);
-    if (nextDate) report.push(`- Nova aferição sugerida: ${nextDate}`);
-    report.push("");
+    const lines = [];
+    if (witnesses) lines.push(`Testemunho(s): ${witnesses}`);
+    if (intention) lines.push(`Comando / intenção: ${intention}`);
+    if (notes) lines.push(`Observações: ${notes}`);
+    if (treatmentTime) lines.push(`Tempo de permanência / tratamento indicado: ${treatmentTime}`);
+    if (nextDate) lines.push(`Nova aferição sugerida: ${nextDate}`);
+    addReportSection(report, 8, "Registro complementar da sessão", lines);
   }
 
-  report.push("Interpretação integrativa possível:");
-  report.push(buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines));
-  report.push("");
-  report.push("Leituras complementares sugeridas:");
-  report.push(buildReadingSuggestions(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, selectedGraphData, selectedAwakeningData));
-  report.push("");
+  addReportBlockTitle(report, "Eixo interpretativo");
+
+  addReportSection(report, 9, "Síntese interpretativa", [
+    "A leitura integrada considera os dados preenchidos no formulário e os itens selecionados durante a avaliação.",
+    "As interpretações abaixo são possibilidades de leitura terapêutica e devem ser ajustadas pelo terapeuta conforme a escuta, o contexto e a evolução do atendimento.",
+  ]);
+
+  if (fieldLabel || limitLabel) {
+    const axisLines = [];
+    if (fieldLabel) axisLines.push(`Campo ${fieldLabel}: ${fieldInterpretations[selected.field]}`);
+    if (limitLabel) axisLines.push(`Limite ${limitLabel}: ${limitInterpretations[selected.limit]}`);
+    addReportSection(report, 10, "Eixo campo-limite", axisLines);
+  }
+
+  if (selectedCauseData.length) {
+    addReportSection(
+      report,
+      11,
+      "Eixo das causas selecionadas",
+      selectedCauseData.map((cause) => {
+        const fieldLabelForCause = getLabel(fields, cause.field);
+        const limitLabelForCause = getLabel(limitTypes, cause.limit);
+        return `${cause.name}: no campo ${fieldLabelForCause.toLowerCase()}, com limite ${limitLabelForCause.toLowerCase()}, esta causa sugere atenção à forma como proteção, abertura, vínculo, autonomia e autorregulação estão sendo organizados.`;
+      })
+    );
+  }
+
+  if (selectedGraphData.length || selectedAwakeningData.length) {
+    const graphAxis = [...selectedGraphData, ...selectedAwakeningData].map(
+      (graph) => `${graph.name}: ${graph.interpretation}`
+    );
+    addReportSection(report, 12, "Eixo dos gráficos selecionados", graphAxis);
+  }
+
+  addReportSection(report, 13, "Interpretação integrativa possível", [
+    buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines),
+  ]);
+
+  report.push("OBSERVAÇÃO");
+  report.push("-".repeat(48));
   report.push("Observação: este relatório organiza possibilidades de leitura terapêutica e energética. Ele não substitui avaliação médica, psicológica ou qualquer acompanhamento profissional necessário.");
+  report.push("");
+  report.push(promotionalCard.title.toUpperCase());
+  report.push("-".repeat(48));
+  report.push(promotionalCard.text);
+  report.push("");
+  report.push(promotionalCard.duration);
+  report.push("");
+  report.push(promotionalCard.invite);
 
   return report.join("\n");
 }
@@ -1091,41 +1177,6 @@ function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCaus
   return parts.join(" ");
 }
 
-function buildReadingSuggestions(
-  fieldLabel,
-  limitLabel,
-  selectedChakraData,
-  selectedCauseData,
-  holistic,
-  selectedGraphData = [],
-  selectedAwakeningData = []
-) {
-  const suggestions = new Set([
-    "Escala Bovis e acompanhamento de vitalidade energética.",
-    "Radiestesia terapêutica aplicada ao campo emocional, mental e espiritual.",
-  ]);
-
-  if (fieldLabel) suggestions.add(`Limites energéticos no campo ${fieldLabel.toLowerCase()}.`);
-  if (limitLabel) suggestions.add(`Padrões de limite ${limitLabel.toLowerCase()} e autorregulação.`);
-  if (selectedChakraData.length) suggestions.add("Chakras, psicossomática energética e relações entre corpo, emoções e áreas da vida.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("intimidade"))) suggestions.add("Vínculos, intimidade, proteção emocional e abertura afetiva.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("controle"))) suggestions.add("Controle, confiança, flexibilidade e segurança interna.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("abandono"))) suggestions.add("Feridas de rejeição ou abandono, apego, segurança emocional e pertencimento.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("culpa"))) suggestions.add("Culpa, autocondenação, permissão interna e limites saudáveis.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("dependência"))) suggestions.add("Dependência emocional, autonomia afetiva e fortalecimento de identidade.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("rigidez"))) suggestions.add("Rigidez mental, flexibilidade cognitiva e atualização de crenças.");
-  if (selectedCauseData.some((cause) => cause.name.toLowerCase().includes("submissão"))) suggestions.add("Submissão, autoridade interna, merecimento e posicionamento.");
-  if (holistic.includes("Tarô")) suggestions.add("Tarô terapêutico como recurso simbólico de reflexão e autoconhecimento.");
-  if (holistic.includes("Florais")) suggestions.add("Florais e harmonização emocional.");
-  if (holistic.includes("Reiki")) suggestions.add("Reiki e práticas de imposição de mãos para equilíbrio energético.");
-  if (holistic.includes("Meditação budista (zazen ou daimoku)")) suggestions.add("Meditação budista, presença, respiração e disciplina contemplativa.");
-  [...selectedGraphData, ...selectedAwakeningData].forEach((graph) => {
-    suggestions.add(graph.readings);
-  });
-
-  return [...suggestions].map((item) => `- ${item}`).join("\n");
-}
-
 function updateIntegrativeReport() {
   const report = byId("integrativeReport");
   const printView = byId("reportPrintView");
@@ -1133,6 +1184,7 @@ function updateIntegrativeReport() {
   reportManuallyEdited = false;
   report.value = buildIntegrativeReport();
   if (printView) printView.textContent = report.value;
+  syncReportPrintView();
 }
 
 function autoUpdateIntegrativeReport() {
@@ -1142,24 +1194,347 @@ function autoUpdateIntegrativeReport() {
 function syncReportPrintView() {
   const report = byId("integrativeReport");
   const printView = byId("reportPrintView");
+  const visualView = byId("reportVisualView");
   if (report && printView) printView.textContent = report.value;
+  if (visualView) visualView.innerHTML = buildVisualReport();
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function buildVisualReport() {
+  const name = getFormValue("nome") || "cliente";
+  const therapist = getFormValue("terapeuta") || "não informado";
+  const birth = formatDate(getFormValue("nascimento")) || "não informada";
+  const sessionDate = formatDate(getFormValue("sessao")) || "não informada";
+  const fieldLabel = selected.field ? getLabel(fields, selected.field) : "não selecionado";
+  const limitLabel = selected.limit ? getLabel(limitTypes, selected.limit) : "não selecionado";
+  const selectedCauseData = causes.filter((cause) => getCheckedValues("causa").includes(cause.id));
+  const selectedChakraData = [...selected.chakras]
+    .map((id) => chakras.find((chakra) => chakra.id === id))
+    .filter(Boolean);
+  const selectedGraphData = graphGroups.flatMap((group) =>
+    getCheckedValues(`grafico_${slug(group.name)}`).map((item) => getGraphInfo(item, group.name))
+  );
+  const selectedAwakeningData = getCheckedValues("despertar").map((item) => getGraphInfo(item, "Despertar"));
+  const allGraphData = [...selectedGraphData, ...selectedAwakeningData];
+  const bovisLines = buildBovisReport();
+  const holistic = getCheckedValues("tratamento_holistico");
+  const therapyDetail = getFormValue("detalhamento_terapeutica");
+  const notes = getFormValue("observacoes");
+  const intention = getFormValue("comando");
+
+  const chakraCards = selectedChakraData.length
+    ? selectedChakraData
+        .map(
+          (chakra) => `
+            <article class="visual-card chakra-summary-card" style="--chakra-color:${chakra.color}">
+              <h4>${escapeHtml(chakra.name)}</h4>
+              <p><strong>Representa:</strong> ${escapeHtml(chakra.represents)}</p>
+              <p><strong>Associações:</strong> ${escapeHtml(chakra.associations)}</p>
+              <p><strong>Áreas da vida:</strong> ${escapeHtml(chakra.lifeAreas)}</p>
+            </article>
+          `
+        )
+        .join("")
+    : `<p class="visual-muted">Nenhum chakra selecionado.</p>`;
+
+  const causeCards = selectedCauseData.length
+    ? selectedCauseData
+        .map(
+          (cause) => `
+            <article class="visual-card">
+              <h4>${escapeHtml(cause.name)}</h4>
+              <p><strong>Campo:</strong> ${escapeHtml(getLabel(fields, cause.field))}</p>
+              <p><strong>Tipo de limite:</strong> ${escapeHtml(getLabel(limitTypes, cause.limit))}</p>
+              <p>${escapeHtml(cause.description)}</p>
+            </article>
+          `
+        )
+        .join("")
+    : `<p class="visual-muted">Nenhuma causa selecionada.</p>`;
+
+  const graphCards = allGraphData.length
+    ? allGraphData
+        .map(
+          (graph) => `
+            <article class="graph-report-card">
+              ${graph.image ? `<img src="${escapeHtml(graph.image)}" alt="${escapeHtml(graph.name)}" />` : ""}
+              <div>
+                <p class="visual-kicker">${escapeHtml(graph.groupName)}</p>
+                <h4>${escapeHtml(graph.name)}</h4>
+                <p>${escapeHtml(graph.description)}</p>
+                <p><strong>Interpretação no tratamento:</strong> ${escapeHtml(graph.interpretation)}</p>
+              </div>
+            </article>
+          `
+        )
+        .join("")
+    : `<p class="visual-muted">Nenhum gráfico selecionado.</p>`;
+
+  return `
+    <article class="visual-report">
+      <header class="visual-report-header">
+        <h3>Relatório automático - gerado com base nos dados e fontes fornecidas pelo terapeuta</h3>
+        <p>PROTOCOLO DE LIMPEZA E PROTEÇÃO</p>
+      </header>
+
+      <section>
+        <h3>1. Dados da sessão</h3>
+        <div class="visual-data-grid">
+          <p><strong>Cliente:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Terapeuta:</strong> ${escapeHtml(therapist)}</p>
+          <p><strong>Nascimento:</strong> ${escapeHtml(birth)}</p>
+          <p><strong>Data da sessão:</strong> ${escapeHtml(sessionDate)}</p>
+        </div>
+      </section>
+
+      <section>
+        <h3>2. Resultado do formulário</h3>
+        <h4>Avaliação Bovis</h4>
+        <ul>${(bovisLines.length ? bovisLines : ["Nenhuma medição Bovis informada."])
+          .map((line) => `<li>${escapeHtml(line.replace(/^- /, ""))}</li>`)
+          .join("")}</ul>
+        <h4>Campo e limite identificados</h4>
+        <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
+        ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
+        ${therapyDetail ? `<h4>Detalhamento terapêutico</h4><p>${escapeHtml(therapyDetail)}</p>` : ""}
+        ${intention ? `<h4>Comando / intenção</h4><p>${escapeHtml(intention)}</p>` : ""}
+        ${notes ? `<h4>Observações</h4><p>${escapeHtml(notes)}</p>` : ""}
+      </section>
+
+      <section>
+        <h3>3. Resumo integrado: chakra, campo e causa</h3>
+        <p>Esta parte organiza os pontos centrais selecionados no formulário para que o cliente compreenda o processo com clareza e autoconhecimento.</p>
+        <div class="visual-card-grid">${chakraCards}</div>
+        <div class="visual-card-grid">${causeCards}</div>
+      </section>
+
+      <section>
+        <h3>4. Tratamento radiônico com geometrias sagradas</h3>
+        <p>Os gráficos abaixo foram selecionados como parte do tratamento radiônico. Eles indicam a direção simbólica e energética do trabalho realizado.</p>
+        <div class="graph-report-grid">${graphCards}</div>
+      </section>
+
+      <section>
+        <h3>5. Eixo interpretativo</h3>
+        <p>${escapeHtml(buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines))}</p>
+      </section>
+
+      <section class="visual-note">
+        <h3>Observação</h3>
+        <p>Este relatório organiza possibilidades de leitura terapêutica e energética. Ele não substitui avaliação médica, psicológica ou qualquer acompanhamento profissional necessário.</p>
+      </section>
+
+      <section class="promo-card">
+        <p class="visual-kicker">Convite terapêutico</p>
+        <h3>${escapeHtml(promotionalCard.title)}</h3>
+        <p>${escapeHtml(promotionalCard.text)}</p>
+        <p>${escapeHtml(promotionalCard.duration)}</p>
+        <p>${escapeHtml(promotionalCard.invite)}</p>
+      </section>
+    </article>
+  `;
+}
+
+function getFormState() {
+  const form = byId("sessionForm");
+  const fields = {};
+
+  [...form.elements].forEach((element) => {
+    if (!element.name || element.type === "file") return;
+
+    if (element.type === "checkbox") {
+      if (!fields[element.name]) fields[element.name] = [];
+      if (element.checked) fields[element.name].push(element.value);
+      return;
+    }
+
+    if (element.type === "radio") {
+      if (element.checked) fields[element.name] = element.value;
+      return;
+    }
+
+    fields[element.name] = element.value;
+  });
+
+  return {
+    savedAt: new Date().toISOString(),
+    selected: {
+      field: selected.field,
+      limit: selected.limit,
+      chakras: [...selected.chakras],
+    },
+    reportManuallyEdited,
+    fields,
+  };
+}
+
+function applyFormState(state) {
+  if (!state?.fields) return;
+
+  const form = byId("sessionForm");
+  form.reset();
+
+  [...form.elements].forEach((element) => {
+    if (!element.name || element.type === "file") return;
+    const value = state.fields[element.name];
+
+    if (element.type === "checkbox") {
+      element.checked = Array.isArray(value) && value.includes(element.value);
+      return;
+    }
+
+    if (element.type === "radio") {
+      element.checked = value === element.value;
+      return;
+    }
+
+    element.value = value || "";
+  });
+
+  selected.field = state.selected?.field || getCheckedValues("campo_desequilibrio")[0] || "emocional";
+  selected.limit = state.selected?.limit || getCheckedValues("tipo_limite")[0] || "rigido";
+  selected.chakras = new Set(state.selected?.chakras || []);
+  reportManuallyEdited = Boolean(state.reportManuallyEdited);
+
+  document.querySelectorAll(".chakra-point").forEach((point) => {
+    const checked = selected.chakras.has(point.dataset.chakraId);
+    point.classList.toggle("is-selected", checked);
+    point.setAttribute("aria-pressed", checked ? "true" : "false");
+  });
+  document.querySelectorAll("[data-chakra-id]").forEach((element) => {
+    if (element.matches("input")) element.checked = selected.chakras.has(element.dataset.chakraId);
+  });
+
+  renderCauses();
+  if (Array.isArray(state.fields.causa)) {
+    document.querySelectorAll('[name="causa"]').forEach((input) => {
+      input.checked = state.fields.causa.includes(input.value);
+    });
+  }
+  renderChakraBalloons();
+  syncReportPrintView();
+}
+
+function syncFieldLimitRadios() {
+  document.querySelectorAll('[name="campo_desequilibrio"]').forEach((input) => {
+    input.checked = input.value === selected.field;
+  });
+  document.querySelectorAll('[name="tipo_limite"]').forEach((input) => {
+    input.checked = input.value === selected.limit;
+  });
+}
+
+function autoSaveFormState() {
+  localStorage.setItem(storageKey, JSON.stringify(getFormState()));
+}
+
+function loadAutosavedFormState() {
+  const raw = localStorage.getItem(storageKey);
+  if (!raw) return;
+
+  try {
+    applyFormState(JSON.parse(raw));
+  } catch (error) {
+    console.warn("Não foi possível carregar o salvamento automático.", error);
+  }
+}
+
+function getSuggestedFileName(suffix, extension) {
+  const name = slug(getFormValue("nome") || "cliente");
+  const date = getFormValue("sessao") || new Date().toISOString().slice(0, 10);
+  return `registro-sessao-${name}-${date}-${suffix}.${extension}`;
+}
+
+function downloadTextFile(filename, content, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function saveDataFile(promptForName = true) {
+  autoSaveFormState();
+  const suggested = getSuggestedFileName("dados", "json");
+  const filename = promptForName
+    ? window.prompt("Nome do arquivo de dados:", suggested)
+    : suggested;
+  if (!filename) return false;
+
+  const finalName = filename.toLowerCase().endsWith(".json") ? filename : `${filename}.json`;
+  downloadTextFile(finalName, JSON.stringify(getFormState(), null, 2), "application/json");
+  return true;
+}
+
+function loadDataFile(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    try {
+      applyFormState(JSON.parse(reader.result));
+      autoSaveFormState();
+      window.alert("Dados carregados com sucesso.");
+    } catch (error) {
+      window.alert("Não foi possível carregar este arquivo de dados.");
+    }
+  });
+  reader.readAsText(file);
+}
+
+function preparePrint(filenameSuffix) {
+  autoSaveFormState();
+  const suggested = getSuggestedFileName(filenameSuffix, "pdf").replace(/\.pdf$/i, "");
+  const filename = window.prompt("Nome sugerido para o PDF:", suggested);
+  if (filename) document.title = filename;
+  return Boolean(filename);
+}
+
+function saveFullFormPdf() {
+  if (!preparePrint("formulario-completo")) return;
+  printMode = "full";
+  document.body.classList.remove("print-report-only");
+  window.print();
 }
 
 function saveReportPdf() {
   if (!reportManuallyEdited) updateIntegrativeReport();
   syncReportPrintView();
+  if (!preparePrint("relatorio")) return;
+  printMode = "report";
   byId("reportSection").open = true;
   document.body.classList.add("print-report-only");
   window.print();
 }
 
+function saveBeforeReplacingData(actionLabel) {
+  const wantsSave = window.confirm(`Antes de ${actionLabel}, deseja baixar uma cópia dos dados preenchidos?`);
+  if (wantsSave) return saveDataFile(true);
+  autoSaveFormState();
+  return true;
+}
+
 function clearForm() {
   const confirmed = window.confirm("Limpar todos os campos preenchidos?");
   if (!confirmed) return;
+  if (!saveBeforeReplacingData("limpar o formulário")) return;
 
   byId("sessionForm").reset();
-  selected.field = "";
-  selected.limit = "";
+  selected.field = "emocional";
+  selected.limit = "rigido";
+  syncFieldLimitRadios();
   selected.chakras.clear();
   reportManuallyEdited = false;
   document.querySelectorAll(".chakra-point").forEach((point) => {
@@ -1169,14 +1544,27 @@ function clearForm() {
   renderCauses();
   renderChakraBalloons();
   byId("integrativeReport").value = "";
+  syncReportPrintView();
+  autoSaveFormState();
 }
 
 function bindActions() {
   byId("clearForm").addEventListener("click", clearForm);
   byId("clearFormBottom").addEventListener("click", clearForm);
-  byId("printForm").addEventListener("click", () => window.print());
-  byId("printFormBottom").addEventListener("click", () => window.print());
-  byId("generateReport").addEventListener("click", updateIntegrativeReport);
+  byId("saveData").addEventListener("click", () => saveDataFile(true));
+  byId("saveDataBottom").addEventListener("click", () => saveDataFile(true));
+  byId("loadData").addEventListener("click", () => byId("loadDataFile").click());
+  byId("loadDataFile").addEventListener("change", (event) => {
+    loadDataFile(event.target.files[0]);
+    event.target.value = "";
+  });
+  byId("printForm").addEventListener("click", saveFullFormPdf);
+  byId("printFormBottom").addEventListener("click", saveFullFormPdf);
+  byId("generateReport").addEventListener("click", () => {
+    if (!saveBeforeReplacingData("gerar/atualizar o relatório")) return;
+    updateIntegrativeReport();
+    autoSaveFormState();
+  });
   byId("saveReportPdf").addEventListener("click", saveReportPdf);
   byId("sessionForm").addEventListener("input", (event) => {
     if (event.target.id === "integrativeReport") {
@@ -1185,6 +1573,7 @@ function bindActions() {
     } else {
       autoUpdateIntegrativeReport();
     }
+    autoSaveFormState();
   });
   byId("sessionForm").addEventListener("change", (event) => {
     if (event.target.id === "integrativeReport") {
@@ -1193,6 +1582,7 @@ function bindActions() {
     } else {
       autoUpdateIntegrativeReport();
     }
+    autoSaveFormState();
   });
   byId("closeModal").addEventListener("click", closeModal);
   byId("infoModal").addEventListener("click", (event) => {
@@ -1207,9 +1597,14 @@ function bindActions() {
     document.querySelectorAll("details.section").forEach((section) => {
       section.open = true;
     });
+    document.querySelectorAll("details.bovis-scale").forEach((section) => {
+      section.open = false;
+    });
   });
   window.addEventListener("afterprint", () => {
     document.body.classList.remove("print-report-only");
+    document.title = defaultDocumentTitle;
+    printMode = "";
   });
 }
 
@@ -1219,3 +1614,4 @@ renderGraphs();
 renderHolisticTreatments();
 renderAwakening();
 bindActions();
+loadAutosavedFormState();
