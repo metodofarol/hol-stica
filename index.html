@@ -53,53 +53,42 @@
 
           <details class="section">
             <summary><h2>2. Vitalidade - Escala / Unidades Bovis</h2></summary>
-            <div class="table-wrap">
-              <table class="bovis-table">
-                <thead>
-                  <tr>
-                    <th>Campo avaliado</th>
-                    <th>Medição inicial</th>
-                    <th>Medição após a sessão</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Físico</td>
-                    <td><input type="number" name="fisico_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="fisico_final" placeholder="U.B." /></td>
-                  </tr>
-                  <tr>
-                    <td>Mental</td>
-                    <td><input type="number" name="mental_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="mental_final" placeholder="U.B." /></td>
-                  </tr>
-                  <tr>
-                    <td>Emocional</td>
-                    <td><input type="number" name="emocional_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="emocional_final" placeholder="U.B." /></td>
-                  </tr>
-                  <tr>
-                    <td>Espiritual</td>
-                    <td><input type="number" name="espiritual_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="espiritual_final" placeholder="U.B." /></td>
-                  </tr>
-                  <tr>
-                    <td>Vitalidade geral</td>
-                    <td><input type="number" name="vitalidade_geral_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="vitalidade_geral_final" placeholder="U.B." /></td>
-                  </tr>
-                  <tr>
-                    <td>Vitalidade do ambiente pessoal</td>
-                    <td><input type="number" name="ambiente_pessoal_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="ambiente_pessoal_final" placeholder="U.B." /></td>
-                  </tr>
-                  <tr>
-                    <td>Vitalidade do/no ambiente de trabalho</td>
-                    <td><input type="number" name="ambiente_trabalho_inicial" placeholder="U.B." /></td>
-                    <td><input type="number" name="ambiente_trabalho_final" placeholder="U.B." /></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="bovis-card-grid">
+              <article class="bovis-card">
+                <h3>Físico</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="fisico_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="fisico_final" placeholder="U.B." /></label>
+              </article>
+              <article class="bovis-card">
+                <h3>Mental</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="mental_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="mental_final" placeholder="U.B." /></label>
+              </article>
+              <article class="bovis-card">
+                <h3>Emocional</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="emocional_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="emocional_final" placeholder="U.B." /></label>
+              </article>
+              <article class="bovis-card">
+                <h3>Espiritual</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="espiritual_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="espiritual_final" placeholder="U.B." /></label>
+              </article>
+              <article class="bovis-card">
+                <h3>Vitalidade geral</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="vitalidade_geral_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="vitalidade_geral_final" placeholder="U.B." /></label>
+              </article>
+              <article class="bovis-card">
+                <h3>Ambiente pessoal</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="ambiente_pessoal_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="ambiente_pessoal_final" placeholder="U.B." /></label>
+              </article>
+              <article class="bovis-card">
+                <h3>Ambiente de trabalho</h3>
+                <label class="mini-field"><span>Inicial</span><input type="number" name="ambiente_trabalho_inicial" placeholder="U.B." /></label>
+                <label class="mini-field"><span>Após sessão</span><input type="number" name="ambiente_trabalho_final" placeholder="U.B." /></label>
+              </article>
             </div>
 
             <details class="bovis-scale" aria-label="Régua descritiva do Biômetro de Bovis">
