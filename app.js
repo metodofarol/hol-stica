@@ -8,6 +8,7 @@ const dialogTitle = document.querySelector("#dialogTitle");
 const dialogText = document.querySelector("#dialogText");
 const closeDialog = document.querySelector("#closeDialog");
 const copyReport = document.querySelector("#copyReport");
+const downloadPdf = document.querySelector("#downloadPdf");
 
 const state = {
   readings: {},
@@ -357,6 +358,15 @@ function getMainBovisInsights() {
     .filter(Boolean);
 }
 
+function formatInsightList(items, includeTitle = false) {
+  return items
+    .map((item) => {
+      const title = includeTitle ? `, ${item.title.toLowerCase()}` : "";
+      return `${item.label} (${item.value} Bovis${title})`;
+    })
+    .join(", ");
+}
+
 function createSynthesis(selectedChakras) {
   const insights = getMainBovisInsights();
 
@@ -371,26 +381,29 @@ function createSynthesis(selectedChakras) {
   const lines = [];
 
   if (critical.length) {
+    const singular = critical.length === 1;
     lines.push(
-      `As leituras mais sensíveis aparecem em ${critical
-        .map((item) => `${item.label} (${item.value} Bovis, ${item.title.toLowerCase()})`)
-        .join(", ")}. Esse conjunto sugere pontos de desgaste energético que pedem acolhimento, limpeza, reorganização e fortalecimento gradual.`,
+      singular
+        ? `A leitura mais sensível aparece em ${formatInsightList(critical, true)}. Esse ponto sugere desgaste energético e pede acolhimento, limpeza, reorganização e fortalecimento gradual.`
+        : `As leituras mais sensíveis aparecem em ${formatInsightList(critical, true)}. Esse conjunto sugere pontos de desgaste energético que pedem acolhimento, limpeza, reorganização e fortalecimento gradual.`,
     );
   }
 
   if (balanced.length) {
+    const singular = balanced.length === 1;
     lines.push(
-      `Os campos em faixa saudável são ${balanced
-        .map((item) => `${item.label} (${item.value} Bovis)`)
-        .join(", ")}. Eles indicam bases de equilíbrio que podem sustentar o processo terapêutico e ajudar na recuperação dos pontos mais frágeis.`,
+      singular
+        ? `O campo em faixa saudável é ${formatInsightList(balanced)}. Ele indica uma base de equilíbrio que pode sustentar o processo terapêutico e ajudar na recuperação dos pontos mais frágeis.`
+        : `Os campos em faixa saudável são ${formatInsightList(balanced)}. Eles indicam bases de equilíbrio que podem sustentar o processo terapêutico e ajudar na recuperação dos pontos mais frágeis.`,
     );
   }
 
   if (expanded.length) {
+    const singular = expanded.length === 1;
     lines.push(
-      `As leituras mais elevadas surgem em ${expanded
-        .map((item) => `${item.label} (${item.value} Bovis, ${item.title.toLowerCase()})`)
-        .join(", ")}. Essas áreas mostram potencial de expansão, conexão e melhor resposta vibracional no momento da consulta.`,
+      singular
+        ? `A leitura mais elevada surge em ${formatInsightList(expanded, true)}. Essa área mostra potencial de expansão, conexão e melhor resposta vibracional no momento da consulta.`
+        : `As leituras mais elevadas surgem em ${formatInsightList(expanded, true)}. Essas áreas mostram potencial de expansão, conexão e melhor resposta vibracional no momento da consulta.`,
     );
   }
 
@@ -471,6 +484,11 @@ copyReport.addEventListener("click", async () => {
   setTimeout(() => {
     copyReport.textContent = "Copiar relatório";
   }, 1800);
+});
+
+downloadPdf.addEventListener("click", () => {
+  document.title = "Relatório de Atendimento Integrativo";
+  window.print();
 });
 
 renderBovisRuler();

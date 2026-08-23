@@ -558,6 +558,12 @@ textarea:focus {
   font-size: 1rem;
 }
 
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .button {
   display: inline-flex;
   min-height: 50px;
@@ -577,6 +583,16 @@ textarea:focus {
 
 .button.primary:hover {
   background: var(--primary-dark);
+}
+
+.button.secondary {
+  border-color: var(--line);
+  background: white;
+  color: var(--ink);
+}
+
+.button.secondary:hover {
+  border-color: var(--primary);
 }
 
 .info-dialog {
@@ -645,5 +661,47 @@ textarea:focus {
 
   .silhouette {
     transform: scale(0.92);
+  }
+}
+
+@media print {
+  @page {
+    margin: 18mm;
+  }
+
+  body {
+    background: white;
+    color: #111;
+  }
+
+  .topbar,
+  .hero,
+  .section,
+  .chakra-section,
+  .section-heading,
+  textarea,
+  .report-actions,
+  .footer,
+  .info-dialog {
+    display: none !important;
+  }
+
+  .report-section {
+    display: block;
+    padding: 0;
+    background: white;
+  }
+
+  .report {
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: white;
+    color: #111;
+    font-size: 12pt;
+    line-height: 1.45;
+    white-space: pre-wrap;
   }
 }
