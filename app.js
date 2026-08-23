@@ -1,4 +1,5 @@
-const diagnosticGrid = document.querySelector("#diagnosticGrid");
+const bovisRuler = document.querySelector("#bovisRuler");
+const readingGrid = document.querySelector("#readingGrid");
 const chakraList = document.querySelector("#chakraList");
 const report = document.querySelector("#report");
 const infoDialog = document.querySelector("#infoDialog");
@@ -13,145 +14,157 @@ const state = {
   chakras: {},
 };
 
-const fields = [
+const readings = [
   {
     id: "fisico",
-    name: "Campo fisico",
+    label: "Campo físico",
     description:
-      "Na leitura radiestesica, o campo fisico expressa a vitalidade do corpo denso e sua capacidade de sustentar energia no cotidiano. Ele pode revelar sinais sutis de desgaste, sobrecarga, drenagem ou recuperacao energetica. Quando harmonizado, favorece presenca, disposicao e maior estabilidade para agir no mundo material.",
+      "Na leitura radiestésica, o campo físico expressa a vitalidade do corpo denso e sua capacidade de sustentar energia no cotidiano. Pode revelar desgaste, sobrecarga, drenagem ou recuperação energética. Quando harmonizado, favorece presença, disposição e estabilidade no mundo material.",
   },
   {
     id: "mental",
-    name: "Campo mental",
+    label: "Campo mental",
     description:
-      "O campo mental e associado ao padrao dos pensamentos, crenças, foco e clareza interna. Pela tradicao esoterica, interferencias nesse campo podem indicar excesso de preocupacao, rigidez, confusao ou repeticao de formas-pensamento. Em equilibrio, apoia discernimento, organizacao e capacidade de escolher com consciencia.",
+      "O campo mental está associado ao padrão dos pensamentos, crenças, foco e clareza interna. Pela tradição esotérica, interferências nesse campo podem indicar preocupação excessiva, rigidez, confusão ou repetição de formas-pensamento. Em equilíbrio, apoia discernimento e escolhas conscientes.",
   },
   {
     id: "emocional",
-    name: "Campo emocional",
+    label: "Campo emocional",
     description:
-      "O campo emocional reflete a circulacao dos sentimentos e a maneira como a pessoa processa vinculos, memorias e afetos. Na radiestesia, pode apontar acumulacao de cargas, oscilacoes, bloqueios ou sensibilidades abertas. Sua harmonizacao favorece acolhimento, fluidez, seguranca interna e expressao mais autentica.",
+      "O campo emocional reflete a circulação dos sentimentos e a forma como a pessoa processa vínculos, memórias e afetos. Na radiestesia, pode apontar cargas acumuladas, oscilações, bloqueios ou sensibilidades abertas. Harmonizado, favorece acolhimento, fluidez e expressão autêntica.",
   },
   {
     id: "espiritual",
-    name: "Campo espiritual",
+    label: "Campo espiritual",
     description:
-      "O campo espiritual representa a conexao com proposito, intuicao, ancestralidade e planos sutis de consciencia. Em leituras esotericas, desequilibrios podem sugerir afastamento da propria direcao, fragilidade de protecao ou desconexao simbolica. Quando fortalecido, amplia sentido, confianca e alinhamento com a jornada pessoal.",
+      "O campo espiritual representa a conexão com propósito, intuição, ancestralidade e planos sutis de consciência. Em leituras esotéricas, desequilíbrios podem sugerir afastamento da própria direção ou fragilidade de proteção. Quando fortalecido, amplia sentido, confiança e alinhamento interior.",
+  },
+  {
+    id: "vitalidadeGeral",
+    label: "Vitalidade geral",
+    description:
+      "Síntese da força vital percebida no momento do atendimento.",
+  },
+  {
+    id: "ambientePessoal",
+    label: "Vitalidade do ambiente pessoal",
+    description:
+      "Leitura energética do ambiente íntimo, familiar ou residencial.",
+  },
+  {
+    id: "ambienteProfissional",
+    label: "Vitalidade do ambiente profissional",
+    description:
+      "Leitura energética do ambiente de trabalho, trocas profissionais e rotina produtiva.",
   },
 ];
-
-const vitalityLabels = {
-  vitalidadeGeral: "Vitalidade geral",
-  ambientePessoal: "Vitalidade do ambiente pessoal",
-  ambienteProfissional: "Vitalidade do ambiente profissional",
-};
 
 const bovisScale = [
   {
     min: 0,
     max: 3000,
-    zone: "Zona critica e de desgaste",
     range: "0 a 3.000",
+    zone: "Zona crítica e de desgaste",
     title: "Energia extremamente baixa",
     description:
-      "Indica forte desequilibrio, doenca cronica ou ambientes altamente nocivos.",
+      "Indica forte desequilíbrio, doença crônica ou ambientes altamente nocivos.",
   },
   {
     min: 3001,
     max: 5999,
-    zone: "Zona critica e de desgaste",
     range: "3.001 a 5.999",
+    zone: "Zona crítica e de desgaste",
     title: "Energia debilitada",
     description:
-      "Mostra cansaco, sistema imunologico fragil ou alimentos de baixa qualidade energetica.",
+      "Mostra cansaço, sistema imunológico frágil ou alimentos de baixa qualidade energética.",
   },
   {
     min: 6000,
     max: 7000,
-    zone: "Zona saudavel e de equilibrio",
     range: "6.000 a 7.000",
-    title: "Nivel saudavel basico",
+    zone: "Zona saudável e de equilíbrio",
+    title: "Nível saudável básico",
     description:
-      "Indica vitalidade normal, corpo em equilibrio e bom funcionamento do organismo.",
+      "Indica vitalidade normal, corpo em equilíbrio e bom funcionamento do organismo.",
   },
   {
     min: 7001,
     max: 8000,
-    zone: "Zona saudavel e de equilibrio",
     range: "7.001 a 8.000",
+    zone: "Zona saudável e de equilíbrio",
     title: "Vitalidade ideal",
     description:
-      "Mostra energia fisica excelente, boa resistencia e bem-estar geral.",
+      "Mostra energia física excelente, boa resistência e bem-estar geral.",
   },
   {
     min: 8001,
     max: 10000,
-    zone: "Zona de alta vibracao e expansao",
     range: "8.001 a 10.000",
+    zone: "Zona de alta vibração e expansão",
     title: "Energia elevada",
     description:
-      "Comum em locais com natureza preservada, alimentos organicos frescos ou pessoas em estado de meditacao.",
+      "Comum em locais com natureza preservada, alimentos orgânicos frescos ou pessoas em estado de meditação.",
   },
   {
     min: 10001,
     max: Infinity,
-    zone: "Zona de alta vibracao e expansao",
     range: "Acima de 10.000",
-    title: "Vibracao espiritual superior",
+    zone: "Zona de alta vibração e expansão",
+    title: "Vibração espiritual superior",
     description:
-      "Indica locais sagrados, objetos altamente magnetizados ou forte conexao mental.",
+      "Indica locais sagrados, objetos altamente magnetizados ou forte conexão mental.",
   },
 ];
 
 const chakras = [
   {
     id: "coroa",
-    name: "Chakra coronario",
+    name: "Coronário",
     color: "#8e5ab8",
     description:
-      "Relacionado a espiritualidade, fe, sentido de vida e abertura para planos superiores de consciencia. Em desequilibrio, pode sugerir desconexao, falta de proposito ou excesso de abstracao.",
+      "Relacionado à espiritualidade, fé, sentido de vida e abertura para planos superiores de consciência. Em desequilíbrio, pode sugerir desconexão, falta de propósito ou excesso de abstração.",
   },
   {
     id: "frontal",
-    name: "Chakra frontal",
+    name: "Frontal",
     color: "#344c9c",
     description:
-      "Associado a intuicao, percepcao sutil, visao interior e clareza simbolica. Quando desalinhado, pode indicar confusao, dificuldade de confiar na propria percepcao ou excesso de controle mental.",
+      "Associado à intuição, percepção sutil, visão interior e clareza simbólica. Quando desalinhado, pode indicar confusão, dificuldade de confiar na própria percepção ou excesso de controle mental.",
   },
   {
     id: "laringeo",
-    name: "Chakra laringeo",
+    name: "Laríngeo",
     color: "#3f9fc2",
     description:
-      "Liga-se a comunicacao, verdade pessoal, escuta e expressao criativa. Em desequilibrio, pode aparecer como silencio excessivo, fala impulsiva ou dificuldade de manifestar necessidades.",
+      "Liga-se à comunicação, verdade pessoal, escuta e expressão criativa. Em desequilíbrio, pode aparecer como silêncio excessivo, fala impulsiva ou dificuldade de manifestar necessidades.",
   },
   {
     id: "cardiaco",
-    name: "Chakra cardiaco",
+    name: "Cardíaco",
     color: "#5aa85c",
     description:
-      "Representa amor, compaixao, vinculos, perdao e capacidade de troca afetiva. Desequilibrios podem apontar fechamento, carencia, magoas retidas ou dificuldade de receber.",
+      "Representa amor, compaixão, vínculos, perdão e capacidade de troca afetiva. Desequilíbrios podem apontar fechamento, carência, mágoas retidas ou dificuldade de receber.",
   },
   {
     id: "plexoSolar",
-    name: "Chakra do plexo solar",
+    name: "Plexo solar",
     color: "#d7ad36",
     description:
-      "Relaciona-se a vontade, autoestima, poder pessoal e digestao energetica das experiencias. Quando instavel, pode indicar inseguranca, controle, raiva contida ou perda de direcao.",
+      "Relaciona-se à vontade, autoestima, poder pessoal e digestão energética das experiências. Quando instável, pode indicar insegurança, controle, raiva contida ou perda de direção.",
   },
   {
-    id: "sacro",
-    name: "Chakra sacro",
+    id: "umbilical",
+    name: "Umbilical",
     color: "#d97835",
     description:
-      "Associado ao prazer, criatividade, sexualidade, sensibilidade e fluxo da vida. Em desequilibrio, pode sugerir culpa, bloqueio criativo, dependencia afetiva ou dificuldade de permitir prazer.",
+      "Associado ao prazer, criatividade, sexualidade, sensibilidade e fluxo da vida. Em desequilíbrio, pode sugerir culpa, bloqueio criativo, dependência afetiva ou dificuldade de permitir prazer.",
   },
   {
     id: "basico",
-    name: "Chakra basico",
+    name: "Básico / raiz",
     color: "#b93e3e",
     description:
-      "Conecta-se a seguranca, enraizamento, sobrevivencia, corpo e pertencimento. Desequilibrios podem indicar medo, instabilidade, falta de presenca ou sensacao de nao estar sustentada.",
+      "Conecta-se à segurança, enraizamento, sobrevivência, corpo e pertencimento. Desequilíbrios podem indicar medo, instabilidade, falta de presença ou sensação de não estar sustentada.",
   },
 ];
 
@@ -160,12 +173,6 @@ function showInfo(type, title, text) {
   dialogTitle.textContent = title;
   dialogText.textContent = text;
   infoDialog.showModal();
-}
-
-function getReadingLabel(value) {
-  const scale = getBovisScaleInfo(value);
-
-  return scale ? scale.title : "nao informado";
 }
 
 function getBovisScaleInfo(value) {
@@ -179,7 +186,7 @@ function getBovisScaleInfo(value) {
 function formatBovisScaleText(value) {
   const scale = getBovisScaleInfo(value);
 
-  if (!scale) return "Informe um numero para ver a leitura da escala Bovis.";
+  if (!scale) return "Informe um número para ver a leitura da escala Bovis.";
 
   return `${scale.zone} | ${scale.range}: ${scale.title}. ${scale.description}`;
 }
@@ -193,49 +200,87 @@ function getBovisScaleGuide() {
     .join("\n");
 }
 
-function getAngle(value) {
-  const number = Math.max(0, Math.min(Number(value) || 0, 30000));
-  return -82 + (number / 30000) * 164;
+function renderBovisRuler() {
+  const majorTicks = Array.from({ length: 13 }, (_, index) => index * 1000);
+  const minorTicks = Array.from({ length: 49 }, (_, index) => index * 250);
+
+  bovisRuler.innerHTML = `
+    <div class="ruler-title">BIÔMETRO DE BOVIS</div>
+    <div class="ruler-track">
+      ${minorTicks
+        .map(
+          (value) =>
+            `<span class="minor-tick" style="left:${(value / 12000) * 100}%"></span>`,
+        )
+        .join("")}
+      ${majorTicks
+        .map(
+          (value) => `
+            <button
+              class="major-tick"
+              style="left:${(value / 12000) * 100}%"
+              type="button"
+              data-bovis-value="${value || 1}"
+              title="Clique para ver a descrição"
+            >
+              <span>${value.toLocaleString("pt-BR")}</span>
+            </button>
+          `,
+        )
+        .join("")}
+    </div>
+    <div class="ruler-zones">
+      ${bovisScale
+        .map(
+          (item) => `
+            <button class="zone-pill" type="button" data-zone-value="${item.min || 1}">
+              <strong>${item.range}</strong>
+              <span>${item.title}</span>
+            </button>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+
+  bovisRuler.querySelectorAll("[data-bovis-value]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const scale = getBovisScaleInfo(button.dataset.bovisValue);
+      showInfo("Escala de Bovis", `${scale.range} - ${scale.title}`, scale.description);
+    });
+  });
+
+  bovisRuler.querySelectorAll("[data-zone-value]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const scale = getBovisScaleInfo(button.dataset.zoneValue);
+      showInfo("Escala de Bovis", `${scale.range} - ${scale.title}`, scale.description);
+    });
+  });
 }
 
-function renderDiagnosticCards() {
-  diagnosticGrid.innerHTML = "";
+function renderReadingFields() {
+  readingGrid.innerHTML = "";
 
-  fields.forEach((field) => {
-    const card = document.createElement("article");
-    card.className = "field-card";
-    card.innerHTML = `
-      <div class="field-header">
-        <div>
-          <p class="eyebrow">Corpo energetico</p>
-          <h3>${field.name}</h3>
-          <p class="field-description">${field.description}</p>
-        </div>
-        <button class="info-button" type="button" aria-label="Ver explicacao sobre ${field.name}">?</button>
-      </div>
-      <div class="bovis-meter" data-meter="${field.id}">
-        <div class="meter-labels">
-          <span>0</span>
-          <span>15.000</span>
-          <span>30.000</span>
-        </div>
-        <span class="meter-arc"></span>
-        <span class="meter-needle"></span>
-        <span class="meter-center"></span>
-        <span class="meter-value">Nao informado</span>
-      </div>
-      <label>
-        Numero medido no Biometro de Bovis
-        <input class="reading-input" data-reading="${field.id}" type="number" min="0" max="30000" step="50" placeholder="Ex: 8500" />
-      </label>
-      <p class="scale-feedback" data-scale-feedback="${field.id}">Informe um numero para ver a leitura da escala Bovis.</p>
+  readings.forEach((reading) => {
+    const field = document.createElement("label");
+    field.className = "reading-field";
+    field.innerHTML = `
+      <span class="reading-label">
+        ${reading.label}
+        <button class="inline-info" type="button" aria-label="Ver explicação sobre ${reading.label}">?</button>
+      </span>
+      <input class="reading-input" data-reading="${reading.id}" type="number" min="0" max="30000" step="50" placeholder="Ex: 8500" />
+      <span class="scale-feedback" data-scale-feedback="${reading.id}">
+        Informe um número para ver a leitura da escala Bovis.
+      </span>
     `;
 
-    card.querySelector(".info-button").addEventListener("click", () => {
-      showInfo("Diagnostico radiestesico", field.name, field.description);
+    field.querySelector(".inline-info").addEventListener("click", (event) => {
+      event.preventDefault();
+      showInfo("Diagnóstico radiestésico", reading.label, reading.description);
     });
 
-    diagnosticGrid.append(card);
+    readingGrid.append(field);
   });
 }
 
@@ -249,20 +294,18 @@ function renderChakras() {
       <input type="checkbox" data-chakra-check="${chakra.id}" />
       <span class="chakra-dot" style="background:${chakra.color}"></span>
       <span class="chakra-name">${chakra.name}</span>
-      <button class="info-button" type="button" aria-label="Ver explicacao sobre ${chakra.name}">?</button>
     `;
 
-    item.querySelector("input").addEventListener("change", (event) => {
-      state.chakras[chakra.id] = event.target.checked;
-      document
-        .querySelector(`[data-chakra="${chakra.id}"]`)
-        .classList.toggle("selected", event.target.checked);
-      updateReport();
+    item.title = chakra.description;
+    item.addEventListener("mouseenter", () => {
+      document.querySelector(`[data-chakra="${chakra.id}"]`).classList.add("preview");
+    });
+    item.addEventListener("mouseleave", () => {
+      document.querySelector(`[data-chakra="${chakra.id}"]`).classList.remove("preview");
     });
 
-    item.querySelector(".info-button").addEventListener("click", (event) => {
-      event.preventDefault();
-      showInfo("Chakra", chakra.name, chakra.description);
+    item.querySelector("input").addEventListener("change", (event) => {
+      setChakraSelection(chakra.id, event.target.checked);
     });
 
     chakraList.append(item);
@@ -270,26 +313,23 @@ function renderChakras() {
 
   document.querySelectorAll("[data-chakra]").forEach((button) => {
     const chakra = chakras.find((item) => item.id === button.dataset.chakra);
-    button.setAttribute("aria-label", chakra.name);
+    button.setAttribute("aria-label", `${chakra.name}: clique para marcar desequilíbrio`);
+    button.title = chakra.description;
     button.addEventListener("click", () => {
-      const checkbox = document.querySelector(`[data-chakra-check="${chakra.id}"]`);
-      checkbox.checked = !checkbox.checked;
-      checkbox.dispatchEvent(new Event("change"));
+      setChakraSelection(chakra.id, !state.chakras[chakra.id]);
       showInfo("Chakra", chakra.name, chakra.description);
     });
   });
 }
 
-function updateMeters() {
-  document.querySelectorAll("[data-meter]").forEach((meter) => {
-    const id = meter.dataset.meter;
-    const value = state.readings[id];
-    meter.style.setProperty("--angle", `${getAngle(value)}deg`);
-    meter.querySelector(".meter-value").textContent = value
-      ? `${Number(value).toLocaleString("pt-BR")} Bovis`
-      : "Nao informado";
-  });
+function setChakraSelection(id, selected) {
+  state.chakras[id] = selected;
+  document.querySelector(`[data-chakra-check="${id}"]`).checked = selected;
+  document.querySelector(`[data-chakra="${id}"]`).classList.toggle("selected", selected);
+  updateReport();
+}
 
+function updateFeedback() {
   document.querySelectorAll("[data-scale-feedback]").forEach((feedback) => {
     feedback.textContent = formatBovisScaleText(
       state.readings[feedback.dataset.scaleFeedback],
@@ -297,57 +337,48 @@ function updateMeters() {
   });
 }
 
-function getFieldLine(field) {
-  const value = state.readings[field.id];
-  const valueText = value ? `${Number(value).toLocaleString("pt-BR")} Bovis` : "nao informado";
-  return `${field.name}: ${valueText} - ${formatBovisScaleText(value)}`;
+function getReadingLine(reading) {
+  const value = state.readings[reading.id];
+  const valueText = value ? `${Number(value).toLocaleString("pt-BR")} Bovis` : "não informado";
+  return `${reading.label}: ${valueText} - ${formatBovisScaleText(value)}`;
 }
 
 function updateReport() {
   const name = document.querySelector("#clientName").value || "Cliente";
-  const date = document.querySelector("#sessionDate").value || "data nao informada";
-  const theme = document.querySelector("#sessionTheme").value || "tema nao informado";
+  const date = document.querySelector("#sessionDate").value || "data não informada";
+  const theme = document.querySelector("#sessionTheme").value || "tema não informado";
   const notes = document.querySelector("#notes").value.trim();
   const selectedChakras = chakras.filter((chakra) => state.chakras[chakra.id]);
 
-  const vitalityLines = Object.entries(vitalityLabels).map(([id, label]) => {
-    const value = state.readings[id];
-    const valueText = value ? `${Number(value).toLocaleString("pt-BR")} Bovis` : "nao informado";
-    return `${label}: ${valueText} - ${formatBovisScaleText(value)}`;
-  });
-
-  report.textContent = `RELATORIO DE ATENDIMENTO INTEGRATIVO
+  report.textContent = `RELATÓRIO DE ATENDIMENTO INTEGRATIVO
 
 Cliente: ${name}
 Data: ${date}
 Tema principal: ${theme}
 
-1. Diagnostico radiestesico
-${fields.map(getFieldLine).join("\n")}
+1. Diagnóstico radiestésico
+${readings.map(getReadingLine).join("\n")}
 
-2. Vitalidade e ambientes
-${vitalityLines.join("\n")}
-
-3. Nova escala baseada em Bovis
+2. Nova escala baseada em Bovis
 ${getBovisScaleGuide()}
 
-4. Chakras em desequilibrio
+3. Chakras em desequilíbrio
 ${
   selectedChakras.length
     ? selectedChakras.map((chakra) => `- ${chakra.name}: ${chakra.description}`).join("\n")
     : "Nenhum chakra marcado como desequilibrado."
 }
 
-5. Observacoes terapeuticas
-${notes || "Sem observacoes adicionais."}
+4. Observações terapêuticas
+${notes || "Sem observações adicionais."}
 
-Nota: este relatorio e uma ferramenta simbolica e integrativa de apoio ao atendimento. Nao substitui avaliacao medica, psicologica ou outro cuidado profissional necessario.`;
+Nota: este relatório é uma ferramenta simbólica e integrativa de apoio ao atendimento. Não substitui avaliação médica, psicológica ou outro cuidado profissional necessário.`;
 }
 
 document.addEventListener("input", (event) => {
   if (event.target.matches("[data-reading]")) {
     state.readings[event.target.dataset.reading] = event.target.value;
-    updateMeters();
+    updateFeedback();
   }
 
   updateReport();
@@ -367,13 +398,14 @@ copyReport.addEventListener("click", async () => {
     temporaryText.remove();
   }
 
-  copyReport.textContent = "Relatorio copiado";
+  copyReport.textContent = "Relatório copiado";
   setTimeout(() => {
-    copyReport.textContent = "Copiar relatorio";
+    copyReport.textContent = "Copiar relatório";
   }, 1800);
 });
 
-renderDiagnosticCards();
+renderBovisRuler();
+renderReadingFields();
 renderChakras();
-updateMeters();
+updateFeedback();
 updateReport();

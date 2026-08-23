@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atendimento Radiestesico e Taro Terapeutico</title>
+    <title>Atendimento Radiestésico e Tarô Terapêutico</title>
     <meta
       name="description"
-      content="Formulario editavel para atendimentos de radiestesia e taro terapeutico, com relatorio gerado automaticamente."
+      content="Formulário editável para atendimentos de radiestesia e tarô terapêutico, com relatório gerado automaticamente."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -16,21 +16,22 @@
         <span class="brand-mark">RT</span>
         <span>Atendimento Integrativo</span>
       </a>
-      <nav class="nav" aria-label="Navegacao principal">
-        <a href="#diagnostico">Diagnostico</a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#diagnostico">Diagnóstico</a>
         <a href="#chakras">Chakras</a>
-        <a href="#relatorio">Relatorio</a>
+        <a href="#relatorio">Relatório</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" id="inicio">
         <div class="hero-copy">
-          <p class="eyebrow">Radiestesia e taro terapeutico</p>
-          <h1>Formulario de atendimento com relatorio automatico.</h1>
+          <p class="eyebrow">Radiestesia e tarô terapêutico</p>
+          <h1>Formulário de atendimento com relatório automático.</h1>
           <p>
-            Registre as medicoes energeticas, marque os chakras em desequilibrio
-            e gere uma sintese clara para acompanhar cada cliente.
+            Registre as medições energéticas, marque os chakras em desequilíbrio
+            no próprio boneco e gere uma síntese clara para acompanhar cada
+            cliente.
           </p>
         </div>
         <form class="client-card" id="clientForm">
@@ -56,83 +57,44 @@
       <section class="section" id="diagnostico">
         <div class="section-heading">
           <p class="eyebrow">Parte 1 / Caixa 1</p>
-          <h2>Diagnostico radiestesico</h2>
+          <h2>Diagnóstico radiestésico</h2>
         </div>
 
-        <div class="diagnostic-grid" id="diagnosticGrid"></div>
+        <article class="bovis-card">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">Biômetro de Bovis</p>
+              <h3>Escala visual de referência</h3>
+            </div>
+            <p class="hint">
+              Clique nos valores da régua para ver a descrição de cada faixa.
+            </p>
+          </div>
+          <div class="bovis-ruler" id="bovisRuler" aria-label="Escala de Bovis"></div>
+        </article>
 
-        <div class="vitality-card">
-          <div class="section-heading compact">
-            <p class="eyebrow">Biometro de Bovis</p>
-            <h2>Vitalidade geral e ambientes</h2>
+        <article class="form-card">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">Medições</p>
+              <h3>Informe os números medidos</h3>
+            </div>
+            <p class="hint">
+              Cada campo mostra a interpretação automática conforme a escala.
+            </p>
           </div>
-          <div class="vitality-grid">
-            <label>
-              Vitalidade geral
-              <input
-                class="reading-input"
-                data-reading="vitalidadeGeral"
-                type="number"
-                min="0"
-                max="30000"
-                step="50"
-                placeholder="Ex: 8500"
-              />
-              <span
-                class="scale-feedback"
-                data-scale-feedback="vitalidadeGeral"
-              >
-                Informe um numero para ver a leitura da escala Bovis.
-              </span>
-            </label>
-            <label>
-              Ambiente pessoal
-              <input
-                class="reading-input"
-                data-reading="ambientePessoal"
-                type="number"
-                min="0"
-                max="30000"
-                step="50"
-                placeholder="Ex: 7800"
-              />
-              <span
-                class="scale-feedback"
-                data-scale-feedback="ambientePessoal"
-              >
-                Informe um numero para ver a leitura da escala Bovis.
-              </span>
-            </label>
-            <label>
-              Ambiente profissional
-              <input
-                class="reading-input"
-                data-reading="ambienteProfissional"
-                type="number"
-                min="0"
-                max="30000"
-                step="50"
-                placeholder="Ex: 7200"
-              />
-              <span
-                class="scale-feedback"
-                data-scale-feedback="ambienteProfissional"
-              >
-                Informe um numero para ver a leitura da escala Bovis.
-              </span>
-            </label>
-          </div>
-        </div>
+          <div class="reading-grid" id="readingGrid"></div>
+        </article>
       </section>
 
       <section class="chakra-section" id="chakras">
         <div class="section-heading">
           <p class="eyebrow">Parte 2 / Caixa 2</p>
-          <h2>Mapa corporal dos chakras</h2>
+          <h2>Chakras em desequilíbrio</h2>
         </div>
 
         <div class="chakra-layout">
-          <div class="body-map" aria-label="Corpo humano com chakras">
+          <div class="body-map" aria-label="Boneco com chakras coloridos">
             <div class="silhouette">
               <span class="head"></span>
               <span class="torso"></span>
@@ -145,15 +107,15 @@
               <button class="chakra throat" data-chakra="laringeo" type="button"></button>
               <button class="chakra heart" data-chakra="cardiaco" type="button"></button>
               <button class="chakra solar" data-chakra="plexoSolar" type="button"></button>
-              <button class="chakra sacral" data-chakra="sacro" type="button"></button>
+              <button class="chakra sacral" data-chakra="umbilical" type="button"></button>
               <button class="chakra root" data-chakra="basico" type="button"></button>
             </div>
           </div>
 
           <div class="chakra-panel">
             <p class="hint">
-              Marque os chakras com desequilibrio. Clique no nome ou no ponto do
-              corpo para ver a descricao.
+              Clique nos pontos coloridos do boneco para marcar desequilíbrio.
+              Ao clicar ou passar o mouse, você verá a descrição do chakra.
             </p>
             <div class="chakra-list" id="chakraList"></div>
           </div>
@@ -162,16 +124,16 @@
 
       <section class="report-section" id="relatorio">
         <div class="section-heading">
-          <p class="eyebrow">Saida do atendimento</p>
-          <h2>Relatorio gerado</h2>
+          <p class="eyebrow">Saída do atendimento</p>
+          <h2>Relatório gerado</h2>
         </div>
         <textarea
           id="notes"
-          placeholder="Observacoes intuitivas, cartas do taro, orientacoes terapeuticas..."
+          placeholder="Observações intuitivas, cartas do tarô, orientações terapêuticas..."
         ></textarea>
         <article class="report" id="report"></article>
         <button class="button primary" id="copyReport" type="button">
-          Copiar relatorio
+          Copiar relatório
         </button>
       </section>
     </main>
@@ -187,7 +149,7 @@
 
     <footer class="footer">
       <span>Atendimento Integrativo</span>
-      <span>Ferramenta auxiliar, nao substitui cuidado medico ou psicologico.</span>
+      <span>Ferramenta auxiliar, não substitui cuidado médico ou psicológico.</span>
     </footer>
 
     <script src="app.js"></script>
