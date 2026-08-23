@@ -191,15 +191,6 @@ function formatBovisScaleText(value) {
   return `${scale.zone} | ${scale.range}: ${scale.title}. ${scale.description}`;
 }
 
-function getBovisScaleGuide() {
-  return bovisScale
-    .map(
-      (item) =>
-        `${item.zone} - ${item.range}: ${item.title}. ${item.description}`,
-    )
-    .join("\n");
-}
-
 function renderBovisRuler() {
   const majorTicks = Array.from({ length: 13 }, (_, index) => index * 1000);
   const minorTicks = Array.from({ length: 49 }, (_, index) => index * 250);
@@ -340,7 +331,85 @@ function updateFeedback() {
 function getReadingLine(reading) {
   const value = state.readings[reading.id];
   const valueText = value ? `${Number(value).toLocaleString("pt-BR")} Bovis` : "não informado";
-  return `${reading.label}: ${valueText} - ${formatBovisScaleText(value)}`;
+  return `${reading.label}: ${valueText}`;
+}
+
+function getChakraLine(chakra) {
+  return `- ${chakra.name}`;
+}
+
+function getMainBovisInsights() {
+  return readings
+    .map((reading) => {
+      const value = state.readings[reading.id];
+      const scale = getBovisScaleInfo(value);
+
+      if (!scale) return null;
+
+      return {
+        label: reading.label,
+        value: Number(value).toLocaleString("pt-BR"),
+        title: scale.title,
+        zone: scale.zone.toLowerCase(),
+        description: scale.description,
+      };
+    })
+    .filter(Boolean);
+}
+
+function createSynthesis(selectedChakras) {
+  const insights = getMainBovisInsights();
+
+  if (!insights.length && !selectedChakras.length) {
+    return "Ainda não há dados suficientes para uma síntese. Informe as medições de Bovis e marque os chakras em desequilíbrio para gerar uma leitura integrada.";
+  }
+
+  const critical = insights.filter((item) => item.zone.includes("crítica"));
+  const balanced = insights.filter((item) => item.zone.includes("saudável"));
+  const expanded = insights.filter((item) => item.zone.includes("alta vibração"));
+  const chakraNames = selectedChakras.map((chakra) => chakra.name).join(", ");
+  const lines = [];
+
+  if (critical.length) {
+    lines.push(
+      `As leituras mais sensíveis aparecem em ${critical
+        .map((item) => `${item.label} (${item.value} Bovis, ${item.title.toLowerCase()})`)
+        .join(", ")}. Esse conjunto sugere pontos de desgaste energético que pedem acolhimento, limpeza, reorganização e fortalecimento gradual.`,
+    );
+  }
+
+  if (balanced.length) {
+    lines.push(
+      `Os campos em faixa saudável são ${balanced
+        .map((item) => `${item.label} (${item.value} Bovis)`)
+        .join(", ")}. Eles indicam bases de equilíbrio que podem sustentar o processo terapêutico e ajudar na recuperação dos pontos mais frágeis.`,
+    );
+  }
+
+  if (expanded.length) {
+    lines.push(
+      `As leituras mais elevadas surgem em ${expanded
+        .map((item) => `${item.label} (${item.value} Bovis, ${item.title.toLowerCase()})`)
+        .join(", ")}. Essas áreas mostram potencial de expansão, conexão e melhor resposta vibracional no momento da consulta.`,
+    );
+  }
+
+  if (selectedChakras.length) {
+    lines.push(
+      `Os chakras marcados em desequilíbrio foram: ${chakraNames}. Pela leitura integrada, esses centros podem indicar onde as informações radiestésicas estão se expressando com maior intensidade no corpo energético da cliente.`,
+    );
+    lines.push(
+      `Síntese dos chakras selecionados: ${selectedChakras
+        .map((chakra) => `${chakra.name}: ${chakra.description}`)
+        .join(" ")}`,
+    );
+  } else {
+    lines.push(
+      "Nenhum chakra foi marcado em desequilíbrio. A síntese fica concentrada nas medições radiestésicas informadas e na observação terapêutica do atendimento.",
+    );
+  }
+
+  return lines.join("\n\n");
 }
 
 function updateReport() {
@@ -359,15 +428,15 @@ Tema principal: ${theme}
 1. Diagnóstico radiestésico
 ${readings.map(getReadingLine).join("\n")}
 
-2. Nova escala baseada em Bovis
-${getBovisScaleGuide()}
-
-3. Chakras em desequilíbrio
+2. Chakras em desequilíbrio
 ${
   selectedChakras.length
-    ? selectedChakras.map((chakra) => `- ${chakra.name}: ${chakra.description}`).join("\n")
+    ? selectedChakras.map(getChakraLine).join("\n")
     : "Nenhum chakra marcado como desequilibrado."
 }
+
+3. Síntese interpretativa
+${createSynthesis(selectedChakras)}
 
 4. Observações terapêuticas
 ${notes || "Sem observações adicionais."}
