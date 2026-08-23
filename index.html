@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atendimento Radiestesico e Taro Terapeutico</title>
+    <meta
+      name="description"
+      content="Formulario editavel para atendimentos de radiestesia e taro terapeutico, com relatorio gerado automaticamente."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Atendimento Integrativo">
+        <span class="brand-mark">RT</span>
+        <span>Atendimento Integrativo</span>
+      </a>
+      <nav class="nav" aria-label="Navegacao principal">
+        <a href="#diagnostico">Diagnostico</a>
+        <a href="#chakras">Chakras</a>
+        <a href="#relatorio">Relatorio</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="hero-copy">
+          <p class="eyebrow">Radiestesia e taro terapeutico</p>
+          <h1>Formulario de atendimento com relatorio automatico.</h1>
+          <p>
+            Registre as medicoes energeticas, marque os chakras em desequilibrio
+            e gere uma sintese clara para acompanhar cada cliente.
+          </p>
+        </div>
+        <form class="client-card" id="clientForm">
+          <label>
+            Nome da cliente
+            <input id="clientName" type="text" placeholder="Ex: Ana Souza" />
+          </label>
+          <label>
+            Data do atendimento
+            <input id="sessionDate" type="date" />
+          </label>
+          <label>
+            Tema principal
+            <input
+              id="sessionTheme"
+              type="text"
+              placeholder="Ex: clareza emocional e vitalidade"
+            />
+          </label>
+        </form>
+      </section>
+
+      <section class="section" id="diagnostico">
+        <div class="section-heading">
+          <p class="eyebrow">Parte 1 / Caixa 1</p>
+          <h2>Diagnostico radiestesico</h2>
+        </div>
+
+        <div class="diagnostic-grid" id="diagnosticGrid"></div>
+
+        <div class="vitality-card">
+          <div class="section-heading compact">
+            <p class="eyebrow">Biometro de Bovis</p>
+            <h2>Vitalidade geral e ambientes</h2>
+          </div>
+          <div class="vitality-grid">
+            <label>
+              Vitalidade geral
+              <input
+                class="reading-input"
+                data-reading="vitalidadeGeral"
+                type="number"
+                min="0"
+                max="30000"
+                step="50"
+                placeholder="Ex: 8500"
+              />
+              <span
+                class="scale-feedback"
+                data-scale-feedback="vitalidadeGeral"
+              >
+                Informe um numero para ver a leitura da escala Bovis.
+              </span>
+            </label>
+            <label>
+              Ambiente pessoal
+              <input
+                class="reading-input"
+                data-reading="ambientePessoal"
+                type="number"
+                min="0"
+                max="30000"
+                step="50"
+                placeholder="Ex: 7800"
+              />
+              <span
+                class="scale-feedback"
+                data-scale-feedback="ambientePessoal"
+              >
+                Informe um numero para ver a leitura da escala Bovis.
+              </span>
+            </label>
+            <label>
+              Ambiente profissional
+              <input
+                class="reading-input"
+                data-reading="ambienteProfissional"
+                type="number"
+                min="0"
+                max="30000"
+                step="50"
+                placeholder="Ex: 7200"
+              />
+              <span
+                class="scale-feedback"
+                data-scale-feedback="ambienteProfissional"
+              >
+                Informe um numero para ver a leitura da escala Bovis.
+              </span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="chakra-section" id="chakras">
+        <div class="section-heading">
+          <p class="eyebrow">Parte 2 / Caixa 2</p>
+          <h2>Mapa corporal dos chakras</h2>
+        </div>
+
+        <div class="chakra-layout">
+          <div class="body-map" aria-label="Corpo humano com chakras">
+            <div class="silhouette">
+              <span class="head"></span>
+              <span class="torso"></span>
+              <span class="arm left"></span>
+              <span class="arm right"></span>
+              <span class="leg left"></span>
+              <span class="leg right"></span>
+              <button class="chakra crown" data-chakra="coroa" type="button"></button>
+              <button class="chakra third-eye" data-chakra="frontal" type="button"></button>
+              <button class="chakra throat" data-chakra="laringeo" type="button"></button>
+              <button class="chakra heart" data-chakra="cardiaco" type="button"></button>
+              <button class="chakra solar" data-chakra="plexoSolar" type="button"></button>
+              <button class="chakra sacral" data-chakra="sacro" type="button"></button>
+              <button class="chakra root" data-chakra="basico" type="button"></button>
+            </div>
+          </div>
+
+          <div class="chakra-panel">
+            <p class="hint">
+              Marque os chakras com desequilibrio. Clique no nome ou no ponto do
+              corpo para ver a descricao.
+            </p>
+            <div class="chakra-list" id="chakraList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-section" id="relatorio">
+        <div class="section-heading">
+          <p class="eyebrow">Saida do atendimento</p>
+          <h2>Relatorio gerado</h2>
+        </div>
+        <textarea
+          id="notes"
+          placeholder="Observacoes intuitivas, cartas do taro, orientacoes terapeuticas..."
+        ></textarea>
+        <article class="report" id="report"></article>
+        <button class="button primary" id="copyReport" type="button">
+          Copiar relatorio
+        </button>
+      </section>
+    </main>
+
+    <dialog class="info-dialog" id="infoDialog">
+      <button class="close" id="closeDialog" type="button" aria-label="Fechar">
+        x
+      </button>
+      <p class="eyebrow" id="dialogType"></p>
+      <h3 id="dialogTitle"></h3>
+      <p id="dialogText"></p>
+    </dialog>
+
+    <footer class="footer">
+      <span>Atendimento Integrativo</span>
+      <span>Ferramenta auxiliar, nao substitui cuidado medico ou psicologico.</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
