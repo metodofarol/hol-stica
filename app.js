@@ -555,6 +555,29 @@ const promotionalCard = {
     "Para aprofundar este processo, é possível realizar sessões complementares de Reiki, leituras terapêuticas de Tarô e práticas de escrita orientada, conforme a necessidade identificada no atendimento. Entre em contato para mais informações.",
 };
 
+const referenceSources = [
+  {
+    title: "Personare - Significado dos Chakras",
+    url: "https://www.personare.com.br/conteudo/significado-dos-chakras-m2073",
+  },
+  {
+    title: "Cleveland Clinic - 7 Chakras and What They Mean",
+    url: "https://health.clevelandclinic.org/chakras",
+  },
+  {
+    title: "Radiestesia.net - Glossário de Radiestesia / Biômetro de Bovis",
+    url: "https://www.radiestesia.net/glossario-de-radiestesia/",
+  },
+  {
+    title: "Subtil - Taxa de vibração expandida em Bovis",
+    url: "https://www.subtil.net/pt/view/78187443-b606-497f-bc79-3b2bafd600bc",
+  },
+  {
+    title: "Gaia - Modern Guide to the Ancient Chakra System",
+    url: "https://www.gaia.com/article/what-are-chakras?render=details-v4",
+  },
+];
+
 const selected = {
   field: "emocional",
   limit: "rigido",
@@ -964,23 +987,31 @@ function getBovisLevel(value) {
   return "Acima da régua principal";
 }
 
+function buildBovisRows() {
+  return bovisFields
+    .map((field) => {
+      const initial = getFormValue(`${field.key}_inicial`);
+      const final = getFormValue(`${field.key}_final`);
+      if (!initial && !final) return null;
+
+      return {
+        label: field.label,
+        initial: initial ? `${initial} Å - ${getBovisLevel(initial)}` : "não informado",
+        final: final ? `${final} Å - ${getBovisLevel(final)}` : "não informado",
+      };
+    })
+    .filter(Boolean);
+}
+
 function buildBovisReport() {
-  const lines = [];
+  const rows = buildBovisRows();
+  if (!rows.length) return [];
 
-  bovisFields.forEach((field) => {
-    const initial = getFormValue(`${field.key}_inicial`);
-    const final = getFormValue(`${field.key}_final`);
-    if (!initial && !final) return;
-
-    if (initial) {
-      lines.push(`- ${field.label} - medição inicial: ${initial} Å - ${getBovisLevel(initial)}.`);
-    }
-    if (final) {
-      lines.push(`- ${field.label} - medição após a sessão: ${final} Å - ${getBovisLevel(final)}.`);
-    }
-  });
-
-  return lines;
+  return [
+    "Campo | Diagnóstico inicial | Após sessão",
+    "------|---------------------|------------",
+    ...rows.map((row) => `${row.label} | ${row.initial} | ${row.final}`),
+  ];
 }
 
 function buildIntegrativeReport() {
@@ -1006,6 +1037,7 @@ function buildIntegrativeReport() {
   const bovisLines = buildBovisReport();
   const notes = getFormValue("observacoes");
   const intention = getFormValue("comando");
+  const protocolCode = getFormValue("codigo_comando");
   const witnesses = getFormValue("testemunhos");
   const therapyDetail = getFormValue("detalhamento_terapeutica");
   const treatmentTime = getFormValue("tempo_tratamento");
@@ -1082,10 +1114,14 @@ function buildIntegrativeReport() {
     );
   }
 
-  if (witnesses || intention || notes || treatmentTime || nextDate) {
+  if (witnesses || intention || protocolCode || notes || treatmentTime || nextDate) {
     const lines = [];
     if (witnesses) lines.push(`Testemunho(s): ${witnesses}`);
     if (intention) lines.push(`Comando / intenção: ${intention}`);
+    if (protocolCode) {
+      lines.push(`Código do comando / protocolo: ${protocolCode}`);
+      lines.push("Uso do código: esta referência identifica o comando desta consulta individual, permitindo reaplicar, adaptar ou comparar o protocolo em outros contextos sem misturar registros.");
+    }
     if (notes) lines.push(`Observações: ${notes}`);
     if (treatmentTime) lines.push(`Tempo de permanência / tratamento indicado: ${treatmentTime}`);
     if (nextDate) lines.push(`Nova aferição sugerida: ${nextDate}`);
@@ -1130,6 +1166,12 @@ function buildIntegrativeReport() {
     addReportSection(report, 13, "Interpretação integrativa possível", [
       buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme),
     ]);
+    addReportSection(
+      report,
+      14,
+      "Fontes de consulta para aprofundamento",
+      referenceSources.map((source) => `${source.title}: ${source.url}`)
+    );
   }
 
   report.push("OBSERVAÇÃO");
@@ -1147,35 +1189,43 @@ function buildIntegrativeReport() {
   return report.join("\n");
 }
 
-function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme = "") {
+function buildThematicInterpretation(
+  sessionTheme,
+  fieldLabel,
+  limitLabel,
+  selectedChakraData,
+  selectedCauseData,
+  holistic,
+  bovisLines
+) {
   const parts = [];
 
   if (sessionTheme) {
-    parts.push(`Tema central informado: ${sessionTheme}. A leitura abaixo cruza esse tema com os dados marcados no formulário, sem substituir a escuta clínica, terapêutica ou espiritual do atendimento.`);
+    parts.push(`Tema central informado: ${sessionTheme}. A leitura abaixo cruza esse tema com os dados marcados no formulário, usando referências tradicionais sobre chakras, radiestesia e leitura simbólica energética.`);
   }
 
   if (fieldLabel && limitLabel) {
-    parts.push(`O eixo principal da sessão aparece no campo ${fieldLabel.toLowerCase()}, com limite ${limitLabel.toLowerCase()}, indicando um padrão de fronteira energética que pode influenciar a forma como a pessoa sente, pensa, se protege ou se entrega às experiências.`);
+    parts.push(`O eixo principal aparece no campo ${fieldLabel.toLowerCase()}, com limite ${limitLabel.toLowerCase()}. Em relação ao tema "${sessionTheme}", isso sugere observar como a pessoa organiza fronteiras, defesa, abertura, escolha e resposta emocional ou mental diante da questão apresentada.`);
   }
 
   if (selectedCauseData.length) {
-    const names = selectedCauseData
-      .map((cause) => `${getLabel(fields, cause.field).toLowerCase()} / ${getLabel(limitTypes, cause.limit).toLowerCase()} / ${cause.name.toLowerCase()}`)
-      .join("; ");
-    parts.push(`As causas marcadas (${names}) apontam temas prioritários para investigação, integração emocional, ajuste de limites e reeducação energética.`);
+    selectedCauseData.forEach((cause) => {
+      parts.push(`A causa "${cause.name}" indica um ponto de investigação no campo ${getLabel(fields, cause.field).toLowerCase()} e no limite ${getLabel(limitTypes, cause.limit).toLowerCase()}. Para o tema "${sessionTheme}", ela pode revelar um modo recorrente de proteção, adaptação, resistência, dependência, controle ou necessidade de reorganização interna.`);
+    });
   }
 
   if (selectedChakraData.length) {
-    const names = selectedChakraData.map((chakra) => chakra.name).join(", ");
-    parts.push(`Os chakras assinalados (${names}) sugerem pontos de atenção entre corpo, emoções, mente e áreas práticas da vida.`);
+    selectedChakraData.forEach((chakra) => {
+      parts.push(`O chakra ${chakra.name} traz uma chave de leitura para o tema "${sessionTheme}": ${chakra.represents} ${chakra.lifeAreas} Em desequilíbrio, pede atenção a como essa área da vida participa do processo apresentado.`);
+    });
   }
 
   if (bovisLines.length) {
-    parts.push("As medições Bovis ajudam a observar a direção da vitalidade antes e depois da intervenção, servindo como referência comparativa para acompanhamento.");
+    parts.push("As medições Bovis oferecem uma referência comparativa de vitalidade antes e depois da sessão. Elas não fecham uma conclusão isolada, mas ajudam a perceber se o campo avaliado se encontra em faixa de desgaste, alerta, referência, vitalidade ou expansão.");
   }
 
   if (holistic.length) {
-    parts.push(`As terapias complementares indicadas (${holistic.join(", ")}) podem apoiar o processo de integração quando usadas com critério, escuta e acompanhamento.`);
+    parts.push(`As terapias complementares indicadas (${holistic.join(", ")}) podem apoiar a integração do tema ao oferecer recursos simbólicos, energéticos e expressivos para continuidade do cuidado.`);
   }
 
   if (!parts.length) {
@@ -1183,6 +1233,19 @@ function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCaus
   }
 
   return parts.join(" ");
+}
+
+function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme = "") {
+  if (!sessionTheme) return "";
+  return buildThematicInterpretation(
+    sessionTheme,
+    fieldLabel,
+    limitLabel,
+    selectedChakraData,
+    selectedCauseData,
+    holistic,
+    bovisLines
+  );
 }
 
 function updateIntegrativeReport() {
@@ -1238,6 +1301,39 @@ function buildVisualReport() {
   const therapyDetail = getFormValue("detalhamento_terapeutica");
   const notes = getFormValue("observacoes");
   const intention = getFormValue("comando");
+  const protocolCode = getFormValue("codigo_comando");
+  const bovisRows = buildBovisRows();
+
+  const bovisTable = bovisRows.length
+    ? `
+      <table class="visual-bovis-table">
+        <thead>
+          <tr>
+            <th>Campo avaliado</th>
+            <th>Diagnóstico inicial</th>
+            <th>Após sessão</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${bovisRows
+            .map(
+              (row) => `
+                <tr>
+                  <td>${escapeHtml(row.label)}</td>
+                  <td>${escapeHtml(row.initial)}</td>
+                  <td>${escapeHtml(row.final)}</td>
+                </tr>
+              `
+            )
+            .join("")}
+        </tbody>
+      </table>
+    `
+    : `<p class="visual-muted">Nenhuma medição Bovis informada.</p>`;
+
+  const sourceLinks = referenceSources
+    .map((source) => `<li><a href="${escapeHtml(source.url)}">${escapeHtml(source.title)}</a></li>`)
+    .join("");
 
   const chakraCards = selectedChakraData.length
     ? selectedChakraData
@@ -1309,14 +1405,17 @@ function buildVisualReport() {
       <section>
         <h3>2. Resultado do formulário</h3>
         <h4>Avaliação Bovis</h4>
-        <ul>${(bovisLines.length ? bovisLines : ["Nenhuma medição Bovis informada."])
-          .map((line) => `<li>${escapeHtml(line.replace(/^- /, ""))}</li>`)
-          .join("")}</ul>
+        ${bovisTable}
         <h4>Campo e limite identificados</h4>
         <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
         ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
         ${therapyDetail ? `<h4>Detalhamento terapêutico</h4><p>${escapeHtml(therapyDetail)}</p>` : ""}
         ${intention ? `<h4>Comando / intenção</h4><p>${escapeHtml(intention)}</p>` : ""}
+        ${
+          protocolCode
+            ? `<h4>Código do comando / protocolo</h4><p><strong>${escapeHtml(protocolCode)}</strong></p><p class="visual-muted">Referência individual desta consulta para reaplicar, adaptar ou comparar o protocolo em outros contextos sem misturar registros.</p>`
+            : ""
+        }
         ${notes ? `<h4>Observações</h4><p>${escapeHtml(notes)}</p>` : ""}
       </section>
 
@@ -1338,6 +1437,8 @@ function buildVisualReport() {
           ? `<section>
               <h3>5. Eixo interpretativo</h3>
               <p>${escapeHtml(buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme))}</p>
+              <h4>Fontes de consulta para aprofundamento</h4>
+              <ul class="source-list">${sourceLinks}</ul>
             </section>`
           : ""
       }
@@ -1468,6 +1569,19 @@ function getSuggestedFileName(suffix, extension) {
   return `registro-sessao-${name}-${date}-${suffix}.${extension}`;
 }
 
+function generateProtocolCode() {
+  const sessionDate = (getFormValue("sessao") || new Date().toISOString().slice(0, 10)).replace(/-/g, "");
+  const namePart = (slug(getFormValue("nome") || "cliente").slice(0, 12) || "cliente").toUpperCase();
+  const contextPart = (slug(getFormValue("tema_sessao") || "consulta").slice(0, 10) || "consulta").toUpperCase();
+  const randomPart = Math.random().toString(36).slice(2, 6).toUpperCase();
+  const field = document.querySelector('[name="codigo_comando"]');
+
+  if (!field) return;
+  field.value = `RST-${sessionDate}-${namePart}-${contextPart}-${randomPart}`;
+  autoSaveFormState();
+  autoUpdateIntegrativeReport();
+}
+
 function downloadTextFile(filename, content, type) {
   const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
@@ -1580,6 +1694,7 @@ function bindActions() {
     updateIntegrativeReport();
     autoSaveFormState();
   });
+  byId("generateProtocolCode").addEventListener("click", generateProtocolCode);
   byId("saveReportPdf").addEventListener("click", saveReportPdf);
   byId("sessionForm").addEventListener("input", (event) => {
     if (event.target.id === "integrativeReport") {

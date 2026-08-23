@@ -227,6 +227,17 @@ textarea {
   grid-column: 1 / -1;
 }
 
+.protocol-code-field {
+  grid-column: 1 / -1;
+}
+
+.inline-action-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -772,6 +783,36 @@ button:focus-visible {
   margin: 0;
 }
 
+.visual-bovis-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5pt;
+}
+
+.visual-bovis-table th,
+.visual-bovis-table td {
+  border: 1px solid var(--line);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.visual-bovis-table th {
+  background: var(--green-2);
+  color: var(--green);
+}
+
+.source-list {
+  display: grid;
+  gap: 6px;
+  padding-left: 18px;
+}
+
+.source-list a {
+  color: var(--green);
+  word-break: break-word;
+}
+
 .visual-data-grid,
 .visual-card-grid {
   display: grid;
@@ -993,6 +1034,10 @@ button:focus-visible {
 
 @media (max-width: 640px) {
   .bovis-descriptors {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-action-field {
     grid-template-columns: 1fr;
   }
 }

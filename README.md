@@ -19,9 +19,12 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Tratamento radiônico com geometrias sagradas: Harmonia, Limpeza, Proteção, Psicoemocional e Vitalidade, com popups explicativos e imagens ilustrativas.
 - Outros tratamentos holísticos identificados pela radiestesia, incluindo Tarô, com campo para detalhar a terapêutica.
 - Seção Despertar.
-- Registro da sessão com testemunhos, intenção, observações, tempo de tratamento e nova aferição.
+- Registro da sessão com testemunhos, intenção, código reutilizável do comando/protocolo, observações, tempo de tratamento e nova aferição.
+- Botão para gerar um código individual por consulta, facilitando reaplicação, adaptação e comparação do protocolo em contextos diferentes.
 - Relatório automático - gerado com base nos dados e fontes fornecidas pelo terapeuta, editável e dividido em seções.
 - Prévia visual do relatório para o cliente, com resumo integrado de chakra, campo e causa, além de imagens e descrições dos gráficos selecionados.
+- Tabela Bovis no relatório, com diagnóstico inicial e após sessão em colunas.
+- Eixo interpretativo inferencial baseado no tema da sessão e nas seleções do formulário, com links de consulta para aprofundamento.
 - Card institucional ao final do relatório, apresentando radiestesia, Reiki, Tarô, escrita criativa/terapêutica e a recomendação de reconsulta/reenergização em 28 dias.
 - Opção para salvar o relatório em PDF.
 - Salvamento automático no navegador para evitar perda de dados.
