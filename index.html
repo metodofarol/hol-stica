@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ficha de Avaliação na Sessão Radiônica</title>
+    <title>Registro de Sessão terapêutica</title>
     <meta
       name="description"
       content="Ficha digital para registrar avaliação radiônica, Bovis, chakras, causas, gráficos, despertar e registro da sessão."
@@ -15,8 +15,8 @@
       <header class="app-header">
         <div>
           <p class="eyebrow">Avaliação e registro</p>
-          <h1>Ficha de Avaliação na Sessão Radiônica</h1>
-          <p>Registro de aferição inicial, seleção dos procedimentos e medição após a sessão.</p>
+          <h1>Registro de Sessão terapêutica</h1>
+          <p>PROTOCOLO DE LIMPEZA E PROTEÇÃO</p>
         </div>
         <div class="header-actions no-print">
           <button class="button button-secondary" type="button" id="clearForm">Limpar</button>
@@ -26,12 +26,16 @@
 
       <main>
         <form id="sessionForm" autocomplete="off">
-          <section class="section">
-            <h2>1. Identificação</h2>
-            <div class="grid grid-3">
+          <details class="section" open>
+            <summary><h2>1. Identificação</h2></summary>
+            <div class="grid grid-4">
               <label class="field">
                 <span>Nome</span>
                 <input type="text" name="nome" />
+              </label>
+              <label class="field">
+                <span>Terapeuta</span>
+                <input type="text" name="terapeuta" />
               </label>
               <label class="field">
                 <span>Data de nascimento</span>
@@ -42,10 +46,10 @@
                 <input type="date" name="sessao" />
               </label>
             </div>
-          </section>
+          </details>
 
-          <section class="section">
-            <h2>2. Vitalidade - Escala / Unidades Bovis</h2>
+          <details class="section" open>
+            <summary><h2>2. Vitalidade - Escala / Unidades Bovis</h2></summary>
             <div class="table-wrap">
               <table class="bovis-table">
                 <thead>
@@ -79,15 +83,56 @@
                 </tbody>
               </table>
             </div>
-          </section>
 
-          <section class="section">
-            <h2>3. Chakra e Campo do Desequilíbrio</h2>
-            <div class="grid grid-3">
-              <div class="field-group">
+            <div class="bovis-scale" aria-label="Régua descritiva do Biômetro de Bovis">
+              <h3>Régua de referência Bovis</h3>
+              <div class="bovis-track" aria-hidden="true">
+                <span class="zone zone-critical"></span>
+                <span class="zone zone-low"></span>
+                <span class="zone zone-alert"></span>
+                <span class="zone zone-neutral"></span>
+                <span class="zone zone-healthy"></span>
+                <span class="zone zone-high"></span>
+              </div>
+              <div class="bovis-descriptors">
+                <article class="bovis-descriptor">
+                  <strong>Abaixo de 0 a 3.000 Å (Nível crítico / Degenerativo):</strong>
+                  <p>Indica forte desvitalização, ambientes doentios, presença de energias densas, putrefação ou forte adoecimento físico e espiritual.</p>
+                </article>
+                <article class="bovis-descriptor">
+                  <strong>De 3.000 Å a 6.000 Å (Nível baixo / Descendente):</strong>
+                  <p>Sinaliza cansaço, perda de energia vital, desgaste acentuado ou ambientes que drenam a vitalidade das pessoas.</p>
+                </article>
+                <article class="bovis-descriptor">
+                  <strong>De 6.000 Å a 6.400 Å (Nível de alerta / Desequilíbrio):</strong>
+                  <p>Aponta pequenos desequilíbrios energéticos, disfunções leves ou início de queda no bem-estar físico e psíquico.</p>
+                </article>
+                <article class="bovis-descriptor">
+                  <strong>6.500 Å (Nível neutro / Referência):</strong>
+                  <p>Considerado o limiar padrão de equilíbrio para um ser humano saudável ou o ponto divisório básico entre o desgaste e a saúde energética.</p>
+                </article>
+                <article class="bovis-descriptor">
+                  <strong>De 6.500 Å a 8.500 Å (Nível saudável / Vitalidade alta):</strong>
+                  <p>Representa boa saúde, ambientes harmoniosos, vitalidade positiva e alimentos ou locais benéficos para a vida.</p>
+                </article>
+                <article class="bovis-descriptor">
+                  <strong>Acima de 8.500 Å a 10.000 Å (Nível elevado / Espiritual):</strong>
+                  <p>Indica alta expansão energética, locais sagrados, forte conexão espiritual ou estados vibratórios muito sutis.</p>
+                </article>
+              </div>
+            </div>
+          </details>
+
+          <details class="section" open>
+            <summary><h2>3. Chakra e Campo do Desequilíbrio</h2></summary>
+            <div class="grid grid-3 chakra-section">
+              <div class="field-group chakra-picker">
                 <h3>Chakra</h3>
+                <p class="hint">Marque no boneco ou na lista os chakras em desequilíbrio. Clique ou passe o mouse sobre cada chakra para ver o resumo.</p>
                 <div class="choice-grid" id="chakraList"></div>
               </div>
+              <div class="chakra-figure" id="chakraFigure" aria-label="Boneco dos chakras"></div>
+              <div class="chakra-balloons" id="chakraBalloons" aria-live="polite"></div>
               <div class="field-group">
                 <h3>Campo do desequilíbrio</h3>
                 <div class="choice-stack" id="fieldList"></div>
@@ -97,28 +142,39 @@
                 <div class="choice-stack" id="limitList"></div>
               </div>
             </div>
-          </section>
+          </details>
 
-          <section class="section">
+          <details class="section" open>
+            <summary>
             <div class="section-title-row">
               <h2>4. Causa</h2>
-              <p class="hint">Selecione Campo e Tipo de limite para mostrar as causas correspondentes.</p>
+              <p class="hint">Selecione Campo e Tipo de limite. Nas causas exibidas, clique ou passe o mouse sobre o nome para ler a explicação.</p>
             </div>
+            </summary>
             <div id="causePanel" class="cause-panel"></div>
-          </section>
+          </details>
 
-          <section class="section">
-            <h2>5. Gráficos Radiônicos</h2>
+          <details class="section" open>
+            <summary><h2>5. Tratamento Radiônico com Geometrias Sagradas</h2></summary>
             <div id="graphGroups" class="group-list"></div>
-          </section>
+          </details>
 
-          <section class="section">
-            <h2>6. Despertar</h2>
+          <details class="section" open>
+            <summary><h2>6. Outros tratamentos holísticos identificados pela radiestesia</h2></summary>
+            <div id="holisticList" class="choice-grid choice-grid-wide"></div>
+            <label class="field therapy-detail">
+              <span>Detalhamento da terapêutica</span>
+              <textarea name="detalhamento_terapeutica" rows="5"></textarea>
+            </label>
+          </details>
+
+          <details class="section" open>
+            <summary><h2>7. Despertar</h2></summary>
             <div id="awakeningList" class="choice-grid choice-grid-wide"></div>
-          </section>
+          </details>
 
-          <section class="section">
-            <h2>7. Registro da sessão</h2>
+          <details class="section" open>
+            <summary><h2>8. Registro da sessão</h2></summary>
             <div class="grid grid-2">
               <label class="field">
                 <span>Testemunho(s) utilizado(s)</span>
@@ -143,7 +199,21 @@
                 </label>
               </div>
             </div>
-          </section>
+          </details>
+
+          <details class="section" id="reportSection" open>
+            <summary><h2>9. Relatório integrativo automático</h2></summary>
+            <p class="hint">O relatório integra as informações preenchidas e sugere interpretações possíveis com base nos dados textuais do formulário. O texto pode ser editado pelo terapeuta antes de imprimir ou salvar em PDF.</p>
+            <div class="report-actions no-print">
+              <button class="button button-secondary" type="button" id="generateReport">Gerar / atualizar relatório</button>
+              <button class="button button-primary" type="button" id="saveReportPdf">Salvar relatório em PDF</button>
+            </div>
+            <label class="field">
+              <span>Relatório gerado</span>
+              <textarea id="integrativeReport" name="relatorio_integrativo" rows="16"></textarea>
+            </label>
+            <pre class="report-print-view" id="reportPrintView"></pre>
+          </details>
 
           <div class="bottom-actions no-print">
             <button class="button button-secondary" type="button" id="clearFormBottom">Limpar</button>
@@ -158,6 +228,7 @@
         <button class="modal-close" type="button" id="closeModal" aria-label="Fechar">x</button>
         <p class="modal-kicker" id="modalKicker"></p>
         <h2 id="modalTitle"></h2>
+        <img class="modal-image" id="modalImage" alt="" hidden />
         <p id="modalDescription"></p>
       </article>
     </div>
