@@ -3,159 +3,164 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atendimento Radiestésico e Tarô Terapêutico</title>
+    <title>Ficha de Avaliação na Sessão Radiônica</title>
     <meta
       name="description"
-      content="Formulário editável para atendimentos de radiestesia e tarô terapêutico, com relatório gerado automaticamente."
+      content="Ficha digital para registrar avaliação radiônica, Bovis, chakras, causas, gráficos, despertar e registro da sessão."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="topbar">
-      <a class="brand" href="#inicio" aria-label="Atendimento Integrativo">
-        <span class="brand-mark">RT</span>
-        <span>Atendimento Integrativo</span>
-      </a>
-      <nav class="nav" aria-label="Navegação principal">
-        <a href="#diagnostico">Diagnóstico</a>
-        <a href="#chakras">Chakras</a>
-        <a href="#relatorio">Relatório</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero" id="inicio">
-        <div class="hero-copy">
-          <p class="eyebrow">Radiestesia e tarô terapêutico</p>
-          <h1>Formulário de atendimento com relatório automático.</h1>
-          <p>
-            Registre as medições energéticas, marque os chakras em desequilíbrio
-            no próprio boneco e gere uma síntese clara para acompanhar cada
-            cliente.
-          </p>
+    <div class="page-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Avaliação e registro</p>
+          <h1>Ficha de Avaliação na Sessão Radiônica</h1>
+          <p>Registro de aferição inicial, seleção dos procedimentos e medição após a sessão.</p>
         </div>
-        <form class="client-card" id="clientForm">
-          <label>
-            Nome da cliente
-            <input id="clientName" type="text" placeholder="Ex: Ana Souza" />
-          </label>
-          <label>
-            Data do atendimento
-            <input id="sessionDate" type="date" />
-          </label>
-          <label>
-            Tema principal
-            <input
-              id="sessionTheme"
-              type="text"
-              placeholder="Ex: clareza emocional e vitalidade"
-            />
-          </label>
+        <div class="header-actions no-print">
+          <button class="button button-secondary" type="button" id="clearForm">Limpar</button>
+          <button class="button button-primary" type="button" id="printForm">Imprimir / salvar PDF</button>
+        </div>
+      </header>
+
+      <main>
+        <form id="sessionForm" autocomplete="off">
+          <section class="section">
+            <h2>1. Identificação</h2>
+            <div class="grid grid-3">
+              <label class="field">
+                <span>Nome</span>
+                <input type="text" name="nome" />
+              </label>
+              <label class="field">
+                <span>Data de nascimento</span>
+                <input type="date" name="nascimento" />
+              </label>
+              <label class="field">
+                <span>Data da sessão</span>
+                <input type="date" name="sessao" />
+              </label>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>2. Vitalidade - Escala / Unidades Bovis</h2>
+            <div class="table-wrap">
+              <table class="bovis-table">
+                <thead>
+                  <tr>
+                    <th>Campo avaliado</th>
+                    <th>Medição inicial</th>
+                    <th>Medição após a sessão</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Físico</td>
+                    <td><input type="number" name="fisico_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="fisico_final" placeholder="U.B." /></td>
+                  </tr>
+                  <tr>
+                    <td>Mental</td>
+                    <td><input type="number" name="mental_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="mental_final" placeholder="U.B." /></td>
+                  </tr>
+                  <tr>
+                    <td>Emocional</td>
+                    <td><input type="number" name="emocional_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="emocional_final" placeholder="U.B." /></td>
+                  </tr>
+                  <tr>
+                    <td>Espiritual</td>
+                    <td><input type="number" name="espiritual_inicial" placeholder="U.B." /></td>
+                    <td><input type="number" name="espiritual_final" placeholder="U.B." /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>3. Chakra e Campo do Desequilíbrio</h2>
+            <div class="grid grid-3">
+              <div class="field-group">
+                <h3>Chakra</h3>
+                <div class="choice-grid" id="chakraList"></div>
+              </div>
+              <div class="field-group">
+                <h3>Campo do desequilíbrio</h3>
+                <div class="choice-stack" id="fieldList"></div>
+              </div>
+              <div class="field-group">
+                <h3>Tipo de limite</h3>
+                <div class="choice-stack" id="limitList"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="section-title-row">
+              <h2>4. Causa</h2>
+              <p class="hint">Selecione Campo e Tipo de limite para mostrar as causas correspondentes.</p>
+            </div>
+            <div id="causePanel" class="cause-panel"></div>
+          </section>
+
+          <section class="section">
+            <h2>5. Gráficos Radiônicos</h2>
+            <div id="graphGroups" class="group-list"></div>
+          </section>
+
+          <section class="section">
+            <h2>6. Despertar</h2>
+            <div id="awakeningList" class="choice-grid choice-grid-wide"></div>
+          </section>
+
+          <section class="section">
+            <h2>7. Registro da sessão</h2>
+            <div class="grid grid-2">
+              <label class="field">
+                <span>Testemunho(s) utilizado(s)</span>
+                <textarea name="testemunhos" rows="4"></textarea>
+              </label>
+              <label class="field">
+                <span>Comando / intenção utilizada</span>
+                <textarea name="comando" rows="4"></textarea>
+              </label>
+              <label class="field">
+                <span>Observações da sessão</span>
+                <textarea name="observacoes" rows="5"></textarea>
+              </label>
+              <div class="grid grid-1">
+                <label class="field">
+                  <span>Tempo de permanência / tratamento indicado</span>
+                  <input type="text" name="tempo_tratamento" />
+                </label>
+                <label class="field">
+                  <span>Data para nova aferição</span>
+                  <input type="date" name="nova_afericao" />
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <div class="bottom-actions no-print">
+            <button class="button button-secondary" type="button" id="clearFormBottom">Limpar</button>
+            <button class="button button-primary" type="button" id="printFormBottom">Imprimir / salvar PDF</button>
+          </div>
         </form>
-      </section>
+      </main>
+    </div>
 
-      <section class="section" id="diagnostico">
-        <div class="section-heading">
-          <p class="eyebrow">Parte 1 / Caixa 1</p>
-          <h2>Diagnóstico radiestésico</h2>
-        </div>
-
-        <article class="bovis-card">
-          <div class="card-heading">
-            <div>
-              <p class="eyebrow">Biômetro de Bovis</p>
-              <h3>Escala visual de referência</h3>
-            </div>
-            <p class="hint">
-              Clique nos valores da régua para ver a descrição de cada faixa.
-            </p>
-          </div>
-          <div class="bovis-ruler" id="bovisRuler" aria-label="Escala de Bovis"></div>
-        </article>
-
-        <article class="form-card">
-          <div class="card-heading">
-            <div>
-              <p class="eyebrow">Medições</p>
-              <h3>Informe os números medidos</h3>
-            </div>
-            <p class="hint">
-              Cada campo mostra a interpretação automática conforme a escala.
-            </p>
-          </div>
-          <div class="reading-grid" id="readingGrid"></div>
-        </article>
-      </section>
-
-      <section class="chakra-section" id="chakras">
-        <div class="section-heading">
-          <p class="eyebrow">Parte 2 / Caixa 2</p>
-          <h2>Chakras em desequilíbrio</h2>
-        </div>
-
-        <div class="chakra-layout">
-          <div class="body-map" aria-label="Boneco com chakras coloridos">
-            <div class="silhouette">
-              <span class="head"></span>
-              <span class="torso"></span>
-              <span class="arm left"></span>
-              <span class="arm right"></span>
-              <span class="leg left"></span>
-              <span class="leg right"></span>
-              <button class="chakra crown" data-chakra="coroa" type="button"></button>
-              <button class="chakra third-eye" data-chakra="frontal" type="button"></button>
-              <button class="chakra throat" data-chakra="laringeo" type="button"></button>
-              <button class="chakra heart" data-chakra="cardiaco" type="button"></button>
-              <button class="chakra solar" data-chakra="plexoSolar" type="button"></button>
-              <button class="chakra sacral" data-chakra="umbilical" type="button"></button>
-              <button class="chakra root" data-chakra="basico" type="button"></button>
-            </div>
-          </div>
-
-          <div class="chakra-panel">
-            <p class="hint">
-              Clique nos pontos coloridos do boneco para marcar desequilíbrio.
-              Ao clicar ou passar o mouse, você verá a descrição do chakra.
-            </p>
-            <div class="chakra-list" id="chakraList"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="report-section" id="relatorio">
-        <div class="section-heading">
-          <p class="eyebrow">Saída do atendimento</p>
-          <h2>Relatório gerado</h2>
-        </div>
-        <textarea
-          id="notes"
-          placeholder="Observações intuitivas, cartas do tarô, orientações terapêuticas..."
-        ></textarea>
-        <article class="report" id="report"></article>
-        <div class="report-actions">
-          <button class="button primary" id="copyReport" type="button">
-            Copiar relatório
-          </button>
-          <button class="button secondary" id="downloadPdf" type="button">
-            Baixar PDF
-          </button>
-        </div>
-      </section>
-    </main>
-
-    <dialog class="info-dialog" id="infoDialog">
-      <button class="close" id="closeDialog" type="button" aria-label="Fechar">
-        x
-      </button>
-      <p class="eyebrow" id="dialogType"></p>
-      <h3 id="dialogTitle"></h3>
-      <p id="dialogText"></p>
-    </dialog>
-
-    <footer class="footer">
-      <span>Atendimento Integrativo</span>
-      <span>Ferramenta auxiliar, não substitui cuidado médico ou psicológico.</span>
-    </footer>
+    <div class="modal-overlay" id="infoModal" aria-hidden="true">
+      <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" type="button" id="closeModal" aria-label="Fechar">x</button>
+        <p class="modal-kicker" id="modalKicker"></p>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+      </article>
+    </div>
 
     <script src="app.js"></script>
   </body>

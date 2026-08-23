@@ -1,47 +1,29 @@
-# Atendimento Radiestésico e Tarô Terapêutico
+# Ficha de Avaliação na Sessão Radiônica
 
-Aplicativo web para atendimentos integrativos. Ele funciona como um formulário
-editável: conforme os campos são preenchidos, um relatório é gerado
-automaticamente.
+Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radiônica.
 
-## O que o app inclui
+## Recursos
 
-- Cadastro básico da cliente, data e tema do atendimento.
-- Régua visual do Biômetro de Bovis com faixas clicáveis.
-- Formulário compacto para informar os números medidos.
-- Interpretação automática de cada número conforme a escala de Bovis.
-- Boneco menor com chakras coloridos e clicáveis.
-- Marcação visual dos chakras em desequilíbrio no próprio boneco.
-- Textos explicativos dos chakras selecionados no relatório final.
-- Relatório automático com botão para copiar.
+- Identificação com nome, data de nascimento e data da sessão.
+- Tabela Bovis para os campos físico, mental, emocional e espiritual, com medição inicial e medição após a sessão.
+- Seleção de Chakra, Campo do desequilíbrio e Tipo de limite.
+- Lógica dinâmica Campo -> Limite -> Causa.
+- Causas clicáveis com modal explicativo.
+- Textos explicativos condensados para causas dos campos emocional e mental.
+- Grupos completos de gráficos radiônicos: Harmonia, Limpeza, Proteção, Psicoemocional e Vitalidade.
+- Seção Despertar.
+- Registro da sessão com testemunhos, intenção, observações, tempo de tratamento e nova aferição.
+- Botões para limpar e imprimir/salvar em PDF.
+- Layout responsivo para celular, tablet e desktop.
 
-## Como abrir
+## Como usar
 
-Abra o arquivo `index.html` no navegador.
+Abra o arquivo `index.html` no navegador. Para salvar em PDF, use o botão **Imprimir / salvar PDF** e escolha a opção de salvar como PDF no navegador.
 
-## Como editar
+## Publicação no GitHub Pages
 
-- `index.html`: estrutura da tela.
-- `styles.css`: cores, espaçamentos e visual.
-- `app.js`: textos, campos, chakras e regras do relatório.
-
-## Como publicar no GitHub
-
-1. Crie um repositório novo no GitHub.
-2. Envie todos os arquivos desta pasta para o repositório.
-3. Confirme que `index.html`, `styles.css`, `app.js`, `README.md` e `vercel.json`
-   aparecem no GitHub.
-
-## Como publicar na Vercel
-
-1. Entre em https://vercel.com.
-2. Clique em Add New Project.
-3. Escolha o repositório do GitHub.
-4. Mantenha as configurações padrão.
-5. Clique em Deploy.
+Envie `index.html`, `styles.css`, `app.js` e este `README.md` para um repositório no GitHub. Depois, ative o GitHub Pages usando a branch principal e a pasta raiz.
 
 ## Observação
 
-Este aplicativo é uma ferramenta simbólica e integrativa de apoio ao
-atendimento. Ele não substitui avaliação médica, psicológica ou outro cuidado
-profissional necessário.
+Os textos explicativos foram condensados a partir do material fornecido para organização do formulário. Antes de publicar publicamente, verifique se há alguma restrição de uso do conteúdo original.

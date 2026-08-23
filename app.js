@@ -1,498 +1,453 @@
-const bovisRuler = document.querySelector("#bovisRuler");
-const readingGrid = document.querySelector("#readingGrid");
-const chakraList = document.querySelector("#chakraList");
-const report = document.querySelector("#report");
-const infoDialog = document.querySelector("#infoDialog");
-const dialogType = document.querySelector("#dialogType");
-const dialogTitle = document.querySelector("#dialogTitle");
-const dialogText = document.querySelector("#dialogText");
-const closeDialog = document.querySelector("#closeDialog");
-const copyReport = document.querySelector("#copyReport");
-const downloadPdf = document.querySelector("#downloadPdf");
+const chakras = [
+  "Básico",
+  "Sacral",
+  "Plexo Solar",
+  "Cardíaco",
+  "Laríngeo",
+  "Terceiro Olho",
+  "Coronário",
+];
 
-const state = {
-  readings: {},
-  chakras: {},
+const fields = [
+  { id: "emocional", label: "Emocional" },
+  { id: "mental", label: "Mental" },
+];
+
+const limitTypes = [
+  { id: "rigido", label: "Rígido" },
+  { id: "solto", label: "Solto" },
+];
+
+const causes = [
+  {
+    id: "emocional-rigido-medo-intimidade",
+    field: "emocional",
+    limit: "rigido",
+    name: "Medo de intimidade",
+    description:
+      "A intimidade é percebida como ameaça, levando a pessoa a se proteger de vínculos profundos. Essa defesa pode nascer de experiências de invasão, julgamento ou exposição excessiva, bloqueando a troca emocional genuína.",
+  },
+  {
+    id: "emocional-rigido-controle-emocional",
+    field: "emocional",
+    limit: "rigido",
+    name: "Necessidade de manter o controle emocional",
+    description:
+      "A tentativa constante de não se desestabilizar gera contenção emocional. Sentir ou demonstrar emoções passa a parecer perigoso, o que favorece repressão, endurecimento e dificuldade de expressão afetiva.",
+  },
+  {
+    id: "emocional-rigido-rejeicao-abandono",
+    field: "emocional",
+    limit: "rigido",
+    name: "Rejeição ou abandono",
+    description:
+      "Experiências de rejeição ou abandono podem criar defesas contra a possibilidade de ser novamente descartado. O padrão aparece como desconfiança, resistência ao afeto e dificuldade de vínculo profundo.",
+  },
+  {
+    id: "emocional-rigido-ressentimento",
+    field: "emocional",
+    limit: "rigido",
+    name: "Ressentimento ou mágoas não liberadas",
+    description:
+      "Mágoas mantidas ativas deixam o campo emocional em alerta. Dores antigas podem ser projetadas em relações atuais, sustentando feridas não integradas e limitando a entrega emocional.",
+  },
+  {
+    id: "emocional-rigido-traumas",
+    field: "emocional",
+    limit: "rigido",
+    name: "Traumas de abuso, controle ou manipulação",
+    description:
+      "Violações anteriores de limites podem gerar blindagem emocional. A pessoa pode se isolar, permanecer hiperalerta ou parecer fria para evitar situações associadas à dor original.",
+  },
+  {
+    id: "emocional-solto-carencia",
+    field: "emocional",
+    limit: "solto",
+    name: "Carência afetiva",
+    description:
+      "A busca por afeto pode levar a aproximação rápida, entrega excessiva e baixa avaliação do vínculo. A pessoa espera que o outro sustente aquilo que ainda não consegue fortalecer internamente.",
+  },
+  {
+    id: "emocional-solto-rejeicao-abandono",
+    field: "emocional",
+    limit: "solto",
+    name: "Rejeição ou abandono",
+    description:
+      "Neste limite solto, a ferida conduz à abertura excessiva. Para evitar nova rejeição, a pessoa pode adaptar-se demais, tolerar relações prejudiciais e ignorar seus próprios limites.",
+  },
+  {
+    id: "emocional-solto-dependencia",
+    field: "emocional",
+    limit: "solto",
+    name: "Dependência emocional",
+    description:
+      "O equilíbrio, a autoestima ou a direção pessoal passam a depender fortemente do vínculo. Necessidades próprias ficam pouco reconhecidas enquanto o outro ganha centralidade.",
+  },
+  {
+    id: "emocional-solto-autorregulacao",
+    field: "emocional",
+    limit: "solto",
+    name: "Falta de autorregulação",
+    description:
+      "O campo emocional fica instável e permeável aos estímulos. A pessoa pode absorver intensamente o ambiente e ter dificuldade de distinguir emoções próprias das externas.",
+  },
+  {
+    id: "emocional-solto-vinculos",
+    field: "emocional",
+    limit: "solto",
+    name: "Vínculos abertos",
+    description:
+      "Relações antigas não encerradas mantêm conexão emocional com o passado. Memórias, padrões e afetos continuam influenciando o presente, mesmo quando a relação terminou.",
+  },
+  {
+    id: "emocional-solto-culpa",
+    field: "emocional",
+    limit: "solto",
+    name: "Culpa",
+    description:
+      "A culpa sustenta permissividade excessiva e sensação de dívida. A pessoa pode tolerar cobranças, relações ou ambientes prejudiciais, dificultando dizer não e proteger-se.",
+  },
+  {
+    id: "mental-rigido-autossuficiencia",
+    field: "mental",
+    limit: "rigido",
+    name: "Autossuficiência",
+    description:
+      "A crença de que precisa dar conta de tudo sozinha funciona como defesa contra troca, apoio e abertura. A autonomia aparente pode produzir isolamento e endurecimento nas relações.",
+  },
+  {
+    id: "mental-rigido-controle-seguro",
+    field: "mental",
+    limit: "rigido",
+    name: "Controle seguro",
+    description:
+      "A mente associa controle à proteção. Dominar, antecipar ou racionalizar situações parece evitar dor, rejeição ou caos, fazendo a segurança depender do controle em vez da confiança.",
+  },
+  {
+    id: "mental-rigido-rigidez",
+    field: "mental",
+    limit: "rigido",
+    name: "Rigidez",
+    description:
+      "Há dificuldade de flexibilizar ideias, considerar perspectivas diferentes ou mudar rotas. Crenças absolutas e padrões cristalizados transformam proteção em obstáculo à transformação.",
+  },
+  {
+    id: "mental-rigido-perfeccionismo",
+    field: "mental",
+    limit: "rigido",
+    name: "Perfeccionismo e autoexigência",
+    description:
+      "A mente estabelece padrões difíceis de alcançar para comportamento, desempenho e controle emocional. O erro vira ameaça à identidade, reduzindo descanso, flexibilidade e acolhimento.",
+  },
+  {
+    id: "mental-rigido-forte-racional",
+    field: "mental",
+    limit: "rigido",
+    name: "Forte e racional",
+    description:
+      "A identidade se organiza em torno de ser forte e não demonstrar fragilidade. Dores e afetos são processados pela lógica, criando distanciamento do sentir e da abertura emocional.",
+  },
+  {
+    id: "mental-solto-agradadora",
+    field: "mental",
+    limit: "solto",
+    name: "Agradadora",
+    description:
+      "A busca por aceitação sustenta a crença de que é preciso agradar para ser amada ou validada. Decisões passam a ser moldadas pelo outro e dizer não parece risco de rejeição.",
+  },
+  {
+    id: "mental-solto-sem-identidade",
+    field: "mental",
+    limit: "solto",
+    name: "Sem identidade",
+    description:
+      "Há dificuldade para reconhecer os próprios limites mentais. Ideias, desejos e opiniões se misturam aos do outro, reduzindo clareza sobre quem se é, o que se quer e o que se pensa.",
+  },
+  {
+    id: "mental-solto-anulacao",
+    field: "mental",
+    limit: "solto",
+    name: "Anulação",
+    description:
+      "A ausência de posicionamento pode ser justificada como empatia ou busca de paz. A pessoa silencia vontades, aceita o que não corresponde a si e perde força, autonomia e espaço próprio.",
+  },
+  {
+    id: "mental-solto-submissao",
+    field: "mental",
+    limit: "solto",
+    name: "Submissão",
+    description:
+      "Crenças sobre autoridade, hierarquia ou merecimento sustentam a ideia de obedecer, aceitar ou silenciar. O padrão dificulta impor limites diante de ordens e imposições.",
+  },
+  {
+    id: "mental-solto-salvadora",
+    field: "mental",
+    limit: "solto",
+    name: "Salvadora",
+    description:
+      "A pessoa assume responsabilidade por resolver ou consertar a vida dos outros. Cuidado e invasão dos próprios limites se confundem, enquanto necessidades pessoais são negligenciadas.",
+  },
+];
+
+const graphGroups = [
+  {
+    name: "Harmonia",
+    items: [
+      "Desembaraçador",
+      "Desembaraçador de Relacionamentos",
+      "Desembaraçador Material",
+      "Justiça Divina",
+      "Vesica Piscis",
+    ],
+  },
+  {
+    name: "Limpeza",
+    items: [
+      "Corte Energético",
+      "Cruz Ansata",
+      "Guedes II",
+      "Keiti",
+      "Limpeza e Recarga",
+      "SCAP",
+      "Yoshua",
+      "NENAS",
+    ],
+  },
+  {
+    name: "Proteção",
+    items: ["9 Círculos", "Iavé", "Psicoprotetor", "Tetragrammaton"],
+  },
+  {
+    name: "Psicoemocional",
+    items: [
+      "Abertura",
+      "Aceitar e Soltar",
+      "Amor ao Próximo",
+      "Amor Universal",
+      "Ativação da Vontade",
+      "Confiar com Alegria",
+      "Coragem",
+      "Dependência e Vícios",
+      "Mundo Interior",
+      "Nervos",
+      "Positividade",
+      "Pureza Interior",
+      "Desilusão Amorosa",
+    ],
+  },
+  {
+    name: "Vitalidade",
+    items: [
+      "ARCHINE",
+      "Captador de Energia Solar",
+      "Cruz de São Mauro",
+      "Forças Universais",
+      "Magnetismo Vital e Curativo",
+      "Relaxar",
+    ],
+  },
+];
+
+const awakeningItems = [
+  "Antahkarana",
+  "Cosmos 2000",
+  "Cruz Atlante",
+  "Energia Divina",
+  "Fiat Lux",
+  "Gráfico dos Mestres",
+  "Cubo de Metatron",
+  "Prosperador",
+  "Prosperidade Divina",
+  "Selo Misterioso do Sol",
+  "Sorte e Sucesso",
+  "Vórtex",
+];
+
+const selected = {
+  field: "",
+  limit: "",
 };
 
-const readings = [
-  {
-    id: "fisico",
-    label: "Campo físico",
-    description:
-      "Na leitura radiestésica, o campo físico expressa a vitalidade do corpo denso e sua capacidade de sustentar energia no cotidiano. Pode revelar desgaste, sobrecarga, drenagem ou recuperação energética. Quando harmonizado, favorece presença, disposição e estabilidade no mundo material.",
-  },
-  {
-    id: "mental",
-    label: "Campo mental",
-    description:
-      "O campo mental está associado ao padrão dos pensamentos, crenças, foco e clareza interna. Pela tradição esotérica, interferências nesse campo podem indicar preocupação excessiva, rigidez, confusão ou repetição de formas-pensamento. Em equilíbrio, apoia discernimento e escolhas conscientes.",
-  },
-  {
-    id: "emocional",
-    label: "Campo emocional",
-    description:
-      "O campo emocional reflete a circulação dos sentimentos e a forma como a pessoa processa vínculos, memórias e afetos. Na radiestesia, pode apontar cargas acumuladas, oscilações, bloqueios ou sensibilidades abertas. Harmonizado, favorece acolhimento, fluidez e expressão autêntica.",
-  },
-  {
-    id: "espiritual",
-    label: "Campo espiritual",
-    description:
-      "O campo espiritual representa a conexão com propósito, intuição, ancestralidade e planos sutis de consciência. Em leituras esotéricas, desequilíbrios podem sugerir afastamento da própria direção ou fragilidade de proteção. Quando fortalecido, amplia sentido, confiança e alinhamento interior.",
-  },
-  {
-    id: "vitalidadeGeral",
-    label: "Vitalidade geral",
-    description:
-      "Síntese da força vital percebida no momento do atendimento.",
-  },
-  {
-    id: "ambientePessoal",
-    label: "Vitalidade do ambiente pessoal",
-    description:
-      "Leitura energética do ambiente íntimo, familiar ou residencial.",
-  },
-  {
-    id: "ambienteProfissional",
-    label: "Vitalidade do ambiente profissional",
-    description:
-      "Leitura energética do ambiente de trabalho, trocas profissionais e rotina produtiva.",
-  },
-];
+const byId = (id) => document.getElementById(id);
 
-const bovisScale = [
-  {
-    min: 0,
-    max: 3000,
-    range: "0 a 3.000",
-    zone: "Zona crítica e de desgaste",
-    title: "Energia extremamente baixa",
-    description:
-      "Indica forte desequilíbrio, doença crônica ou ambientes altamente nocivos.",
-  },
-  {
-    min: 3001,
-    max: 5999,
-    range: "3.001 a 5.999",
-    zone: "Zona crítica e de desgaste",
-    title: "Energia debilitada",
-    description:
-      "Mostra cansaço, sistema imunológico frágil ou alimentos de baixa qualidade energética.",
-  },
-  {
-    min: 6000,
-    max: 7000,
-    range: "6.000 a 7.000",
-    zone: "Zona saudável e de equilíbrio",
-    title: "Nível saudável básico",
-    description:
-      "Indica vitalidade normal, corpo em equilíbrio e bom funcionamento do organismo.",
-  },
-  {
-    min: 7001,
-    max: 8000,
-    range: "7.001 a 8.000",
-    zone: "Zona saudável e de equilíbrio",
-    title: "Vitalidade ideal",
-    description:
-      "Mostra energia física excelente, boa resistência e bem-estar geral.",
-  },
-  {
-    min: 8001,
-    max: 10000,
-    range: "8.001 a 10.000",
-    zone: "Zona de alta vibração e expansão",
-    title: "Energia elevada",
-    description:
-      "Comum em locais com natureza preservada, alimentos orgânicos frescos ou pessoas em estado de meditação.",
-  },
-  {
-    min: 10001,
-    max: Infinity,
-    range: "Acima de 10.000",
-    zone: "Zona de alta vibração e expansão",
-    title: "Vibração espiritual superior",
-    description:
-      "Indica locais sagrados, objetos altamente magnetizados ou forte conexão mental.",
-  },
-];
-
-const chakras = [
-  {
-    id: "coroa",
-    name: "Coronário",
-    color: "#8e5ab8",
-    description:
-      "Relacionado à espiritualidade, fé, sentido de vida e abertura para planos superiores de consciência. Em desequilíbrio, pode sugerir desconexão, falta de propósito ou excesso de abstração.",
-  },
-  {
-    id: "frontal",
-    name: "Frontal",
-    color: "#344c9c",
-    description:
-      "Associado à intuição, percepção sutil, visão interior e clareza simbólica. Quando desalinhado, pode indicar confusão, dificuldade de confiar na própria percepção ou excesso de controle mental.",
-  },
-  {
-    id: "laringeo",
-    name: "Laríngeo",
-    color: "#3f9fc2",
-    description:
-      "Liga-se à comunicação, verdade pessoal, escuta e expressão criativa. Em desequilíbrio, pode aparecer como silêncio excessivo, fala impulsiva ou dificuldade de manifestar necessidades.",
-  },
-  {
-    id: "cardiaco",
-    name: "Cardíaco",
-    color: "#5aa85c",
-    description:
-      "Representa amor, compaixão, vínculos, perdão e capacidade de troca afetiva. Desequilíbrios podem apontar fechamento, carência, mágoas retidas ou dificuldade de receber.",
-  },
-  {
-    id: "plexoSolar",
-    name: "Plexo solar",
-    color: "#d7ad36",
-    description:
-      "Relaciona-se à vontade, autoestima, poder pessoal e digestão energética das experiências. Quando instável, pode indicar insegurança, controle, raiva contida ou perda de direção.",
-  },
-  {
-    id: "umbilical",
-    name: "Umbilical",
-    color: "#d97835",
-    description:
-      "Associado ao prazer, criatividade, sexualidade, sensibilidade e fluxo da vida. Em desequilíbrio, pode sugerir culpa, bloqueio criativo, dependência afetiva ou dificuldade de permitir prazer.",
-  },
-  {
-    id: "basico",
-    name: "Básico / raiz",
-    color: "#b93e3e",
-    description:
-      "Conecta-se à segurança, enraizamento, sobrevivência, corpo e pertencimento. Desequilíbrios podem indicar medo, instabilidade, falta de presença ou sensação de não estar sustentada.",
-  },
-];
-
-function showInfo(type, title, text) {
-  dialogType.textContent = type;
-  dialogTitle.textContent = title;
-  dialogText.textContent = text;
-  infoDialog.showModal();
+function slug(value) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
-function getBovisScaleInfo(value) {
-  const number = Number(value);
+function makeCheckbox(name, value, label, extraContent = null) {
+  const id = `${name}-${slug(value)}`;
+  const wrapper = document.createElement("div");
+  wrapper.className = "choice";
 
-  if (!number) return null;
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  input.name = name;
+  input.value = value;
+  input.id = id;
 
-  return bovisScale.find((item) => number >= item.min && number <= item.max);
+  const labelEl = document.createElement("label");
+  labelEl.htmlFor = id;
+  labelEl.textContent = label;
+
+  wrapper.append(input, extraContent || labelEl);
+  return wrapper;
 }
 
-function formatBovisScaleText(value) {
-  const scale = getBovisScaleInfo(value);
+function makeRadio(name, item, onChange) {
+  const id = `${name}-${item.id}`;
+  const wrapper = document.createElement("div");
+  wrapper.className = "choice";
 
-  if (!scale) return "Informe um número para ver a leitura da escala Bovis.";
+  const input = document.createElement("input");
+  input.type = "radio";
+  input.name = name;
+  input.value = item.id;
+  input.id = id;
+  input.addEventListener("change", onChange);
 
-  return `${scale.zone} | ${scale.range}: ${scale.title}. ${scale.description}`;
+  const label = document.createElement("label");
+  label.htmlFor = id;
+  label.textContent = item.label;
+
+  wrapper.append(input, label);
+  return wrapper;
 }
 
-function renderBovisRuler() {
-  const majorTicks = Array.from({ length: 13 }, (_, index) => index * 1000);
-  const minorTicks = Array.from({ length: 49 }, (_, index) => index * 250);
-
-  bovisRuler.innerHTML = `
-    <div class="ruler-title">BIÔMETRO DE BOVIS</div>
-    <div class="ruler-track">
-      ${minorTicks
-        .map(
-          (value) =>
-            `<span class="minor-tick" style="left:${(value / 12000) * 100}%"></span>`,
-        )
-        .join("")}
-      ${majorTicks
-        .map(
-          (value) => `
-            <button
-              class="major-tick"
-              style="left:${(value / 12000) * 100}%"
-              type="button"
-              data-bovis-value="${value || 1}"
-              title="Clique para ver a descrição"
-            >
-              <span>${value.toLocaleString("pt-BR")}</span>
-            </button>
-          `,
-        )
-        .join("")}
-    </div>
-    <div class="ruler-zones">
-      ${bovisScale
-        .map(
-          (item) => `
-            <button class="zone-pill" type="button" data-zone-value="${item.min || 1}">
-              <strong>${item.range}</strong>
-              <span>${item.title}</span>
-            </button>
-          `,
-        )
-        .join("")}
-    </div>
-  `;
-
-  bovisRuler.querySelectorAll("[data-bovis-value]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const scale = getBovisScaleInfo(button.dataset.bovisValue);
-      showInfo("Escala de Bovis", `${scale.range} - ${scale.title}`, scale.description);
-    });
-  });
-
-  bovisRuler.querySelectorAll("[data-zone-value]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const scale = getBovisScaleInfo(button.dataset.zoneValue);
-      showInfo("Escala de Bovis", `${scale.range} - ${scale.title}`, scale.description);
-    });
-  });
-}
-
-function renderReadingFields() {
-  readingGrid.innerHTML = "";
-
-  readings.forEach((reading) => {
-    const field = document.createElement("label");
-    field.className = "reading-field";
-    field.innerHTML = `
-      <span class="reading-label">
-        ${reading.label}
-        <button class="inline-info" type="button" aria-label="Ver explicação sobre ${reading.label}">?</button>
-      </span>
-      <input class="reading-input" data-reading="${reading.id}" type="number" min="0" max="30000" step="50" placeholder="Ex: 8500" />
-      <span class="scale-feedback" data-scale-feedback="${reading.id}">
-        Informe um número para ver a leitura da escala Bovis.
-      </span>
-    `;
-
-    field.querySelector(".inline-info").addEventListener("click", (event) => {
-      event.preventDefault();
-      showInfo("Diagnóstico radiestésico", reading.label, reading.description);
-    });
-
-    readingGrid.append(field);
-  });
-}
-
-function renderChakras() {
-  chakraList.innerHTML = "";
-
+function renderBasicLists() {
+  const chakraList = byId("chakraList");
   chakras.forEach((chakra) => {
-    const item = document.createElement("label");
-    item.className = "chakra-item";
-    item.innerHTML = `
-      <input type="checkbox" data-chakra-check="${chakra.id}" />
-      <span class="chakra-dot" style="background:${chakra.color}"></span>
-      <span class="chakra-name">${chakra.name}</span>
-    `;
-
-    item.title = chakra.description;
-    item.addEventListener("mouseenter", () => {
-      document.querySelector(`[data-chakra="${chakra.id}"]`).classList.add("preview");
-    });
-    item.addEventListener("mouseleave", () => {
-      document.querySelector(`[data-chakra="${chakra.id}"]`).classList.remove("preview");
-    });
-
-    item.querySelector("input").addEventListener("change", (event) => {
-      setChakraSelection(chakra.id, event.target.checked);
-    });
-
-    chakraList.append(item);
+    chakraList.appendChild(makeCheckbox("chakra", chakra, chakra));
   });
 
-  document.querySelectorAll("[data-chakra]").forEach((button) => {
-    const chakra = chakras.find((item) => item.id === button.dataset.chakra);
-    button.setAttribute("aria-label", `${chakra.name}: clique para marcar desequilíbrio`);
-    button.title = chakra.description;
-    button.addEventListener("click", () => {
-      setChakraSelection(chakra.id, !state.chakras[chakra.id]);
-      showInfo("Chakra", chakra.name, chakra.description);
-    });
+  const fieldList = byId("fieldList");
+  fields.forEach((field) => {
+    fieldList.appendChild(
+      makeRadio("campo_desequilibrio", field, (event) => {
+        selected.field = event.target.value;
+        renderCauses();
+      })
+    );
   });
-}
 
-function setChakraSelection(id, selected) {
-  state.chakras[id] = selected;
-  document.querySelector(`[data-chakra-check="${id}"]`).checked = selected;
-  document.querySelector(`[data-chakra="${id}"]`).classList.toggle("selected", selected);
-  updateReport();
-}
-
-function updateFeedback() {
-  document.querySelectorAll("[data-scale-feedback]").forEach((feedback) => {
-    feedback.textContent = formatBovisScaleText(
-      state.readings[feedback.dataset.scaleFeedback],
+  const limitList = byId("limitList");
+  limitTypes.forEach((limit) => {
+    limitList.appendChild(
+      makeRadio("tipo_limite", limit, (event) => {
+        selected.limit = event.target.value;
+        renderCauses();
+      })
     );
   });
 }
 
-function getReadingLine(reading) {
-  const value = state.readings[reading.id];
-  const valueText = value ? `${Number(value).toLocaleString("pt-BR")} Bovis` : "não informado";
-  return `${reading.label}: ${valueText}`;
-}
+function renderCauses() {
+  const panel = byId("causePanel");
+  panel.innerHTML = "";
 
-function getChakraLine(chakra) {
-  return `- ${chakra.name}`;
-}
-
-function getMainBovisInsights() {
-  return readings
-    .map((reading) => {
-      const value = state.readings[reading.id];
-      const scale = getBovisScaleInfo(value);
-
-      if (!scale) return null;
-
-      return {
-        label: reading.label,
-        value: Number(value).toLocaleString("pt-BR"),
-        title: scale.title,
-        zone: scale.zone.toLowerCase(),
-        description: scale.description,
-      };
-    })
-    .filter(Boolean);
-}
-
-function formatInsightList(items, includeTitle = false) {
-  return items
-    .map((item) => {
-      const title = includeTitle ? `, ${item.title.toLowerCase()}` : "";
-      return `${item.label} (${item.value} Bovis${title})`;
-    })
-    .join(", ");
-}
-
-function createSynthesis(selectedChakras) {
-  const insights = getMainBovisInsights();
-
-  if (!insights.length && !selectedChakras.length) {
-    return "Ainda não há dados suficientes para uma síntese. Informe as medições de Bovis e marque os chakras em desequilíbrio para gerar uma leitura integrada.";
+  if (!selected.field || !selected.limit) {
+    panel.className = "cause-panel is-empty";
+    panel.textContent = "Escolha o campo do desequilíbrio e o tipo de limite para liberar as causas.";
+    return;
   }
 
-  const critical = insights.filter((item) => item.zone.includes("crítica"));
-  const balanced = insights.filter((item) => item.zone.includes("saudável"));
-  const expanded = insights.filter((item) => item.zone.includes("alta vibração"));
-  const chakraNames = selectedChakras.map((chakra) => chakra.name).join(", ");
-  const lines = [];
+  panel.className = "cause-panel";
+  const list = document.createElement("div");
+  list.className = "choice-grid choice-grid-wide";
 
-  if (critical.length) {
-    const singular = critical.length === 1;
-    lines.push(
-      singular
-        ? `A leitura mais sensível aparece em ${formatInsightList(critical, true)}. Esse ponto sugere desgaste energético e pede acolhimento, limpeza, reorganização e fortalecimento gradual.`
-        : `As leituras mais sensíveis aparecem em ${formatInsightList(critical, true)}. Esse conjunto sugere pontos de desgaste energético que pedem acolhimento, limpeza, reorganização e fortalecimento gradual.`,
-    );
-  }
+  causes
+    .filter((cause) => cause.field === selected.field && cause.limit === selected.limit)
+    .forEach((cause) => {
+      const button = document.createElement("button");
+      button.className = "clickable-name";
+      button.type = "button";
+      button.textContent = cause.name;
+      button.addEventListener("click", () => openModal(cause));
+      list.appendChild(makeCheckbox("causa", cause.name, cause.name, button));
+    });
 
-  if (balanced.length) {
-    const singular = balanced.length === 1;
-    lines.push(
-      singular
-        ? `O campo em faixa saudável é ${formatInsightList(balanced)}. Ele indica uma base de equilíbrio que pode sustentar o processo terapêutico e ajudar na recuperação dos pontos mais frágeis.`
-        : `Os campos em faixa saudável são ${formatInsightList(balanced)}. Eles indicam bases de equilíbrio que podem sustentar o processo terapêutico e ajudar na recuperação dos pontos mais frágeis.`,
-    );
-  }
-
-  if (expanded.length) {
-    const singular = expanded.length === 1;
-    lines.push(
-      singular
-        ? `A leitura mais elevada surge em ${formatInsightList(expanded, true)}. Essa área mostra potencial de expansão, conexão e melhor resposta vibracional no momento da consulta.`
-        : `As leituras mais elevadas surgem em ${formatInsightList(expanded, true)}. Essas áreas mostram potencial de expansão, conexão e melhor resposta vibracional no momento da consulta.`,
-    );
-  }
-
-  if (selectedChakras.length) {
-    lines.push(
-      `Os chakras marcados em desequilíbrio foram: ${chakraNames}. Pela leitura integrada, esses centros podem indicar onde as informações radiestésicas estão se expressando com maior intensidade no corpo energético da cliente.`,
-    );
-    lines.push(
-      `Síntese dos chakras selecionados: ${selectedChakras
-        .map((chakra) => `${chakra.name}: ${chakra.description}`)
-        .join(" ")}`,
-    );
-  } else {
-    lines.push(
-      "Nenhum chakra foi marcado em desequilíbrio. A síntese fica concentrada nas medições radiestésicas informadas e na observação terapêutica do atendimento.",
-    );
-  }
-
-  return lines.join("\n\n");
+  panel.appendChild(list);
 }
 
-function updateReport() {
-  const name = document.querySelector("#clientName").value || "Cliente";
-  const date = document.querySelector("#sessionDate").value || "data não informada";
-  const theme = document.querySelector("#sessionTheme").value || "tema não informado";
-  const notes = document.querySelector("#notes").value.trim();
-  const selectedChakras = chakras.filter((chakra) => state.chakras[chakra.id]);
+function renderGraphs() {
+  const container = byId("graphGroups");
 
-  report.textContent = `RELATÓRIO DE ATENDIMENTO INTEGRATIVO
+  graphGroups.forEach((group) => {
+    const section = document.createElement("article");
+    section.className = "graph-group";
 
-Cliente: ${name}
-Data: ${date}
-Tema principal: ${theme}
+    const title = document.createElement("h3");
+    title.textContent = group.name;
 
-1. Diagnóstico radiestésico
-${readings.map(getReadingLine).join("\n")}
+    const typeChoice = makeCheckbox("tipo_grafico", group.name, `Tipo: ${group.name}`);
 
-2. Chakras em desequilíbrio
-${
-  selectedChakras.length
-    ? selectedChakras.map(getChakraLine).join("\n")
-    : "Nenhum chakra marcado como desequilibrado."
+    const items = document.createElement("div");
+    items.className = "choice-grid choice-grid-wide";
+
+    group.items.forEach((item) => {
+      items.appendChild(makeCheckbox(`grafico_${slug(group.name)}`, item, item));
+    });
+
+    section.append(title, typeChoice, items);
+    container.appendChild(section);
+  });
 }
 
-3. Síntese interpretativa
-${createSynthesis(selectedChakras)}
-
-4. Observações terapêuticas
-${notes || "Sem observações adicionais."}
-
-Nota: este relatório é uma ferramenta simbólica e integrativa de apoio ao atendimento. Não substitui avaliação médica, psicológica ou outro cuidado profissional necessário.`;
+function renderAwakening() {
+  const container = byId("awakeningList");
+  awakeningItems.forEach((item) => {
+    container.appendChild(makeCheckbox("despertar", item, item));
+  });
 }
 
-document.addEventListener("input", (event) => {
-  if (event.target.matches("[data-reading]")) {
-    state.readings[event.target.dataset.reading] = event.target.value;
-    updateFeedback();
-  }
+function openModal(cause) {
+  byId("modalKicker").textContent = `${getLabel(fields, cause.field)} - Limite ${getLabel(limitTypes, cause.limit)}`;
+  byId("modalTitle").textContent = cause.name;
+  byId("modalDescription").textContent = cause.description;
+  byId("infoModal").classList.add("active");
+  byId("infoModal").setAttribute("aria-hidden", "false");
+  byId("closeModal").focus();
+}
 
-  updateReport();
-});
+function closeModal() {
+  byId("infoModal").classList.remove("active");
+  byId("infoModal").setAttribute("aria-hidden", "true");
+}
 
-closeDialog.addEventListener("click", () => infoDialog.close());
+function getLabel(collection, id) {
+  return collection.find((item) => item.id === id)?.label || id;
+}
 
-copyReport.addEventListener("click", async () => {
-  if (navigator.clipboard) {
-    await navigator.clipboard.writeText(report.textContent);
-  } else {
-    const temporaryText = document.createElement("textarea");
-    temporaryText.value = report.textContent;
-    document.body.append(temporaryText);
-    temporaryText.select();
-    document.execCommand("copy");
-    temporaryText.remove();
-  }
+function clearForm() {
+  const confirmed = window.confirm("Limpar todos os campos preenchidos?");
+  if (!confirmed) return;
 
-  copyReport.textContent = "Relatório copiado";
-  setTimeout(() => {
-    copyReport.textContent = "Copiar relatório";
-  }, 1800);
-});
+  byId("sessionForm").reset();
+  selected.field = "";
+  selected.limit = "";
+  renderCauses();
+}
 
-downloadPdf.addEventListener("click", () => {
-  document.title = "Relatório de Atendimento Integrativo";
-  window.print();
-});
+function bindActions() {
+  byId("clearForm").addEventListener("click", clearForm);
+  byId("clearFormBottom").addEventListener("click", clearForm);
+  byId("printForm").addEventListener("click", () => window.print());
+  byId("printFormBottom").addEventListener("click", () => window.print());
+  byId("closeModal").addEventListener("click", closeModal);
+  byId("infoModal").addEventListener("click", (event) => {
+    if (event.target === byId("infoModal")) closeModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeModal();
+  });
+}
 
-renderBovisRuler();
-renderReadingFields();
-renderChakras();
-updateFeedback();
-updateReport();
+renderBasicLists();
+renderCauses();
+renderGraphs();
+renderAwakening();
+bindActions();
