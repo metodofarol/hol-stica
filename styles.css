@@ -566,6 +566,13 @@ button:focus-visible {
   gap: 8px;
 }
 
+.cause-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
 .choice {
   display: flex;
   align-items: flex-start;
@@ -800,6 +807,23 @@ button:focus-visible {
 .visual-bovis-table th {
   background: var(--green-2);
   color: var(--green);
+}
+
+.bovis-narrative {
+  display: grid;
+  gap: 0;
+  border-left: 4px solid var(--green);
+  background: #f8fbf9;
+  padding: 12px 14px;
+}
+
+.bovis-narrative p {
+  line-height: 1.55;
+}
+
+.report-spacer {
+  display: block;
+  height: 11px;
 }
 
 .source-list {
@@ -1038,6 +1062,10 @@ button:focus-visible {
   }
 
   .inline-action-field {
+    grid-template-columns: 1fr;
+  }
+
+  .cause-filter-grid {
     grid-template-columns: 1fr;
   }
 }

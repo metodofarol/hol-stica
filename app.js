@@ -81,20 +81,6 @@ const limitTypes = [
   { id: "solto", label: "Solto" },
 ];
 
-const fieldInterpretations = {
-  emocional:
-    "O campo emocional organiza vínculos, afetos, sensação de acolhimento, resposta a perdas, abertura para intimidade e capacidade de reconhecer o que se sente sem se perder no outro.",
-  mental:
-    "O campo mental organiza crenças, padrões de pensamento, decisões, limites cognitivos, autonomia, clareza de identidade e a forma como a pessoa interpreta segurança, controle e pertencimento.",
-};
-
-const limitInterpretations = {
-  rigido:
-    "O limite rígido tende a aparecer como proteção excessiva: fechamento, controle, resistência à vulnerabilidade, defesa contra invasões e dificuldade de receber apoio ou flexibilizar posições.",
-  solto:
-    "O limite solto tende a aparecer como permeabilidade excessiva: dificuldade de dizer não, adaptação ao outro, absorção de estímulos, perda de referência própria e abertura maior do que o campo consegue sustentar.",
-};
-
 const causes = [
   {
     id: "emocional-rigido-medo-intimidade",
@@ -555,29 +541,6 @@ const promotionalCard = {
     "Para aprofundar este processo, é possível realizar sessões complementares de Reiki, leituras terapêuticas de Tarô e práticas de escrita orientada, conforme a necessidade identificada no atendimento. Entre em contato para mais informações.",
 };
 
-const referenceSources = [
-  {
-    title: "Personare - Significado dos Chakras",
-    url: "https://www.personare.com.br/conteudo/significado-dos-chakras-m2073",
-  },
-  {
-    title: "Cleveland Clinic - 7 Chakras and What They Mean",
-    url: "https://health.clevelandclinic.org/chakras",
-  },
-  {
-    title: "Radiestesia.net - Glossário de Radiestesia / Biômetro de Bovis",
-    url: "https://www.radiestesia.net/glossario-de-radiestesia/",
-  },
-  {
-    title: "Subtil - Taxa de vibração expandida em Bovis",
-    url: "https://www.subtil.net/pt/view/78187443-b606-497f-bc79-3b2bafd600bc",
-  },
-  {
-    title: "Gaia - Modern Guide to the Ancient Chakra System",
-    url: "https://www.gaia.com/article/what-are-chakras?render=details-v4",
-  },
-];
-
 const selected = {
   field: "emocional",
   limit: "rigido",
@@ -619,8 +582,8 @@ function makeCheckbox(name, value, label, extraContent = null) {
   return wrapper;
 }
 
-function makeRadio(name, item, onChange) {
-  const id = `${name}-${item.id}`;
+function makeRadio(name, item, onChange, idPrefix = name) {
+  const id = `${idPrefix}-${item.id}`;
   const wrapper = document.createElement("div");
   wrapper.className = "choice";
 
@@ -629,9 +592,11 @@ function makeRadio(name, item, onChange) {
   input.name = name;
   input.value = item.id;
   input.id = id;
+  const isFieldRadio = name.startsWith("campo_desequilibrio");
+  const isLimitRadio = name.startsWith("tipo_limite");
   input.checked =
-    (name === "campo_desequilibrio" && item.id === selected.field) ||
-    (name === "tipo_limite" && item.id === selected.limit);
+    (isFieldRadio && item.id === selected.field) ||
+    (isLimitRadio && item.id === selected.limit);
   input.addEventListener("change", onChange);
 
   const label = document.createElement("label");
@@ -720,23 +685,46 @@ function renderBasicLists() {
 
   renderChakraFigure();
 
-  const fieldList = byId("fieldList");
+  renderFieldLimitSelectors("fieldList", "limitList", "main", "campo_desequilibrio", "tipo_limite");
+  renderFieldLimitSelectors("causeFieldList", "causeLimitList", "cause", "campo_desequilibrio_causa", "tipo_limite_causa");
+}
+
+function renderFieldLimitSelectors(fieldContainerId, limitContainerId, idPrefix, fieldName, limitName) {
+  const fieldList = byId(fieldContainerId);
+  const limitList = byId(limitContainerId);
+  if (!fieldList || !limitList) return;
+
   fields.forEach((field) => {
     fieldList.appendChild(
-      makeRadio("campo_desequilibrio", field, (event) => {
-        selected.field = event.target.value;
-        renderCauses();
-      })
+      makeRadio(
+        fieldName,
+        field,
+        (event) => {
+          selected.field = event.target.value;
+          syncFieldLimitRadios();
+          renderCauses();
+          autoUpdateIntegrativeReport();
+          autoSaveFormState();
+        },
+        `${idPrefix}-campo`
+      )
     );
   });
 
-  const limitList = byId("limitList");
   limitTypes.forEach((limit) => {
     limitList.appendChild(
-      makeRadio("tipo_limite", limit, (event) => {
-        selected.limit = event.target.value;
-        renderCauses();
-      })
+      makeRadio(
+        limitName,
+        limit,
+        (event) => {
+          selected.limit = event.target.value;
+          syncFieldLimitRadios();
+          renderCauses();
+          autoUpdateIntegrativeReport();
+          autoSaveFormState();
+        },
+        `${idPrefix}-limite`
+      )
     );
   });
 }
@@ -978,13 +966,18 @@ function formatDate(value) {
 function getBovisLevel(value) {
   const number = Number(value);
   if (!Number.isFinite(number) || number <= 0) return "";
-  if (number < 3000) return "Nível crítico / Degenerativo";
-  if (number < 6000) return "Nível baixo / Descendente";
-  if (number < 6500) return "Nível de alerta / Desequilíbrio";
-  if (number === 6500) return "Nível neutro / Referência";
-  if (number <= 8500) return "Nível saudável / Vitalidade alta";
-  if (number <= 10000) return "Nível elevado / Espiritual";
-  return "Acima da régua principal";
+  if (number <= 300) return "Crítico";
+  if (number < 4000) return "Muito baixo";
+  if (number < 6000) return "Alerta";
+  return "Saudável";
+}
+
+function getBovisCategory(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return "";
+  if (number < 4000) return "critical";
+  if (number < 6000) return "medium";
+  return "healthy";
 }
 
 function buildBovisRows() {
@@ -996,11 +989,56 @@ function buildBovisRows() {
 
       return {
         label: field.label,
-        initial: initial ? `${initial} Å - ${getBovisLevel(initial)}` : "não informado",
-        final: final ? `${final} Å - ${getBovisLevel(final)}` : "não informado",
+        initial,
+        final,
+        initialLevel: getBovisLevel(initial),
+        finalLevel: getBovisLevel(final),
+        current: final || initial,
+        currentLevel: getBovisLevel(final || initial),
+        currentCategory: getBovisCategory(final || initial),
       };
     })
     .filter(Boolean);
+}
+
+function formatBovisCell(value) {
+  return value || "não informado";
+}
+
+function buildBovisNarrative(rows = buildBovisRows()) {
+  if (!rows.length) return [];
+
+  const groups = {
+    healthy: rows.filter((row) => row.currentCategory === "healthy"),
+    medium: rows.filter((row) => row.currentCategory === "medium"),
+    critical: rows.filter((row) => row.currentCategory === "critical"),
+  };
+
+  const describe = (items) =>
+    items
+      .map((row) => `${row.label} (${row.current})`)
+      .join(", ");
+
+  const lines = [
+    "Leitura narrativa da escala Bovis: considera-se primeiro o valor após sessão; quando ele não foi informado, utiliza-se a medição inicial daquele item.",
+  ];
+
+  if (groups.healthy.length) {
+    lines.push("");
+    lines.push(`Saudável (6.000 ou mais): ${describe(groups.healthy)}. Esses pontos aparecem em faixa favorável de vitalidade, indicando sustentação energética, melhor organização do campo e maior estabilidade para o processo terapêutico.`);
+  }
+
+  if (groups.medium.length) {
+    lines.push("");
+    lines.push(`Médio / alerta (4.000 a 5.999): ${describe(groups.medium)}. Esses pontos pedem atenção, pois indicam desgaste, oscilação ou necessidade de reforço no cuidado energético para recuperar estabilidade.`);
+  }
+
+  if (groups.critical.length) {
+    lines.push("");
+    lines.push(`Muito ruim / crítico (0 a 3.999; de 0 a 300 como crítico grave): ${describe(groups.critical)}. Esses pontos indicam maior desvitalização e precisam ser priorizados na limpeza, proteção, reenergização e acompanhamento.`);
+  }
+
+  return lines;
 }
 
 function buildBovisReport() {
@@ -1010,7 +1048,9 @@ function buildBovisReport() {
   return [
     "Campo | Diagnóstico inicial | Após sessão",
     "------|---------------------|------------",
-    ...rows.map((row) => `${row.label} | ${row.initial} | ${row.final}`),
+    ...rows.map((row) => `${row.label} | ${formatBovisCell(row.initial)} | ${formatBovisCell(row.final)}`),
+    "",
+    ...buildBovisNarrative(rows),
   ];
 }
 
@@ -1128,52 +1168,6 @@ function buildIntegrativeReport() {
     addReportSection(report, 8, "Registro complementar da sessão", lines);
   }
 
-  if (sessionTheme) {
-    addReportBlockTitle(report, "Eixo interpretativo");
-
-    addReportSection(report, 9, "Síntese interpretativa", [
-      "A leitura integrada considera o tema informado, os dados preenchidos no formulário e os itens selecionados durante a avaliação.",
-      "As interpretações abaixo são possibilidades de leitura terapêutica e devem ser ajustadas pelo terapeuta conforme a escuta, o contexto e a evolução do atendimento.",
-    ]);
-
-    if (fieldLabel || limitLabel) {
-      const axisLines = [];
-      if (fieldLabel) axisLines.push(`Campo ${fieldLabel}: ${fieldInterpretations[selected.field]}`);
-      if (limitLabel) axisLines.push(`Limite ${limitLabel}: ${limitInterpretations[selected.limit]}`);
-      addReportSection(report, 10, "Eixo campo-limite", axisLines);
-    }
-
-    if (selectedCauseData.length) {
-      addReportSection(
-        report,
-        11,
-        "Eixo das causas selecionadas",
-        selectedCauseData.map((cause) => {
-          const fieldLabelForCause = getLabel(fields, cause.field);
-          const limitLabelForCause = getLabel(limitTypes, cause.limit);
-          return `${cause.name}\nCampo: ${fieldLabelForCause}\nLimite: ${limitLabelForCause}\nTexto-base: ${cause.description}\nLeitura orientadora: no campo ${fieldLabelForCause.toLowerCase()}, com limite ${limitLabelForCause.toLowerCase()}, esta causa descreve um modo de organizar proteção, abertura, vínculo, autonomia e autorregulação em relação ao tema "${sessionTheme}".`;
-        })
-      );
-    }
-
-    if (selectedGraphData.length || selectedAwakeningData.length) {
-      const graphAxis = [...selectedGraphData, ...selectedAwakeningData].map(
-        (graph) => `${graph.name}: ${graph.interpretation}`
-      );
-      addReportSection(report, 12, "Eixo dos gráficos selecionados", graphAxis);
-    }
-
-    addReportSection(report, 13, "Interpretação integrativa possível", [
-      buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme),
-    ]);
-    addReportSection(
-      report,
-      14,
-      "Fontes de consulta para aprofundamento",
-      referenceSources.map((source) => `${source.title}: ${source.url}`)
-    );
-  }
-
   report.push("OBSERVAÇÃO");
   report.push("-".repeat(48));
   report.push("Observação: este relatório organiza possibilidades de leitura terapêutica e energética. Ele não substitui avaliação médica, psicológica ou qualquer acompanhamento profissional necessário.");
@@ -1187,65 +1181,6 @@ function buildIntegrativeReport() {
   report.push(promotionalCard.invite);
 
   return report.join("\n");
-}
-
-function buildThematicInterpretation(
-  sessionTheme,
-  fieldLabel,
-  limitLabel,
-  selectedChakraData,
-  selectedCauseData,
-  holistic,
-  bovisLines
-) {
-  const parts = [];
-
-  if (sessionTheme) {
-    parts.push(`Tema central informado: ${sessionTheme}. A leitura abaixo cruza esse tema com os dados marcados no formulário, usando referências tradicionais sobre chakras, radiestesia e leitura simbólica energética.`);
-  }
-
-  if (fieldLabel && limitLabel) {
-    parts.push(`O eixo principal aparece no campo ${fieldLabel.toLowerCase()}, com limite ${limitLabel.toLowerCase()}. Em relação ao tema "${sessionTheme}", isso sugere observar como a pessoa organiza fronteiras, defesa, abertura, escolha e resposta emocional ou mental diante da questão apresentada.`);
-  }
-
-  if (selectedCauseData.length) {
-    selectedCauseData.forEach((cause) => {
-      parts.push(`A causa "${cause.name}" indica um ponto de investigação no campo ${getLabel(fields, cause.field).toLowerCase()} e no limite ${getLabel(limitTypes, cause.limit).toLowerCase()}. Para o tema "${sessionTheme}", ela pode revelar um modo recorrente de proteção, adaptação, resistência, dependência, controle ou necessidade de reorganização interna.`);
-    });
-  }
-
-  if (selectedChakraData.length) {
-    selectedChakraData.forEach((chakra) => {
-      parts.push(`O chakra ${chakra.name} traz uma chave de leitura para o tema "${sessionTheme}": ${chakra.represents} ${chakra.lifeAreas} Em desequilíbrio, pede atenção a como essa área da vida participa do processo apresentado.`);
-    });
-  }
-
-  if (bovisLines.length) {
-    parts.push("As medições Bovis oferecem uma referência comparativa de vitalidade antes e depois da sessão. Elas não fecham uma conclusão isolada, mas ajudam a perceber se o campo avaliado se encontra em faixa de desgaste, alerta, referência, vitalidade ou expansão.");
-  }
-
-  if (holistic.length) {
-    parts.push(`As terapias complementares indicadas (${holistic.join(", ")}) podem apoiar a integração do tema ao oferecer recursos simbólicos, energéticos e expressivos para continuidade do cuidado.`);
-  }
-
-  if (!parts.length) {
-    return "";
-  }
-
-  return parts.join(" ");
-}
-
-function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme = "") {
-  if (!sessionTheme) return "";
-  return buildThematicInterpretation(
-    sessionTheme,
-    fieldLabel,
-    limitLabel,
-    selectedChakraData,
-    selectedCauseData,
-    holistic,
-    bovisLines
-  );
 }
 
 function updateIntegrativeReport() {
@@ -1296,13 +1231,13 @@ function buildVisualReport() {
   );
   const selectedAwakeningData = getCheckedValues("despertar").map((item) => getGraphInfo(item, "Despertar"));
   const allGraphData = [...selectedGraphData, ...selectedAwakeningData];
-  const bovisLines = buildBovisReport();
   const holistic = getCheckedValues("tratamento_holistico");
   const therapyDetail = getFormValue("detalhamento_terapeutica");
   const notes = getFormValue("observacoes");
   const intention = getFormValue("comando");
   const protocolCode = getFormValue("codigo_comando");
   const bovisRows = buildBovisRows();
+  const bovisNarrative = buildBovisNarrative(bovisRows);
 
   const bovisTable = bovisRows.length
     ? `
@@ -1331,9 +1266,11 @@ function buildVisualReport() {
     `
     : `<p class="visual-muted">Nenhuma medição Bovis informada.</p>`;
 
-  const sourceLinks = referenceSources
-    .map((source) => `<li><a href="${escapeHtml(source.url)}">${escapeHtml(source.title)}</a></li>`)
-    .join("");
+  const bovisNarrativeHtml = bovisNarrative.length
+    ? `<div class="bovis-narrative">${bovisNarrative
+        .map((line) => (line ? `<p>${escapeHtml(line)}</p>` : `<span class="report-spacer"></span>`))
+        .join("")}</div>`
+    : "";
 
   const chakraCards = selectedChakraData.length
     ? selectedChakraData
@@ -1406,6 +1343,7 @@ function buildVisualReport() {
         <h3>2. Resultado do formulário</h3>
         <h4>Avaliação Bovis</h4>
         ${bovisTable}
+        ${bovisNarrativeHtml}
         <h4>Campo e limite identificados</h4>
         <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
         ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
@@ -1431,17 +1369,6 @@ function buildVisualReport() {
         <p>Os gráficos abaixo foram selecionados como parte do tratamento radiônico. Eles indicam a direção simbólica e energética do trabalho realizado.</p>
         <div class="graph-report-grid">${graphCards}</div>
       </section>
-
-      ${
-        sessionTheme
-          ? `<section>
-              <h3>5. Eixo interpretativo</h3>
-              <p>${escapeHtml(buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme))}</p>
-              <h4>Fontes de consulta para aprofundamento</h4>
-              <ul class="source-list">${sourceLinks}</ul>
-            </section>`
-          : ""
-      }
 
       <section class="visual-note">
         <h3>Observação</h3>
@@ -1540,10 +1467,10 @@ function applyFormState(state) {
 }
 
 function syncFieldLimitRadios() {
-  document.querySelectorAll('[name="campo_desequilibrio"]').forEach((input) => {
+  document.querySelectorAll('[name="campo_desequilibrio"], [name="campo_desequilibrio_causa"]').forEach((input) => {
     input.checked = input.value === selected.field;
   });
-  document.querySelectorAll('[name="tipo_limite"]').forEach((input) => {
+  document.querySelectorAll('[name="tipo_limite"], [name="tipo_limite_causa"]').forEach((input) => {
     input.checked = input.value === selected.limit;
   });
 }

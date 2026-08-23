@@ -7,7 +7,7 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Identificação com nome, terapeuta, data de nascimento e data da sessão.
 - Campo de tema da sessão / questão principal, usado somente quando houver base para interpretação integrativa.
 - Tabela Bovis para os campos físico, mental, emocional, espiritual, vitalidade geral, ambiente pessoal e ambiente de trabalho, com medição inicial e medição após a sessão.
-- Régua descritiva Bovis com faixas de referência de 0 a 10.000 Å.
+- Régua descritiva Bovis com faixas de referência, considerando 6.000 Å ou mais como saudável.
 - Caixas do formulário recolhíveis e expansíveis.
 - Seções fechadas por padrão, para navegação mais compacta.
 - Seleção de Chakra, Campo do desequilíbrio e Tipo de limite.
@@ -23,8 +23,8 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Botão para gerar um código individual por consulta, facilitando reaplicação, adaptação e comparação do protocolo em contextos diferentes.
 - Relatório automático - gerado com base nos dados e fontes fornecidas pelo terapeuta, editável e dividido em seções.
 - Prévia visual do relatório para o cliente, com resumo integrado de chakra, campo e causa, além de imagens e descrições dos gráficos selecionados.
-- Tabela Bovis no relatório, com diagnóstico inicial e após sessão em colunas.
-- Eixo interpretativo inferencial baseado no tema da sessão e nas seleções do formulário, com links de consulta para aprofundamento.
+- Tabela Bovis no relatório, com diagnóstico inicial e após sessão em colunas, recuperando apenas os números preenchidos.
+- Narrativa Bovis simples abaixo da tabela, separando o que está saudável, em alerta/médio e muito ruim/crítico.
 - Card institucional ao final do relatório, apresentando radiestesia, Reiki, Tarô, escrita criativa/terapêutica e a recomendação de reconsulta/reenergização em 28 dias.
 - Opção para salvar o relatório em PDF.
 - Salvamento automático no navegador para evitar perda de dados.
