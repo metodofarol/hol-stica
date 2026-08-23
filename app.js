@@ -988,6 +988,7 @@ function buildIntegrativeReport() {
   const therapist = getFormValue("terapeuta");
   const birth = formatDate(getFormValue("nascimento"));
   const sessionDate = formatDate(getFormValue("sessao"));
+  const sessionTheme = getFormValue("tema_sessao");
   const fieldLabel = selected.field ? getLabel(fields, selected.field) : "";
   const limitLabel = selected.limit ? getLabel(limitTypes, selected.limit) : "";
   const selectedCauses = getCheckedValues("causa");
@@ -1023,6 +1024,7 @@ function buildIntegrativeReport() {
     therapist ? `Terapeuta: ${therapist}` : "Terapeuta: não informado",
     birth ? `Data de nascimento: ${birth}` : "Data de nascimento: não informada",
     sessionDate ? `Data da sessão: ${sessionDate}` : "Data da sessão: não informada",
+    sessionTheme ? `Tema da sessão / questão principal: ${sessionTheme}` : "Tema da sessão / questão principal: não informado",
   ]);
 
   addReportSection(report, 2, "Avaliação - escala Bovis", bovisLines.length ? bovisLines : ["Nenhuma medição Bovis informada."]);
@@ -1090,43 +1092,45 @@ function buildIntegrativeReport() {
     addReportSection(report, 8, "Registro complementar da sessão", lines);
   }
 
-  addReportBlockTitle(report, "Eixo interpretativo");
+  if (sessionTheme) {
+    addReportBlockTitle(report, "Eixo interpretativo");
 
-  addReportSection(report, 9, "Síntese interpretativa", [
-    "A leitura integrada considera os dados preenchidos no formulário e os itens selecionados durante a avaliação.",
-    "As interpretações abaixo são possibilidades de leitura terapêutica e devem ser ajustadas pelo terapeuta conforme a escuta, o contexto e a evolução do atendimento.",
-  ]);
+    addReportSection(report, 9, "Síntese interpretativa", [
+      "A leitura integrada considera o tema informado, os dados preenchidos no formulário e os itens selecionados durante a avaliação.",
+      "As interpretações abaixo são possibilidades de leitura terapêutica e devem ser ajustadas pelo terapeuta conforme a escuta, o contexto e a evolução do atendimento.",
+    ]);
 
-  if (fieldLabel || limitLabel) {
-    const axisLines = [];
-    if (fieldLabel) axisLines.push(`Campo ${fieldLabel}: ${fieldInterpretations[selected.field]}`);
-    if (limitLabel) axisLines.push(`Limite ${limitLabel}: ${limitInterpretations[selected.limit]}`);
-    addReportSection(report, 10, "Eixo campo-limite", axisLines);
+    if (fieldLabel || limitLabel) {
+      const axisLines = [];
+      if (fieldLabel) axisLines.push(`Campo ${fieldLabel}: ${fieldInterpretations[selected.field]}`);
+      if (limitLabel) axisLines.push(`Limite ${limitLabel}: ${limitInterpretations[selected.limit]}`);
+      addReportSection(report, 10, "Eixo campo-limite", axisLines);
+    }
+
+    if (selectedCauseData.length) {
+      addReportSection(
+        report,
+        11,
+        "Eixo das causas selecionadas",
+        selectedCauseData.map((cause) => {
+          const fieldLabelForCause = getLabel(fields, cause.field);
+          const limitLabelForCause = getLabel(limitTypes, cause.limit);
+          return `${cause.name}\nCampo: ${fieldLabelForCause}\nLimite: ${limitLabelForCause}\nTexto-base: ${cause.description}\nLeitura orientadora: no campo ${fieldLabelForCause.toLowerCase()}, com limite ${limitLabelForCause.toLowerCase()}, esta causa descreve um modo de organizar proteção, abertura, vínculo, autonomia e autorregulação em relação ao tema "${sessionTheme}".`;
+        })
+      );
+    }
+
+    if (selectedGraphData.length || selectedAwakeningData.length) {
+      const graphAxis = [...selectedGraphData, ...selectedAwakeningData].map(
+        (graph) => `${graph.name}: ${graph.interpretation}`
+      );
+      addReportSection(report, 12, "Eixo dos gráficos selecionados", graphAxis);
+    }
+
+    addReportSection(report, 13, "Interpretação integrativa possível", [
+      buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme),
+    ]);
   }
-
-  if (selectedCauseData.length) {
-    addReportSection(
-      report,
-      11,
-      "Eixo das causas selecionadas",
-      selectedCauseData.map((cause) => {
-        const fieldLabelForCause = getLabel(fields, cause.field);
-        const limitLabelForCause = getLabel(limitTypes, cause.limit);
-        return `${cause.name}: no campo ${fieldLabelForCause.toLowerCase()}, com limite ${limitLabelForCause.toLowerCase()}, esta causa sugere atenção à forma como proteção, abertura, vínculo, autonomia e autorregulação estão sendo organizados.`;
-      })
-    );
-  }
-
-  if (selectedGraphData.length || selectedAwakeningData.length) {
-    const graphAxis = [...selectedGraphData, ...selectedAwakeningData].map(
-      (graph) => `${graph.name}: ${graph.interpretation}`
-    );
-    addReportSection(report, 12, "Eixo dos gráficos selecionados", graphAxis);
-  }
-
-  addReportSection(report, 13, "Interpretação integrativa possível", [
-    buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines),
-  ]);
 
   report.push("OBSERVAÇÃO");
   report.push("-".repeat(48));
@@ -1143,8 +1147,12 @@ function buildIntegrativeReport() {
   return report.join("\n");
 }
 
-function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines) {
+function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme = "") {
   const parts = [];
+
+  if (sessionTheme) {
+    parts.push(`Tema central informado: ${sessionTheme}. A leitura abaixo cruza esse tema com os dados marcados no formulário, sem substituir a escuta clínica, terapêutica ou espiritual do atendimento.`);
+  }
 
   if (fieldLabel && limitLabel) {
     parts.push(`O eixo principal da sessão aparece no campo ${fieldLabel.toLowerCase()}, com limite ${limitLabel.toLowerCase()}, indicando um padrão de fronteira energética que pode influenciar a forma como a pessoa sente, pensa, se protege ou se entrega às experiências.`);
@@ -1171,7 +1179,7 @@ function buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCaus
   }
 
   if (!parts.length) {
-    return "Preencha as medições, selecione chakras, causas e tratamentos para que o relatório componha uma leitura mais completa.";
+    return "";
   }
 
   return parts.join(" ");
@@ -1213,6 +1221,7 @@ function buildVisualReport() {
   const therapist = getFormValue("terapeuta") || "não informado";
   const birth = formatDate(getFormValue("nascimento")) || "não informada";
   const sessionDate = formatDate(getFormValue("sessao")) || "não informada";
+  const sessionTheme = getFormValue("tema_sessao");
   const fieldLabel = selected.field ? getLabel(fields, selected.field) : "não selecionado";
   const limitLabel = selected.limit ? getLabel(limitTypes, selected.limit) : "não selecionado";
   const selectedCauseData = causes.filter((cause) => getCheckedValues("causa").includes(cause.id));
@@ -1249,11 +1258,12 @@ function buildVisualReport() {
     ? selectedCauseData
         .map(
           (cause) => `
-            <article class="visual-card">
+            <article class="visual-card integrated-summary">
               <h4>${escapeHtml(cause.name)}</h4>
               <p><strong>Campo:</strong> ${escapeHtml(getLabel(fields, cause.field))}</p>
               <p><strong>Tipo de limite:</strong> ${escapeHtml(getLabel(limitTypes, cause.limit))}</p>
               <p>${escapeHtml(cause.description)}</p>
+              <p><strong>Leitura orientadora:</strong> esta causa descreve um modo de organizar proteção, abertura, vínculo, autonomia e autorregulação dentro do campo e do limite selecionados.</p>
             </article>
           `
         )
@@ -1292,6 +1302,7 @@ function buildVisualReport() {
           <p><strong>Terapeuta:</strong> ${escapeHtml(therapist)}</p>
           <p><strong>Nascimento:</strong> ${escapeHtml(birth)}</p>
           <p><strong>Data da sessão:</strong> ${escapeHtml(sessionDate)}</p>
+          <p><strong>Tema:</strong> ${escapeHtml(sessionTheme || "não informado")}</p>
         </div>
       </section>
 
@@ -1322,10 +1333,14 @@ function buildVisualReport() {
         <div class="graph-report-grid">${graphCards}</div>
       </section>
 
-      <section>
-        <h3>5. Eixo interpretativo</h3>
-        <p>${escapeHtml(buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines))}</p>
-      </section>
+      ${
+        sessionTheme
+          ? `<section>
+              <h3>5. Eixo interpretativo</h3>
+              <p>${escapeHtml(buildSynthesis(fieldLabel, limitLabel, selectedChakraData, selectedCauseData, holistic, bovisLines, sessionTheme))}</p>
+            </section>`
+          : ""
+      }
 
       <section class="visual-note">
         <h3>Observação</h3>

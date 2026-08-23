@@ -5,6 +5,7 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 ## Recursos
 
 - Identificação com nome, terapeuta, data de nascimento e data da sessão.
+- Campo de tema da sessão / questão principal, usado somente quando houver base para interpretação integrativa.
 - Tabela Bovis para os campos físico, mental, emocional, espiritual, vitalidade geral, ambiente pessoal e ambiente de trabalho, com medição inicial e medição após a sessão.
 - Régua descritiva Bovis com faixas de referência de 0 a 10.000 Å.
 - Caixas do formulário recolhíveis e expansíveis.

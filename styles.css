@@ -223,6 +223,10 @@ textarea {
   font-weight: 700;
 }
 
+.field-wide {
+  grid-column: 1 / -1;
+}
+
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -708,11 +712,11 @@ button:focus-visible {
 
 .visual-report {
   display: grid;
-  gap: 18px;
+  gap: 20px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
-  padding: 18px;
+  padding: 22px;
   font-size: 11pt;
   line-height: 1.55;
 }
@@ -740,14 +744,15 @@ button:focus-visible {
 
 .visual-report section {
   display: grid;
-  gap: 10px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
 }
 
 .visual-report section:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .visual-report h3 {
@@ -774,6 +779,13 @@ button:focus-visible {
   gap: 10px;
 }
 
+.visual-data-grid p {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+  padding: 10px;
+}
+
 .visual-card,
 .graph-report-card {
   border: 1px solid var(--line);
@@ -788,6 +800,11 @@ button:focus-visible {
 
 .visual-muted {
   color: var(--muted);
+}
+
+.integrated-summary {
+  border-left: 5px solid var(--wine);
+  background: #fffaf8;
 }
 
 .graph-report-grid {
