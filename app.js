@@ -1004,40 +1004,15 @@ function formatBovisCell(value) {
   return value || "não informado";
 }
 
-function buildBovisNarrative(rows = buildBovisRows()) {
+function buildBovisAlert(rows = buildBovisRows()) {
   if (!rows.length) return [];
 
-  const groups = {
-    healthy: rows.filter((row) => row.currentCategory === "healthy"),
-    medium: rows.filter((row) => row.currentCategory === "medium"),
-    critical: rows.filter((row) => row.currentCategory === "critical"),
-  };
+  const belowHealthy = rows.filter((row) => row.currentCategory && row.currentCategory !== "healthy");
+  if (!belowHealthy.length) return [];
 
-  const describe = (items) =>
-    items
-      .map((row) => `${row.label} (${row.current})`)
-      .join(", ");
-
-  const lines = [
-    "Leitura narrativa da escala Bovis: considera-se primeiro o valor após sessão; quando ele não foi informado, utiliza-se a medição inicial daquele item.",
+  return [
+    `Alerta: ${belowHealthy.map((row) => row.label).join(", ")} merecem atenção energética por apresentarem valor abaixo de 6.000.`,
   ];
-
-  if (groups.healthy.length) {
-    lines.push("");
-    lines.push(`Saudável (6.000 ou mais): ${describe(groups.healthy)}. Esses pontos aparecem em faixa favorável de vitalidade, indicando sustentação energética, melhor organização do campo e maior estabilidade para o processo terapêutico.`);
-  }
-
-  if (groups.medium.length) {
-    lines.push("");
-    lines.push(`Médio / alerta (4.000 a 5.999): ${describe(groups.medium)}. Esses pontos pedem atenção, pois indicam desgaste, oscilação ou necessidade de reforço no cuidado energético para recuperar estabilidade.`);
-  }
-
-  if (groups.critical.length) {
-    lines.push("");
-    lines.push(`Muito ruim / crítico (0 a 3.999; de 0 a 300 como crítico grave): ${describe(groups.critical)}. Esses pontos indicam maior desvitalização e precisam ser priorizados na limpeza, proteção, reenergização e acompanhamento.`);
-  }
-
-  return lines;
 }
 
 function buildBovisReport() {
@@ -1045,11 +1020,11 @@ function buildBovisReport() {
   if (!rows.length) return [];
 
   return [
-    "Campo | Diagnóstico inicial | Após sessão",
-    "------|---------------------|------------",
-    ...rows.map((row) => `${row.label} | ${formatBovisCell(row.initial)} | ${formatBovisCell(row.final)}`),
+    "Campo | Valor",
+    "------|------",
+    ...rows.map((row) => `${row.label} | ${formatBovisCell(row.current)}`),
     "",
-    ...buildBovisNarrative(rows),
+    ...buildBovisAlert(rows),
   ];
 }
 
@@ -1236,16 +1211,15 @@ function buildVisualReport() {
   const intention = getFormValue("comando");
   const protocolCode = getFormValue("codigo_comando");
   const bovisRows = buildBovisRows();
-  const bovisNarrative = buildBovisNarrative(bovisRows);
+  const bovisAlert = buildBovisAlert(bovisRows);
 
   const bovisTable = bovisRows.length
     ? `
       <table class="visual-bovis-table">
         <thead>
           <tr>
-            <th>Campo avaliado</th>
-            <th>Diagnóstico inicial</th>
-            <th>Após sessão</th>
+            <th>Campo</th>
+            <th>Valor</th>
           </tr>
         </thead>
         <tbody>
@@ -1254,8 +1228,7 @@ function buildVisualReport() {
               (row) => `
                 <tr>
                   <td>${escapeHtml(row.label)}</td>
-                  <td>${escapeHtml(row.initial)}</td>
-                  <td>${escapeHtml(row.final)}</td>
+                  <td>${escapeHtml(formatBovisCell(row.current))}</td>
                 </tr>
               `
             )
@@ -1265,9 +1238,9 @@ function buildVisualReport() {
     `
     : `<p class="visual-muted">Nenhuma medição Bovis informada.</p>`;
 
-  const bovisNarrativeHtml = bovisNarrative.length
-    ? `<div class="bovis-narrative">${bovisNarrative
-        .map((line) => (line ? `<p>${escapeHtml(line)}</p>` : `<span class="report-spacer"></span>`))
+  const bovisAlertHtml = bovisAlert.length
+    ? `<div class="bovis-alert">${bovisAlert
+        .map((line) => `<p>${escapeHtml(line)}</p>`)
         .join("")}</div>`
     : "";
 
@@ -1342,7 +1315,7 @@ function buildVisualReport() {
         <h3>2. Resultado do formulário</h3>
         <h4>Avaliação Bovis</h4>
         ${bovisTable}
-        ${bovisNarrativeHtml}
+        ${bovisAlertHtml}
         <h4>Campo e limite identificados</h4>
         <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
         ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}

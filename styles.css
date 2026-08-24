@@ -809,21 +809,15 @@ button:focus-visible {
   color: var(--green);
 }
 
-.bovis-narrative {
-  display: grid;
-  gap: 0;
-  border-left: 4px solid var(--green);
-  background: #f8fbf9;
-  padding: 12px 14px;
-}
-
-.bovis-narrative p {
-  line-height: 1.55;
-}
-
-.report-spacer {
-  display: block;
-  height: 11px;
+.bovis-alert {
+  border: 1px solid #eadfa9;
+  border-left: 5px solid #d9b84e;
+  border-radius: 8px;
+  background: #fffdf2;
+  color: #5d4b17;
+  padding: 10px 12px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .source-list {
