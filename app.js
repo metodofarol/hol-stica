@@ -685,8 +685,7 @@ function renderBasicLists() {
 
   renderChakraFigure();
 
-  renderFieldLimitSelectors("fieldList", "limitList", "main", "campo_desequilibrio", "tipo_limite");
-  renderFieldLimitSelectors("causeFieldList", "causeLimitList", "cause", "campo_desequilibrio_causa", "tipo_limite_causa");
+  renderFieldLimitSelectors("causeFieldList", "causeLimitList", "cause", "campo_desequilibrio", "tipo_limite");
 }
 
 function renderFieldLimitSelectors(fieldContainerId, limitContainerId, idPrefix, fieldName, limitName) {
@@ -1419,15 +1418,84 @@ function getFormState() {
   };
 }
 
+function normalizeOptionValue(value, collection, fallback = "") {
+  const normalized = slug(value || "");
+  const match = collection.find((item) => item.id === value || slug(item.label) === normalized);
+  return match?.id || fallback;
+}
+
+function normalizeCauseValues(values = []) {
+  return values
+    .map((value) => {
+      const normalized = slug(value || "");
+      const match = causes.find((cause) => cause.id === value || slug(cause.name) === normalized);
+      return match?.id || "";
+    })
+    .filter(Boolean);
+}
+
+function normalizeChakraValues(values = []) {
+  return values
+    .map((value) => {
+      const normalized = slug(value || "");
+      const match = chakras.find((chakra) => chakra.id === value || slug(chakra.name) === normalized);
+      return match?.id || "";
+    })
+    .filter(Boolean);
+}
+
+function normalizeImportedState(state) {
+  if (!state || typeof state !== "object") return null;
+
+  const importedFields = state.fields && typeof state.fields === "object" ? { ...state.fields } : { ...state };
+  const importedSelected = state.selected && typeof state.selected === "object" ? state.selected : {};
+
+  const normalizedField = normalizeOptionValue(
+    importedSelected.field || importedFields.campo_desequilibrio || importedFields.campo_desequilibrio_causa || importedFields.campo,
+    fields,
+    "emocional"
+  );
+  const normalizedLimit = normalizeOptionValue(
+    importedSelected.limit || importedFields.tipo_limite || importedFields.tipo_limite_causa || importedFields.limite,
+    limitTypes,
+    "rigido"
+  );
+
+  importedFields.campo_desequilibrio = normalizedField;
+  importedFields.tipo_limite = normalizedLimit;
+
+  if (Array.isArray(importedFields.causa)) {
+    importedFields.causa = normalizeCauseValues(importedFields.causa);
+  }
+
+  const chakraValues = Array.isArray(importedSelected.chakras)
+    ? importedSelected.chakras
+    : Array.isArray(importedFields.chakra)
+      ? importedFields.chakra
+      : [];
+
+  return {
+    fields: importedFields,
+    selected: {
+      field: normalizedField,
+      limit: normalizedLimit,
+      chakras: normalizeChakraValues(chakraValues),
+    },
+    reportManuallyEdited: Boolean(state.reportManuallyEdited),
+  };
+}
+
 function applyFormState(state) {
-  if (!state?.fields) return;
+  const normalizedState = normalizeImportedState(state);
+  if (!normalizedState?.fields) return;
 
   const form = byId("sessionForm");
+  const stateFields = normalizedState.fields;
   form.reset();
 
   [...form.elements].forEach((element) => {
     if (!element.name || element.type === "file") return;
-    const value = state.fields[element.name];
+    const value = stateFields[element.name];
 
     if (element.type === "checkbox") {
       element.checked = Array.isArray(value) && value.includes(element.value);
@@ -1442,10 +1510,11 @@ function applyFormState(state) {
     element.value = value || "";
   });
 
-  selected.field = state.selected?.field || getCheckedValues("campo_desequilibrio")[0] || "emocional";
-  selected.limit = state.selected?.limit || getCheckedValues("tipo_limite")[0] || "rigido";
-  selected.chakras = new Set(state.selected?.chakras || []);
-  reportManuallyEdited = Boolean(state.reportManuallyEdited);
+  selected.field = normalizedState.selected.field;
+  selected.limit = normalizedState.selected.limit;
+  selected.chakras = new Set(normalizedState.selected.chakras || []);
+  reportManuallyEdited = Boolean(normalizedState.reportManuallyEdited);
+  syncFieldLimitRadios();
 
   document.querySelectorAll(".chakra-point").forEach((point) => {
     const checked = selected.chakras.has(point.dataset.chakraId);
@@ -1457,9 +1526,9 @@ function applyFormState(state) {
   });
 
   renderCauses();
-  if (Array.isArray(state.fields.causa)) {
+  if (Array.isArray(stateFields.causa)) {
     document.querySelectorAll('[name="causa"]').forEach((input) => {
-      input.checked = state.fields.causa.includes(input.value);
+      input.checked = stateFields.causa.includes(input.value);
     });
   }
   renderChakraBalloons();
@@ -1467,10 +1536,10 @@ function applyFormState(state) {
 }
 
 function syncFieldLimitRadios() {
-  document.querySelectorAll('[name="campo_desequilibrio"], [name="campo_desequilibrio_causa"]').forEach((input) => {
+  document.querySelectorAll('[name="campo_desequilibrio"]').forEach((input) => {
     input.checked = input.value === selected.field;
   });
-  document.querySelectorAll('[name="tipo_limite"], [name="tipo_limite_causa"]').forEach((input) => {
+  document.querySelectorAll('[name="tipo_limite"]').forEach((input) => {
     input.checked = input.value === selected.limit;
   });
 }
@@ -1544,7 +1613,8 @@ function loadDataFile(file) {
       autoSaveFormState();
       window.alert("Dados carregados com sucesso.");
     } catch (error) {
-      window.alert("Não foi possível carregar este arquivo de dados.");
+      console.error("Erro ao carregar arquivo de dados.", error);
+      window.alert("Não foi possível carregar este arquivo. Verifique se ele é um JSON salvo por este formulário.");
     }
   });
   reader.readAsText(file);
