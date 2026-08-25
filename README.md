@@ -40,6 +40,8 @@ Abra o arquivo `index.html` no navegador. Para salvar em PDF, use o botão **Imp
 
 Envie `index.html`, `styles.css`, `app.js`, `README.md`, `.gitignore` e `vercel.json` para um repositório no GitHub. Depois, ative o GitHub Pages usando a branch principal e a pasta raiz.
 
+Inclua também a pasta `assets`, pois ela contém a imagem usada na capa do relatório.
+
 ## Observação
 
 Os textos explicativos foram condensados a partir do material fornecido para organização do formulário. Antes de publicar publicamente, verifique se há alguma restrição de uso do conteúdo original.

@@ -1306,16 +1306,8 @@ function buildVisualReport() {
       </header>
 
       <section class="report-cover">
-        <p class="visual-kicker">Registro de Sessão Terapêutica</p>
-        <h2>Relatório da sessão</h2>
-        <p>PROTOCOLO DE LIMPEZA E PROTEÇÃO</p>
-        <div class="report-cover-data">
-          <p><strong>Cliente:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Nascimento:</strong> ${escapeHtml(birth)}</p>
-          <p><strong>Terapeuta:</strong> ${escapeHtml(therapist)}</p>
-          <p><strong>Data da sessão:</strong> ${escapeHtml(sessionDate)}</p>
-          <p><strong>Tema:</strong> ${escapeHtml(sessionTheme || "não informado")}</p>
-        </div>
+        <img src="assets/capa-radiestesia.png" alt="Pêndulo sobre gráfico radiestésico" />
+        <h2>RELATÓRIO DE ATENDIMENTO RADIESTÉSICO</h2>
       </section>
 
       <section>

@@ -764,38 +764,41 @@ button:focus-visible {
 }
 
 .report-cover {
+  position: relative;
   display: grid;
-  align-content: center;
-  gap: 16px;
+  place-items: center;
   min-height: 70vh;
+  overflow: hidden;
   border: 1px solid rgba(49, 93, 84, 0.24) !important;
-  background: linear-gradient(180deg, #f8fbf9, #fff) !important;
+  background: #16110b !important;
+  padding: 0 !important;
+}
+
+.report-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.report-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17, 12, 7, 0.28), rgba(17, 12, 7, 0.62));
 }
 
 .report-cover h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
   margin: 0;
-  color: var(--green);
-  font-size: 34px;
-}
-
-.report-cover > p:not(.visual-kicker) {
-  color: var(--wine);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.report-cover-data {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  max-width: 760px;
-}
-
-.report-cover-data p {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 10px;
+  color: #fff;
+  font-size: 38px;
+  line-height: 1.12;
+  text-align: center;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.45);
 }
 
 .visual-report-header h3 {
@@ -1290,15 +1293,12 @@ button:focus-visible {
 
   body.print-report-only .report-cover {
     min-height: 96vh;
-    padding: 34px;
+    height: 96vh;
   }
 
   body.print-report-only .report-cover h2 {
+    max-width: 620px;
     font-size: 30pt;
-  }
-
-  body.print-report-only .report-cover-data {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   body.print-report-only .visual-report section,
