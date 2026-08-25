@@ -81,6 +81,20 @@ const limitTypes = [
   { id: "solto", label: "Solto" },
 ];
 
+const fieldSummaries = {
+  emocional:
+    "Relaciona-se aos vínculos, afetos, acolhimento, perdas, intimidade e capacidade de reconhecer sentimentos sem perder a própria referência.",
+  mental:
+    "Relaciona-se a crenças, pensamentos, decisões, clareza, autonomia, identidade e modo de interpretar segurança, controle e pertencimento.",
+};
+
+const limitSummaries = {
+  rigido:
+    "Indica proteção excessiva, fechamento, controle, resistência à vulnerabilidade e dificuldade de receber apoio ou flexibilizar posições.",
+  solto:
+    "Indica permeabilidade excessiva, dificuldade de dizer não, adaptação ao outro, absorção de estímulos e perda de referência própria.",
+};
+
 const causes = [
   {
     id: "emocional-rigido-medo-intimidade",
@@ -362,6 +376,8 @@ const graphImageBank = {
     "https://http2.mlstatic.com/D_NQ_NP_763710-MLB74020309322_012024-O-grafico-radiestesia-24x24cm-c2mm-r40-tetragrammaton.webp",
   limpezaRecarga:
     "https://www.tilguti.com/cdn/shop/files/grafico-radiestesico-limpeza-e-recarga-iniciante-pvc-tilguti.jpg?v=1764591777&width=1445",
+  guedes:
+    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Triturador_P_Tilguti_PVC_I.jpg?v=1733436002&width=1206",
   keiti:
     "https://images.tcdn.com.br/img/img_prod/600231/grafico_keiti_959_1_a5ba388ada000cff9b3a60d76c17093f.jpg",
   saoMauro:
@@ -438,6 +454,22 @@ const graphInfoOverrides = {
     interpretation:
       "Sugere necessidade de purificação, recomposição e estabilização da vitalidade após desgaste.",
     readings: "Limpeza energética, recarga vital, higiene vibracional e práticas de proteção.",
+  },
+  "Guedes II": {
+    image: graphImageBank.guedes,
+    description:
+      "Também conhecido como Triturador II, é associado à desintegração vibracional de cargas densas, cristalizações, bloqueios sutis e padrões que impedem a circulação natural da energia.",
+    interpretation:
+      "A seleção de Guedes II sugere foco em limpeza profunda, desbloqueio, dissolução de formas-pensamento e restauração do fluxo energético.",
+    readings: "Guedes II, Triturador II, limpeza profunda, desbloqueio energético e equilíbrio dos chakras.",
+  },
+  "NENAS": {
+    image: "",
+    description:
+      "Conhecido como neutralizador de nocividades ambientais e do subsolo, é usado para investigar e equilibrar interferências do espaço, como cargas ambientais, geobiológicas ou vibrações que afetam a vitalidade.",
+    interpretation:
+      "A seleção de NENAS sugere atenção ao ambiente, à base energética do lugar e à neutralização de influências externas que podem drenar ou desorganizar o campo pessoal.",
+    readings: "NENAS, neutralização ambiental, geobiologia, nocividades do subsolo e harmonização de espaços.",
   },
   "SCAP": {
     image: graphImageBank.scap,
@@ -657,7 +689,8 @@ function getGraphInfo(name, groupName = "Despertar") {
     },
   };
 
-  return { name, groupName, ...groupDefaults[groupName] };
+  const fallback = groupDefaults[groupName] || groupDefaults.Despertar;
+  return { name, groupName, ...fallback, image: "" };
 }
 
 function makeInfoChoice(name, value, label, info, checkboxName) {
@@ -1020,6 +1053,17 @@ function buildBovisReport() {
   ];
 }
 
+function getSelectedGraphReportData() {
+  const selectedTypes = getCheckedValues("tipo_grafico");
+
+  return graphGroups.flatMap((group) => {
+    const checkedItems = getCheckedValues(`grafico_${slug(group.name)}`);
+    const itemsForReport = checkedItems.length || !selectedTypes.includes(group.name) ? checkedItems : group.items;
+
+    return itemsForReport.map((item) => getGraphInfo(item, group.name));
+  });
+}
+
 function buildIntegrativeReport() {
   const name = getFormValue("nome") || "cliente";
   const therapist = getFormValue("terapeuta");
@@ -1034,9 +1078,7 @@ function buildIntegrativeReport() {
     .map((id) => chakras.find((chakra) => chakra.id === id))
     .filter(Boolean);
   const graphTypes = getCheckedValues("tipo_grafico");
-  const selectedGraphData = graphGroups.flatMap((group) =>
-    getCheckedValues(`grafico_${slug(group.name)}`).map((item) => getGraphInfo(item, group.name))
-  );
+  const selectedGraphData = getSelectedGraphReportData();
   const holistic = getCheckedValues("tratamento_holistico");
   const awakening = getCheckedValues("despertar");
   const selectedAwakeningData = awakening.map((item) => getGraphInfo(item, "Despertar"));
@@ -1187,9 +1229,7 @@ function buildVisualReport() {
   const selectedChakraData = [...selected.chakras]
     .map((id) => chakras.find((chakra) => chakra.id === id))
     .filter(Boolean);
-  const selectedGraphData = graphGroups.flatMap((group) =>
-    getCheckedValues(`grafico_${slug(group.name)}`).map((item) => getGraphInfo(item, group.name))
-  );
+  const selectedGraphData = getSelectedGraphReportData();
   const selectedAwakeningData = getCheckedValues("despertar").map((item) => getGraphInfo(item, "Despertar"));
   const allGraphData = [...selectedGraphData, ...selectedAwakeningData];
   const holistic = getCheckedValues("tratamento_holistico");
@@ -1264,6 +1304,19 @@ function buildVisualReport() {
     </div>
   `;
 
+  const fieldLimitSummary = `
+    <div class="field-limit-summary">
+      <article class="visual-card field-summary-card">
+        <h4>Campo ${escapeHtml(fieldLabel)}</h4>
+        <p>${escapeHtml(fieldSummaries[selected.field] || "Campo não selecionado.")}</p>
+      </article>
+      <article class="visual-card field-summary-card">
+        <h4>Limite ${escapeHtml(limitLabel)}</h4>
+        <p>${escapeHtml(limitSummaries[selected.limit] || "Tipo de limite não selecionado.")}</p>
+      </article>
+    </div>
+  `;
+
   const causeCards = selectedCauseData.length
     ? selectedCauseData
         .map(
@@ -1284,7 +1337,7 @@ function buildVisualReport() {
     ? allGraphData
         .map(
           (graph) => `
-            <article class="graph-report-card">
+            <article class="graph-report-card ${graph.image ? "" : "graph-report-card-no-image"}">
               ${graph.image ? `<img src="${escapeHtml(graph.image)}" alt="${escapeHtml(graph.name)}" />` : ""}
               <div>
                 <p class="visual-kicker">${escapeHtml(graph.groupName)}</p>
@@ -1350,10 +1403,11 @@ function buildVisualReport() {
         <h3>3. Resumo integrado: chakra, campo e causa</h3>
         <p>Esta parte organiza os pontos centrais selecionados no formulário para que o cliente compreenda o processo com clareza e autoconhecimento.</p>
         ${chakraFigure}
+        ${fieldLimitSummary}
         <div class="visual-card-grid">${causeCards}</div>
       </section>
 
-      <section>
+      <section class="report-treatment-section">
         <h3>4. Tratamento radiônico com geometrias sagradas</h3>
         <p>Os gráficos abaixo foram selecionados como parte do tratamento radiônico. Eles indicam a direção simbólica e energética do trabalho realizado.</p>
         <div class="graph-report-grid">${graphCards}</div>

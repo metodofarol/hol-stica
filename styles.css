@@ -1002,6 +1002,17 @@ button:focus-visible {
   background: #fffaf8;
 }
 
+.field-limit-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.field-summary-card {
+  border-left: 5px solid var(--green);
+  background: #f8fbf9;
+}
+
 .graph-report-grid {
   display: grid;
   gap: 12px;
@@ -1013,6 +1024,10 @@ button:focus-visible {
   gap: 14px;
   align-items: start;
   background: #fff;
+}
+
+.graph-report-card.graph-report-card-no-image {
+  grid-template-columns: 1fr;
 }
 
 .graph-report-card img {
@@ -1162,6 +1177,10 @@ button:focus-visible {
   }
 
   .report-chakra-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .field-limit-summary {
     grid-template-columns: 1fr;
   }
 
@@ -1338,6 +1357,7 @@ button:focus-visible {
   body.print-report-only .visual-data-table,
   body.print-report-only .visual-bovis-table,
   body.print-report-only .report-chakra-layout,
+  body.print-report-only .field-limit-summary,
   body.print-report-only .report-detail-block {
     break-inside: avoid;
     break-inside: avoid-page;
@@ -1363,6 +1383,11 @@ button:focus-visible {
   body.print-report-only .report-cover {
     break-after: page;
     page-break-after: always;
+  }
+
+  body.print-report-only .report-treatment-section {
+    break-before: page;
+    page-break-before: always;
   }
 
   body.print-report-only .visual-bovis-table {
@@ -1440,9 +1465,32 @@ button:focus-visible {
     font-size: 11pt;
   }
 
+  body.print-report-only .field-limit-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  body.print-report-only .field-summary-card {
+    padding: 8px 9px;
+    font-size: 9.5pt;
+    line-height: 1.35;
+  }
+
   body.print-report-only .graph-report-card {
+    display: grid;
     grid-template-columns: 120px 1fr;
+    gap: 12px;
+    align-items: start;
     break-inside: avoid;
+  }
+
+  body.print-report-only .graph-report-card.graph-report-card-no-image {
+    grid-template-columns: 1fr;
+  }
+
+  body.print-report-only .graph-report-card img {
+    width: 120px;
+    max-width: 120px;
   }
 
   body.print-report-only .promo-card {
