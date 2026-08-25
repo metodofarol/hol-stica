@@ -532,13 +532,13 @@ const bovisFields = [
 ];
 
 const promotionalCard = {
-  title: "Radiestesia, Reiki, Tarô e escrita terapêutica",
+  title: "Radiestesia, Reiki, Tarô e Escrita Criativa/Terapêutica",
   text:
-    "A radiestesia é uma prática de escuta sutil que ajuda a mapear padrões energéticos, identificar pontos de desequilíbrio e orientar caminhos de limpeza, proteção e reorganização do campo pessoal. Quando associada ao Reiki, ao Tarô terapêutico e à escrita criativa/terapêutica, amplia-se um percurso de autoconhecimento: o cliente compreende melhor seus movimentos internos, reconhece símbolos importantes da própria história e encontra recursos para cuidar de si com mais presença.",
+    "A radiestesia é uma prática de escuta sutil que ajuda a mapear padrões energéticos, identificar pontos de desequilíbrio e orientar caminhos de limpeza, proteção e reorganização do campo pessoal. Quando associada ao Reiki, ao Tarô terapêutico e à Escrita Criativa/Terapêutica, amplia-se um percurso de autoconhecimento: a pessoa compreende melhor seus movimentos internos, reconhece símbolos importantes da própria história e encontra recursos para cuidar de si com mais presença.",
   duration:
     "As sessões radiônicas (com geometrias sagradas, conhecidas como gráficos radiônicos) atuam nos campos sutis por aproximadamente 28 dias. Recomenda-se reconsulta e reenergização ao final desse período, ou antes, se houver necessidade percebida no acompanhamento.",
   invite:
-    "Para aprofundar este processo, é possível realizar sessões complementares de Reiki, leituras terapêuticas de Tarô e práticas de escrita orientada, conforme a necessidade identificada no atendimento. Entre em contato para mais informações.",
+    "Para aprofundar este processo, é possível realizar sessões complementares de Reiki, leituras terapêuticas de Tarô e práticas de Escrita Criativa/Terapêutica orientada, conforme a necessidade identificada no atendimento. Entre em contato para mais informações.",
 };
 
 const selected = {
@@ -1200,25 +1200,36 @@ function buildVisualReport() {
 
   const bovisTable = bovisRows.length
     ? `
-      <div class="visual-bovis-grid">
-        ${bovisRows
-          .map(
-            (row) => `
-              <article class="visual-bovis-card">
-                <h5>${escapeHtml(row.label)}</h5>
-                <div>
-                  <span>Inicial</span>
-                  <strong>${escapeHtml(formatBovisCell(row.initial))}</strong>
-                </div>
-                <div>
-                  <span>Após sessão</span>
-                  <strong>${escapeHtml(formatBovisCell(row.final))}</strong>
-                </div>
-              </article>
-            `
-          )
-          .join("")}
-      </div>
+      <table class="visual-bovis-table">
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Inicial</th>
+            <th>Após sessão</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${bovisRows
+            .map(
+              (row) => `
+                <tr>
+                  <td>${escapeHtml(row.label)}</td>
+                  <td>${escapeHtml(formatBovisCell(row.initial))}</td>
+                  <td>${escapeHtml(formatBovisCell(row.final))}</td>
+                </tr>
+              `
+            )
+            .join("")}
+        </tbody>
+      </table>
+      <p class="bovis-legend visual-bovis-legend">
+        <strong>Muito crítico:</strong> 0 a 300 U.B. ·
+        <strong>Crítico:</strong> 301 a 3.999 U.B. ·
+        <strong>Atenção:</strong> 4.000 a 5.999 U.B. ·
+        <strong>Saudável:</strong> 6.000 a 8.499 U.B. ·
+        <strong>Elevado:</strong> 8.500 a 10.000 U.B. ·
+        <strong>Muito elevado:</strong> acima de 10.000 U.B.
+      </p>
     `
     : `<p class="visual-muted">Nenhuma medição Bovis informada.</p>`;
 
@@ -1312,9 +1323,9 @@ function buildVisualReport() {
         <h4>Campo e limite identificados</h4>
         <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
         ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
-        ${therapyDetail ? `<h4>Detalhamento terapêutico</h4><p>${escapeHtml(therapyDetail)}</p>` : ""}
-        ${intention ? `<h4>Comando / intenção</h4><p>${escapeHtml(intention)}</p>` : ""}
-        ${notes ? `<h4>Observações</h4><p>${escapeHtml(notes)}</p>` : ""}
+        ${therapyDetail ? `<h4>Detalhamento terapêutico</h4><p class="multiline-text">${escapeHtml(therapyDetail)}</p>` : ""}
+        ${intention ? `<h4>Comando / intenção</h4><p class="multiline-text">${escapeHtml(intention)}</p>` : ""}
+        ${notes ? `<h4>Observações</h4><p class="multiline-text">${escapeHtml(notes)}</p>` : ""}
       </section>
 
       <section>

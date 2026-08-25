@@ -22,8 +22,8 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Registro da sessão com testemunhos, intenção, observações, tempo de tratamento e nova aferição.
 - Relatório da sessão, editável e dividido em seções.
 - Prévia visual do relatório para o cliente, com boneco dos chakras, resumo integrado de chakra, campo e causa, além de imagens e descrições dos gráficos selecionados.
-- Avaliação Bovis no relatório em blocos compactos, repetindo os tópicos da seção 2 com medição inicial e medição após a sessão.
-- Card institucional ao final do relatório, apresentando radiestesia, Reiki, Tarô, escrita criativa/terapêutica e a recomendação de reconsulta/reenergização em 28 dias.
+- Avaliação Bovis no relatório em tabela simples e compacta, com medição inicial, medição após a sessão e legenda resumida dos padrões de saúde.
+- Card institucional ao final do relatório, apresentando radiestesia, Reiki, Tarô, Escrita Criativa/Terapêutica e a recomendação de reconsulta/reenergização em 28 dias.
 - Opção para salvar o relatório em PDF.
 - Salvamento automático no navegador para evitar perda de dados.
 - Opção para baixar e carregar os dados preenchidos em arquivo `.json`.
