@@ -1322,10 +1322,10 @@ function buildVisualReport() {
         ${bovisTable}
         <h4>Campo e limite identificados</h4>
         <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
-        ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
-        ${therapyDetail ? `<h4>Detalhamento terapêutico</h4><p class="multiline-text">${escapeHtml(therapyDetail)}</p>` : ""}
-        ${intention ? `<h4>Comando / intenção</h4><p class="multiline-text">${escapeHtml(intention)}</p>` : ""}
-        ${notes ? `<h4>Observações</h4><p class="multiline-text">${escapeHtml(notes)}</p>` : ""}
+        ${holistic.length ? `<div class="report-detail-block"><h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p></div>` : ""}
+        ${therapyDetail ? `<div class="report-detail-block"><h4>Detalhamento terapêutico</h4><p class="multiline-text">${escapeHtml(therapyDetail)}</p></div>` : ""}
+        ${intention ? `<div class="report-detail-block"><h4>Comando / intenção</h4><p class="multiline-text">${escapeHtml(intention)}</p></div>` : ""}
+        ${notes ? `<div class="report-detail-block"><h4>Observações</h4><p class="multiline-text">${escapeHtml(notes)}</p></div>` : ""}
       </section>
 
       <section>
