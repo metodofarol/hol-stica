@@ -965,18 +965,23 @@ function formatDate(value) {
 function getBovisLevel(value) {
   const number = Number(value);
   if (!Number.isFinite(number) || number <= 0) return "";
-  if (number <= 300) return "Crítico";
-  if (number < 4000) return "Muito baixo";
-  if (number < 6000) return "Alerta";
-  return "Saudável";
+  if (number <= 300) return "Muito crítico";
+  if (number < 4000) return "Crítico";
+  if (number < 6000) return "Atenção";
+  if (number < 8500) return "Saudável";
+  if (number <= 10000) return "Elevado";
+  return "Muito elevado";
 }
 
 function getBovisCategory(value) {
   const number = Number(value);
   if (!Number.isFinite(number) || number <= 0) return "";
+  if (number <= 300) return "very-critical";
   if (number < 4000) return "critical";
-  if (number < 6000) return "medium";
-  return "healthy";
+  if (number < 6000) return "attention";
+  if (number < 8500) return "healthy";
+  if (number <= 10000) return "high";
+  return "very-high";
 }
 
 function buildBovisRows() {
@@ -1038,7 +1043,6 @@ function buildIntegrativeReport() {
   const bovisLines = buildBovisReport();
   const notes = getFormValue("observacoes");
   const intention = getFormValue("comando");
-  const protocolCode = getFormValue("codigo_comando");
   const witnesses = getFormValue("testemunhos");
   const therapyDetail = getFormValue("detalhamento_terapeutica");
   const treatmentTime = getFormValue("tempo_tratamento");
@@ -1054,8 +1058,8 @@ function buildIntegrativeReport() {
 
   addReportSection(report, 1, "Dados do cliente e da sessão", [
     `Cliente: ${name}`,
-    therapist ? `Terapeuta: ${therapist}` : "Terapeuta: não informado",
     birth ? `Data de nascimento: ${birth}` : "Data de nascimento: não informada",
+    therapist ? `Terapeuta: ${therapist}` : "Terapeuta: não informado",
     sessionDate ? `Data da sessão: ${sessionDate}` : "Data da sessão: não informada",
     sessionTheme ? `Tema da sessão / questão principal: ${sessionTheme}` : "Tema da sessão / questão principal: não informado",
   ]);
@@ -1115,14 +1119,10 @@ function buildIntegrativeReport() {
     );
   }
 
-  if (witnesses || intention || protocolCode || notes || treatmentTime || nextDate) {
+  if (witnesses || intention || notes || treatmentTime || nextDate) {
     const lines = [];
     if (witnesses) lines.push(`Testemunho(s): ${witnesses}`);
     if (intention) lines.push(`Comando / intenção: ${intention}`);
-    if (protocolCode) {
-      lines.push(`Código do comando / protocolo: ${protocolCode}`);
-      lines.push("Uso do código: esta referência identifica o comando desta consulta individual, permitindo reaplicar, adaptar ou comparar o protocolo em outros contextos sem misturar registros.");
-    }
     if (notes) lines.push(`Observações: ${notes}`);
     if (treatmentTime) lines.push(`Tempo de permanência / tratamento indicado: ${treatmentTime}`);
     if (nextDate) lines.push(`Nova aferição sugerida: ${nextDate}`);
@@ -1196,7 +1196,6 @@ function buildVisualReport() {
   const therapyDetail = getFormValue("detalhamento_terapeutica");
   const notes = getFormValue("observacoes");
   const intention = getFormValue("comando");
-  const protocolCode = getFormValue("codigo_comando");
   const bovisRows = buildBovisRows();
 
   const bovisTable = bovisRows.length
@@ -1299,8 +1298,8 @@ function buildVisualReport() {
         <h3>1. Dados da sessão</h3>
         <div class="visual-data-grid">
           <p><strong>Cliente:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Terapeuta:</strong> ${escapeHtml(therapist)}</p>
           <p><strong>Nascimento:</strong> ${escapeHtml(birth)}</p>
+          <p><strong>Terapeuta:</strong> ${escapeHtml(therapist)}</p>
           <p><strong>Data da sessão:</strong> ${escapeHtml(sessionDate)}</p>
           <p><strong>Tema:</strong> ${escapeHtml(sessionTheme || "não informado")}</p>
         </div>
@@ -1315,11 +1314,6 @@ function buildVisualReport() {
         ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
         ${therapyDetail ? `<h4>Detalhamento terapêutico</h4><p>${escapeHtml(therapyDetail)}</p>` : ""}
         ${intention ? `<h4>Comando / intenção</h4><p>${escapeHtml(intention)}</p>` : ""}
-        ${
-          protocolCode
-            ? `<h4>Código do comando / protocolo</h4><p><strong>${escapeHtml(protocolCode)}</strong></p><p class="visual-muted">Referência individual desta consulta para reaplicar, adaptar ou comparar o protocolo em outros contextos sem misturar registros.</p>`
-            : ""
-        }
         ${notes ? `<h4>Observações</h4><p>${escapeHtml(notes)}</p>` : ""}
       </section>
 
@@ -1532,19 +1526,6 @@ function getSuggestedFileName(suffix, extension) {
   return `registro-sessao-${name}-${date}-${suffix}.${extension}`;
 }
 
-function generateProtocolCode() {
-  const sessionDate = (getFormValue("sessao") || new Date().toISOString().slice(0, 10)).replace(/-/g, "");
-  const namePart = (slug(getFormValue("nome") || "cliente").slice(0, 12) || "cliente").toUpperCase();
-  const contextPart = (slug(getFormValue("tema_sessao") || "consulta").slice(0, 10) || "consulta").toUpperCase();
-  const randomPart = Math.random().toString(36).slice(2, 6).toUpperCase();
-  const field = document.querySelector('[name="codigo_comando"]');
-
-  if (!field) return;
-  field.value = `RST-${sessionDate}-${namePart}-${contextPart}-${randomPart}`;
-  autoSaveFormState();
-  autoUpdateIntegrativeReport();
-}
-
 function downloadTextFile(filename, content, type) {
   const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
@@ -1658,7 +1639,6 @@ function bindActions() {
     updateIntegrativeReport();
     autoSaveFormState();
   });
-  byId("generateProtocolCode").addEventListener("click", generateProtocolCode);
   byId("saveReportPdf").addEventListener("click", saveReportPdf);
   byId("saveReportPdfBottom").addEventListener("click", saveReportPdf);
   byId("sessionForm").addEventListener("input", (event) => {

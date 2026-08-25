@@ -95,6 +95,15 @@
               </article>
             </div>
 
+            <p class="bovis-legend">
+              <strong>Muito crítico:</strong> 0 a 300 U.B. ·
+              <strong>Crítico:</strong> 301 a 3.999 U.B. ·
+              <strong>Atenção:</strong> 4.000 a 5.999 U.B. ·
+              <strong>Saudável:</strong> 6.000 a 8.499 U.B. ·
+              <strong>Elevado:</strong> 8.500 a 10.000 U.B. ·
+              <strong>Muito elevado:</strong> acima de 10.000 U.B.
+            </p>
+
             <details class="bovis-scale" aria-label="Régua descritiva do Biômetro de Bovis">
               <summary><h3>Régua de referência Bovis</h3></summary>
               <div class="bovis-track" aria-hidden="true">
@@ -107,27 +116,27 @@
               </div>
               <div class="bovis-descriptors">
                 <article class="bovis-descriptor">
-                  <strong>De 0 a 300 Å (Crítico grave):</strong>
+                  <strong>De 0 a 300 U.B. (Muito crítico):</strong>
                   <p>Indica forte desvitalização e exige prioridade na limpeza, proteção, reenergização e acompanhamento.</p>
                 </article>
                 <article class="bovis-descriptor">
-                  <strong>De 301 Å a 3.999 Å (Muito baixo):</strong>
+                  <strong>De 301 a 3.999 U.B. (Crítico):</strong>
                   <p>Sinaliza desgaste acentuado, perda de energia vital, campo fragilizado ou ambiente que drena vitalidade.</p>
                 </article>
                 <article class="bovis-descriptor">
-                  <strong>De 4.000 Å a 5.999 Å (Alerta):</strong>
+                  <strong>De 4.000 a 5.999 U.B. (Atenção):</strong>
                   <p>Aponta oscilação, cansaço ou desequilíbrio médio, pedindo reforço no cuidado energético.</p>
                 </article>
                 <article class="bovis-descriptor">
-                  <strong>A partir de 6.000 Å (Saudável):</strong>
+                  <strong>De 6.000 a 8.499 U.B. (Saudável):</strong>
                   <p>Representa faixa favorável de vitalidade, equilíbrio e melhor sustentação energética.</p>
                 </article>
                 <article class="bovis-descriptor">
-                  <strong>De 8.500 Å a 10.000 Å (Elevado):</strong>
+                  <strong>De 8.500 a 10.000 U.B. (Elevado):</strong>
                   <p>Indica vitalidade alta, expansão energética, conexão sutil ou ambiente especialmente harmonizado.</p>
                 </article>
                 <article class="bovis-descriptor">
-                  <strong>Acima de 10.000 Å (Acima da régua principal):</strong>
+                  <strong>Acima de 10.000 U.B. (Muito elevado):</strong>
                   <p>Registre como expansão elevada e avalie com cuidado o contexto, a intenção e a estabilidade do campo.</p>
                 </article>
               </div>
@@ -197,13 +206,6 @@
                 <span>Comando / intenção utilizada</span>
                 <textarea name="comando" rows="4"></textarea>
               </label>
-              <div class="field protocol-code-field">
-                <span>Código do comando / protocolo</span>
-                <div class="inline-action-field">
-                  <input type="text" name="codigo_comando" placeholder="Ex: RST-2026-08-23-001" />
-                  <button class="button button-secondary" type="button" id="generateProtocolCode">Gerar código</button>
-                </div>
-              </div>
               <label class="field">
                 <span>Observações da sessão</span>
                 <textarea name="observacoes" rows="5"></textarea>
@@ -223,7 +225,6 @@
 
           <details class="section" id="reportSection">
             <summary><h2>9. Relatório da sessão</h2></summary>
-            <p class="hint">O texto pode ser editado pelo terapeuta antes de imprimir ou salvar em PDF.</p>
             <div class="report-actions no-print">
               <button class="button button-secondary" type="button" id="generateReport">Gerar / atualizar relatório</button>
               <button class="button button-primary" type="button" id="saveReportPdf">Salvar relatório em PDF</button>

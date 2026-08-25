@@ -7,7 +7,7 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Identificação com nome, terapeuta, data de nascimento e data da sessão.
 - Campo de tema da sessão / questão principal, usado somente quando houver base para interpretação integrativa.
 - Tabela Bovis para os campos físico, mental, emocional, espiritual, vitalidade geral, ambiente pessoal e ambiente de trabalho, com medição inicial e medição após a sessão.
-- Régua descritiva Bovis com faixas de referência, considerando 6.000 Å ou mais como saudável.
+- Régua descritiva Bovis com legenda resumida em fonte pequena e faixas de referência, considerando 6.000 U.B. ou mais como saudável.
 - Caixas do formulário recolhíveis e expansíveis.
 - Seções fechadas por padrão, para navegação mais compacta.
 - Seleção de Chakra, Campo do desequilíbrio e Tipo de limite.
@@ -19,8 +19,7 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Tratamento radiônico com geometrias sagradas: Harmonia, Limpeza, Proteção, Psicoemocional e Vitalidade, com popups explicativos e imagens ilustrativas.
 - Outros tratamentos holísticos identificados pela radiestesia, incluindo Tarô, com campo para detalhar a terapêutica.
 - Seção Despertar.
-- Registro da sessão com testemunhos, intenção, código reutilizável do comando/protocolo, observações, tempo de tratamento e nova aferição.
-- Botão para gerar um código individual por consulta, facilitando reaplicação, adaptação e comparação do protocolo em contextos diferentes.
+- Registro da sessão com testemunhos, intenção, observações, tempo de tratamento e nova aferição.
 - Relatório da sessão, editável e dividido em seções.
 - Prévia visual do relatório para o cliente, com boneco dos chakras, resumo integrado de chakra, campo e causa, além de imagens e descrições dos gráficos selecionados.
 - Avaliação Bovis no relatório em blocos compactos, repetindo os tópicos da seção 2 com medição inicial e medição após a sessão.

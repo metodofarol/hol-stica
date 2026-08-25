@@ -292,43 +292,57 @@ button:focus-visible {
 .bovis-card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 8px;
 }
 
 .bovis-card {
   display: grid;
-  grid-template-columns: 1fr 130px 130px;
+  grid-template-columns: minmax(120px, 1fr) 112px 112px;
   align-items: end;
-  gap: 10px;
+  gap: 8px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--soft);
-  padding: 12px;
+  padding: 8px 10px;
 }
 
 .bovis-card h3 {
   margin: 0;
   color: var(--green);
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 .mini-field {
   display: grid;
-  gap: 4px;
+  gap: 2px;
 }
 
 .mini-field span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
+  line-height: 1.1;
 }
 
 .mini-field input {
-  padding: 9px 10px;
+  min-height: 34px;
+  padding: 6px 8px;
+}
+
+.bovis-legend {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.bovis-legend strong {
+  color: var(--green);
 }
 
 .bovis-scale {
-  margin-top: 18px;
+  margin-top: 12px;
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1087,10 +1101,6 @@ button:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .graph-report-card {
-    grid-template-columns: 1fr;
-  }
-
   .visual-bovis-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1130,6 +1140,10 @@ button:focus-visible {
   }
 
   .visual-bovis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-report-card {
     grid-template-columns: 1fr;
   }
 }
@@ -1239,6 +1253,7 @@ button:focus-visible {
   }
 
   body.print-report-only .graph-report-card {
+    grid-template-columns: 120px 1fr;
     break-inside: avoid;
   }
 }
