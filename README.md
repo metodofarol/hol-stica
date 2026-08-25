@@ -1,4 +1,4 @@
-# Registro de Sessão terapêutica
+# Registro de Sessão Terapêutica
 
 Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radiônica.
 
@@ -21,10 +21,9 @@ Aplicação estática em HTML, CSS e JavaScript para registrar uma sessão radi�
 - Seção Despertar.
 - Registro da sessão com testemunhos, intenção, código reutilizável do comando/protocolo, observações, tempo de tratamento e nova aferição.
 - Botão para gerar um código individual por consulta, facilitando reaplicação, adaptação e comparação do protocolo em contextos diferentes.
-- Relatório automático - gerado com base nos dados e fontes fornecidas pelo terapeuta, editável e dividido em seções.
-- Prévia visual do relatório para o cliente, com resumo integrado de chakra, campo e causa, além de imagens e descrições dos gráficos selecionados.
-- Tabela Bovis compacta no relatório, com campo e valor.
-- Alerta Bovis abaixo da tabela para campos com valor abaixo de 6.000.
+- Relatório da sessão, editável e dividido em seções.
+- Prévia visual do relatório para o cliente, com boneco dos chakras, resumo integrado de chakra, campo e causa, além de imagens e descrições dos gráficos selecionados.
+- Avaliação Bovis no relatório em blocos compactos, repetindo os tópicos da seção 2 com medição inicial e medição após a sessão.
 - Card institucional ao final do relatório, apresentando radiestesia, Reiki, Tarô, escrita criativa/terapêutica e a recomendação de reconsulta/reenergização em 28 dias.
 - Opção para salvar o relatório em PDF.
 - Salvamento automático no navegador para evitar perda de dados.

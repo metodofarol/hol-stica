@@ -1004,27 +1004,14 @@ function formatBovisCell(value) {
   return value || "não informado";
 }
 
-function buildBovisAlert(rows = buildBovisRows()) {
-  if (!rows.length) return [];
-
-  const belowHealthy = rows.filter((row) => row.currentCategory && row.currentCategory !== "healthy");
-  if (!belowHealthy.length) return [];
-
-  return [
-    `Alerta: ${belowHealthy.map((row) => row.label).join(", ")} merecem atenção energética por apresentarem valor abaixo de 6.000.`,
-  ];
-}
-
 function buildBovisReport() {
   const rows = buildBovisRows();
   if (!rows.length) return [];
 
   return [
-    "Campo | Valor",
-    "------|------",
-    ...rows.map((row) => `${row.label} | ${formatBovisCell(row.current)}`),
-    "",
-    ...buildBovisAlert(rows),
+    "Campo | Medição inicial | Medição após a sessão",
+    "------|-----------------|----------------------",
+    ...rows.map((row) => `${row.label} | ${formatBovisCell(row.initial)} | ${formatBovisCell(row.final)}`),
   ];
 }
 
@@ -1058,7 +1045,7 @@ function buildIntegrativeReport() {
   const nextDate = formatDate(getFormValue("nova_afericao"));
 
   const report = [
-    "RELATÓRIO AUTOMÁTICO - GERADO COM BASE NOS DADOS E FONTES FORNECIDAS PELO TERAPEUTA",
+    "RELATÓRIO DA SESSÃO",
     "PROTOCOLO DE LIMPEZA E PROTEÇÃO",
     "",
   ];
@@ -1211,38 +1198,30 @@ function buildVisualReport() {
   const intention = getFormValue("comando");
   const protocolCode = getFormValue("codigo_comando");
   const bovisRows = buildBovisRows();
-  const bovisAlert = buildBovisAlert(bovisRows);
 
   const bovisTable = bovisRows.length
     ? `
-      <table class="visual-bovis-table">
-        <thead>
-          <tr>
-            <th>Campo</th>
-            <th>Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${bovisRows
-            .map(
-              (row) => `
-                <tr>
-                  <td>${escapeHtml(row.label)}</td>
-                  <td>${escapeHtml(formatBovisCell(row.current))}</td>
-                </tr>
-              `
-            )
-            .join("")}
-        </tbody>
-      </table>
+      <div class="visual-bovis-grid">
+        ${bovisRows
+          .map(
+            (row) => `
+              <article class="visual-bovis-card">
+                <h5>${escapeHtml(row.label)}</h5>
+                <div>
+                  <span>Inicial</span>
+                  <strong>${escapeHtml(formatBovisCell(row.initial))}</strong>
+                </div>
+                <div>
+                  <span>Após sessão</span>
+                  <strong>${escapeHtml(formatBovisCell(row.final))}</strong>
+                </div>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
     `
     : `<p class="visual-muted">Nenhuma medição Bovis informada.</p>`;
-
-  const bovisAlertHtml = bovisAlert.length
-    ? `<div class="bovis-alert">${bovisAlert
-        .map((line) => `<p>${escapeHtml(line)}</p>`)
-        .join("")}</div>`
-    : "";
 
   const chakraCards = selectedChakraData.length
     ? selectedChakraData
@@ -1258,6 +1237,22 @@ function buildVisualReport() {
         )
         .join("")
     : `<p class="visual-muted">Nenhum chakra selecionado.</p>`;
+
+  const chakraFigure = `
+    <div class="report-chakra-layout">
+      <div class="chakra-figure report-chakra-figure" aria-label="Boneco dos chakras no relatório">
+        <div class="body-silhouette" aria-hidden="true">
+          ${chakras
+            .map((chakra) => {
+              const isSelected = selected.chakras.has(chakra.id);
+              return `<span class="chakra-point report-chakra-point ${isSelected ? "is-selected" : "is-muted"}" style="--chakra-color:${chakra.color}; top:${chakra.top}" title="${escapeHtml(chakra.name)}"></span>`;
+            })
+            .join("")}
+        </div>
+      </div>
+      <div class="visual-card-grid">${chakraCards}</div>
+    </div>
+  `;
 
   const causeCards = selectedCauseData.length
     ? selectedCauseData
@@ -1296,7 +1291,7 @@ function buildVisualReport() {
   return `
     <article class="visual-report">
       <header class="visual-report-header">
-        <h3>Relatório automático - gerado com base nos dados e fontes fornecidas pelo terapeuta</h3>
+        <h3>Relatório da sessão</h3>
         <p>PROTOCOLO DE LIMPEZA E PROTEÇÃO</p>
       </header>
 
@@ -1315,7 +1310,6 @@ function buildVisualReport() {
         <h3>2. Resultado do formulário</h3>
         <h4>Avaliação Bovis</h4>
         ${bovisTable}
-        ${bovisAlertHtml}
         <h4>Campo e limite identificados</h4>
         <p><strong>Campo:</strong> ${escapeHtml(fieldLabel)} | <strong>Tipo de limite:</strong> ${escapeHtml(limitLabel)}</p>
         ${holistic.length ? `<h4>Outros tratamentos holísticos</h4><p>${escapeHtml(holistic.join(", "))}</p>` : ""}
@@ -1332,7 +1326,7 @@ function buildVisualReport() {
       <section>
         <h3>3. Resumo integrado: chakra, campo e causa</h3>
         <p>Esta parte organiza os pontos centrais selecionados no formulário para que o cliente compreenda o processo com clareza e autoconhecimento.</p>
-        <div class="visual-card-grid">${chakraCards}</div>
+        ${chakraFigure}
         <div class="visual-card-grid">${causeCards}</div>
       </section>
 
@@ -1666,6 +1660,7 @@ function bindActions() {
   });
   byId("generateProtocolCode").addEventListener("click", generateProtocolCode);
   byId("saveReportPdf").addEventListener("click", saveReportPdf);
+  byId("saveReportPdfBottom").addEventListener("click", saveReportPdf);
   byId("sessionForm").addEventListener("input", (event) => {
     if (event.target.id === "integrativeReport") {
       reportManuallyEdited = true;
