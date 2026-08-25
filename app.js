@@ -354,7 +354,7 @@ const holisticTreatments = [
 
 const graphImageBank = {
   unblocking:
-    "https://http2.mlstatic.com/D_NQ_NP_902643-MLB89403331993_082025-O-grafico-radiestesia-32x32cm-c2mm-desembaracador-material.webp",
+    "https://www.tilguti.com/cdn/shop/files/grafico-radiestesico-desembarcador-material-pvc-iniciante-tilguti.jpg?v=1758821631",
   relationship:
     "https://cdn.awsli.com.br/800x800/1382/1382320/produto/105605481/r12---desembara-ador-de-relacionamentos-7uf1hvbj6o.jpg",
   justice:
@@ -376,10 +376,14 @@ const graphImageBank = {
     "https://http2.mlstatic.com/D_NQ_NP_763710-MLB74020309322_012024-O-grafico-radiestesia-24x24cm-c2mm-r40-tetragrammaton.webp",
   limpezaRecarga:
     "https://www.tilguti.com/cdn/shop/files/grafico-radiestesico-limpeza-e-recarga-iniciante-pvc-tilguti.jpg?v=1764591777&width=1445",
+  corteEnergetico:
+    "https://www.subtil.net/store/biometers/0f7d5ec9-6c1c-4141-95c9-7cc259d83bfb.png",
   guedes:
-    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Triturador_P_Tilguti_PVC_I.jpg?v=1733436002&width=1206",
+    "https://down-br.img.susercontent.com/file/br-11134207-7r98o-lzmah67oxgshf5",
+  nenas:
+    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Nenas_P_Tilguti_PVC_I.jpg?v=1737755544&width=1946",
   keiti:
-    "https://images.tcdn.com.br/img/img_prod/600231/grafico_keiti_959_1_a5ba388ada000cff9b3a60d76c17093f.jpg",
+    "https://www.tilguti.com/cdn/shop/files/41.jpg?v=1716666515",
   saoMauro:
     "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Cruz_de_Sao_Mauro_P_Tilguti_PVC_I.jpg?v=1734655665&width=600",
   magnetismo:
@@ -388,11 +392,33 @@ const graphImageBank = {
     "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Antahkaran_P_Tilguti_PVC_I.jpg?v=1734651496&width=823",
   metatron:
     "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Cubo_de_Metatron_I_Tilguti_PVC_I.jpg?v=1733615053&width=1445",
+  abertura:
+    "https://www.tilguti.com/cdn/shop/files/grafico-radiestesico-abertura-pvc-tilguti.jpg?v=1760010103",
+  archine:
+    "https://servranx.com/cdn/shop/files/Graph26r_2023SITE.jpg?v=1697702945",
+  captadorSolar:
+    "https://imgv2-1-f.scribdassets.com/img/document/768733693/original/831da96480/1?v=1",
+  cosmos2000:
+    "https://down-br.img.susercontent.com/file/br-11134207-7r98o-mcma00lem4vme4",
+  cruzAtlante:
+    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Cruz_Atlanta_I_Tilguti_PVC_I.jpg?v=1733870479&width=1445",
+  energiaDivina:
+    "https://cdn.lojasonlinectt.pt/usercontent/portaldoequilibrio/media/images/a61cf8b-172502-b48e478-153237-energia-divina.png",
+  fiatLux:
+    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Fiat_Lux_PT_PRO_Tilguti_PVC.jpg?v=1754762569&width=1445",
+  mestres:
+    "https://www.subtil.net/store/biometers/cd003212-3cfc-4d98-a0af-0da519c1512f.png",
+  prosperador:
+    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Prosperador_I_Tilguti_PVC_I.jpg?v=1737924481",
+  sorteSucesso:
+    "https://cdn.lojasonlinectt.pt/usercontent/portaldoequilibrio/media/images/a2fd8fd-171909-eac04e0-155541-sorte-e-sucesso-grafico-radiestesico-para-radiestesia-terapeutica-100.png",
+  vortex:
+    "https://www.tilguti.com/cdn/shop/files/Grafico_Radionico_Vortex_I_Tilguti_PVC_I.jpg?v=1737411357",
 };
 
 const graphInfoOverrides = {
   "Desembaraçador": {
-    image: graphImageBank.unblocking,
+    image: "",
     description:
       "Gráfico voltado a desfazer nós energéticos e situações travadas. É usado como apoio para abrir caminhos quando há sensação de bloqueio, confusão ou ausência de saída imediata.",
     interpretation:
@@ -455,6 +481,14 @@ const graphInfoOverrides = {
       "Sugere necessidade de purificação, recomposição e estabilização da vitalidade após desgaste.",
     readings: "Limpeza energética, recarga vital, higiene vibracional e práticas de proteção.",
   },
+  "Corte Energético": {
+    image: graphImageBank.corteEnergetico,
+    description:
+      "Gráfico voltado à investigação e ao corte de laços energéticos, vínculos sutis, bloqueios e perdas de energia associados a relações, padrões emocionais ou campos de influência.",
+    interpretation:
+      "A seleção de Corte Energético sugere necessidade de delimitação, encerramento simbólico de ligações desgastantes e recuperação da energia pessoal.",
+    readings: "Corte de laços energéticos, proteção, vínculos sutis, bloqueios e reorganização do campo.",
+  },
   "Guedes II": {
     image: graphImageBank.guedes,
     description:
@@ -464,7 +498,7 @@ const graphInfoOverrides = {
     readings: "Guedes II, Triturador II, limpeza profunda, desbloqueio energético e equilíbrio dos chakras.",
   },
   "NENAS": {
-    image: "",
+    image: graphImageBank.nenas,
     description:
       "Conhecido como neutralizador de nocividades ambientais e do subsolo, é usado para investigar e equilibrar interferências do espaço, como cargas ambientais, geobiológicas ou vibrações que afetam a vitalidade.",
     interpretation:
@@ -519,6 +553,142 @@ const graphInfoOverrides = {
       "Sugere proteção, alinhamento espiritual e reforço do campo contra influências desarmônicas.",
     readings: "Pentagrama, tetragrama, proteção espiritual e simbologia hermética.",
   },
+  "Abertura": {
+    image: graphImageBank.abertura,
+    description:
+      "Gráfico voltado a favorecer abertura interior, receptividade, destravamento emocional e disponibilidade para novos movimentos de vida.",
+    interpretation:
+      "A seleção de Abertura sugere apoio para flexibilizar resistências, ampliar possibilidades e criar disposição para mudança.",
+    readings: "Abertura emocional, receptividade, destravamento e expansão de possibilidades.",
+  },
+  "Aceitar e Soltar": {
+    image: "",
+    description:
+      "Gráfico psicoemocional voltado ao acolhimento da experiência vivida e à liberação gradual de apego, resistência, culpa ou insistência em padrões esgotados.",
+    interpretation:
+      "A seleção de Aceitar e Soltar sugere trabalho de desapego, aceitação madura, encerramento de ciclos e recuperação de leveza emocional.",
+    readings: "Aceitação, desapego, encerramento de ciclos, perdão e autorregulação emocional.",
+  },
+  "Amor ao Próximo": {
+    image: "",
+    description:
+      "Gráfico psicoemocional associado à abertura compassiva para vínculos, convivência, cuidado e reconhecimento do outro sem perda dos próprios limites.",
+    interpretation:
+      "A seleção de Amor ao Próximo sugere atenção à qualidade dos vínculos, empatia, cooperação e equilíbrio entre cuidado e autonomia.",
+    readings: "Compaixão, convivência, vínculos, cuidado e limites saudáveis.",
+  },
+  "Amor Universal": {
+    image: "",
+    description:
+      "Gráfico psicoemocional voltado à expansão afetiva, integração espiritual do amor e percepção de pertencimento para além dos vínculos pessoais imediatos.",
+    interpretation:
+      "A seleção de Amor Universal sugere trabalho de abertura do coração, reconciliação interna e ampliação da confiança na vida.",
+    readings: "Amor universal, coração, reconciliação, pertencimento e expansão afetiva.",
+  },
+  "Ativação da Vontade": {
+    image: "",
+    description:
+      "Gráfico psicoemocional associado à força de decisão, iniciativa, direção pessoal e capacidade de transformar percepção em ação concreta.",
+    interpretation:
+      "A seleção de Ativação da Vontade sugere necessidade de fortalecer escolha, foco, disciplina e movimento diante do tema trabalhado.",
+    readings: "Vontade, iniciativa, foco, ação, autonomia e direção pessoal.",
+  },
+  "Confiar com Alegria": {
+    image: "",
+    description:
+      "Gráfico psicoemocional voltado à confiança, abertura positiva, espontaneidade e restauração de uma relação mais leve com o futuro.",
+    interpretation:
+      "A seleção de Confiar com Alegria sugere apoio para reduzir antecipação ansiosa, recuperar esperança e favorecer entrega consciente.",
+    readings: "Confiança, alegria, esperança, leveza, entrega e abertura emocional.",
+  },
+  "Coragem": {
+    image: "",
+    description:
+      "Gráfico psicoemocional associado à firmeza interna, enfrentamento de medos, sustentação de escolhas e fortalecimento diante de desafios.",
+    interpretation:
+      "A seleção de Coragem sugere necessidade de sustentar presença, atravessar inseguranças e agir com mais alinhamento interno.",
+    readings: "Coragem, medo, firmeza, presença, decisão e enfrentamento.",
+  },
+  "Dependência e Vícios": {
+    image: "",
+    description:
+      "Gráfico psicoemocional voltado à investigação de vínculos compulsivos, repetições, dependências afetivas, hábitos automáticos e padrões de fuga.",
+    interpretation:
+      "A seleção de Dependência e Vícios sugere atenção a mecanismos de compensação, compulsão, apego e busca de autonomia emocional.",
+    readings: "Dependência, vícios, compulsão, repetição, autonomia e autorregulação.",
+  },
+  "Mundo Interior": {
+    image: "",
+    description:
+      "Gráfico psicoemocional ligado à escuta interna, imaginação, memória emocional, introspecção e contato com conteúdos subjetivos profundos.",
+    interpretation:
+      "A seleção de Mundo Interior sugere necessidade de olhar para sentimentos, narrativas pessoais, imagens internas e sentidos ainda não elaborados.",
+    readings: "Mundo interior, introspecção, memória emocional, imaginação e autoconhecimento.",
+  },
+  "Nervos": {
+    image: "",
+    description:
+      "Gráfico psicoemocional associado à tensão nervosa, irritabilidade, sobrecarga mental, hipervigilância e dificuldade de relaxamento.",
+    interpretation:
+      "A seleção de Nervos sugere necessidade de acalmar o sistema psicoenergético, reduzir tensão e favorecer estabilidade emocional.",
+    readings: "Tensão nervosa, ansiedade, irritabilidade, descanso, regulação e estabilidade.",
+  },
+  "Positividade": {
+    image: "",
+    description:
+      "Gráfico psicoemocional voltado ao fortalecimento de perspectiva, confiança, abertura para possibilidades e reorganização de pensamentos desanimadores.",
+    interpretation:
+      "A seleção de Positividade sugere apoio para renovar leitura interna do tema, ampliar recursos e favorecer disposição construtiva.",
+    readings: "Positividade, esperança, perspectiva, recursos internos e disposição.",
+  },
+  "Pureza Interior": {
+    image: "",
+    description:
+      "Gráfico psicoemocional associado à limpeza simbólica de culpa, ressentimento, confusão afetiva e cargas internas que dificultam clareza e serenidade.",
+    interpretation:
+      "A seleção de Pureza Interior sugere trabalho de depuração emocional, honestidade consigo e retorno a uma sensação mais íntegra de presença.",
+    readings: "Pureza interior, culpa, serenidade, clareza, depuração emocional e integridade.",
+  },
+  "Desilusão Amorosa": {
+    image: "",
+    description:
+      "Gráfico psicoemocional voltado a dores afetivas, frustração amorosa, luto relacional, quebra de expectativa e recomposição da autoestima nos vínculos.",
+    interpretation:
+      "A seleção de Desilusão Amorosa sugere atenção a perdas afetivas, expectativas feridas, recuperação de valor próprio e reorganização do coração.",
+    readings: "Desilusão amorosa, luto afetivo, autoestima, vínculos e recomposição emocional.",
+  },
+  "ARCHINE": {
+    image: graphImageBank.archine,
+    description:
+      "Gráfico ligado a repouso, recomposição e segurança energética durante o descanso, tradicionalmente associado ao sono reparador.",
+    interpretation:
+      "A seleção de ARCHINE sugere atenção à restauração, ao descanso profundo e à reorganização do campo vital pela pausa.",
+    readings: "ARCHINE, repouso, sono reparador, recomposição energética e vitalidade.",
+  },
+  "Captador de Energia Solar": {
+    image: graphImageBank.captadorSolar,
+    description:
+      "Gráfico receptor e emissor associado à captação de energia solar simbólica, vitalização e redistribuição de energia mental, moral, psíquica e vital.",
+    interpretation:
+      "A seleção do Captador de Energia Solar sugere necessidade de reabastecimento, clareza e fortalecimento da energia disponível.",
+    readings: "Energia solar, vitalização, receptor-emissor, força vital e recomposição.",
+  },
+  "Forças Universais": {
+    image: "",
+    description:
+      "Gráfico de vitalidade associado à conexão com forças sutis amplas, sustentação energética e alinhamento com recursos universais de equilíbrio.",
+    interpretation:
+      "A seleção de Forças Universais sugere busca de apoio energético amplo, recomposição de vigor e fortalecimento do campo por fontes sutis.",
+    readings: "Forças universais, vitalidade, sustentação energética, equilíbrio e recomposição.",
+  },
+  "Relaxar": {
+    image: "",
+    description:
+      "Gráfico de vitalidade voltado ao relaxamento, desaceleração, repouso e redução de tensão física, mental e emocional.",
+    interpretation:
+      "A seleção de Relaxar sugere necessidade de pausa, descanso, soltura corporal e recuperação da energia pela descompressão.",
+    readings: "Relaxamento, descanso, tensão, soltura, pausa e recuperação energética.",
+  },
   "Cruz de São Mauro": {
     image: graphImageBank.saoMauro,
     description:
@@ -550,6 +720,86 @@ const graphInfoOverrides = {
     interpretation:
       "Sugere organização profunda, geometria de proteção, clareza estrutural e alinhamento espiritual.",
     readings: "Cubo de Metatron, sólidos platônicos, geometria sagrada e proteção.",
+  },
+  "Cosmos 2000": {
+    image: graphImageBank.cosmos2000,
+    description:
+      "Gráfico de alta complexidade geométrica, associado à expansão, ordenamento sutil e conexão com padrões cósmicos de organização.",
+    interpretation:
+      "A seleção de Cosmos 2000 sugere busca de ampliação de consciência, reorganização ampla e harmonização em camadas mais sutis.",
+    readings: "Cosmos 2000, expansão, geometria complexa, campo cósmico e ordenamento sutil.",
+  },
+  "Cruz Atlante": {
+    image: graphImageBank.cruzAtlante,
+    description:
+      "Gráfico com cruz e círculos concêntricos, associado à proteção, amplificação e sustentação de intenção em trabalhos de materialização e fortalecimento.",
+    interpretation:
+      "A seleção de Cruz Atlante sugere necessidade de força direcional, proteção e sustentação do propósito terapêutico.",
+    readings: "Cruz Atlante, proteção, materialização, força direcional e sustentação energética.",
+  },
+  "Energia Divina": {
+    image: graphImageBank.energiaDivina,
+    description:
+      "Gráfico simbólico de elevação e conexão espiritual, reunindo geometria e signos sagrados para sustentar proteção, fé e alinhamento superior.",
+    interpretation:
+      "A seleção de Energia Divina sugere busca de amparo espiritual, elevação vibracional e fortalecimento da confiança interior.",
+    readings: "Energia divina, proteção espiritual, alinhamento superior e elevação vibracional.",
+  },
+  "Fiat Lux": {
+    image: graphImageBank.fiatLux,
+    description:
+      "Gráfico associado à luz, consciência, pensamento e vida, usado como suporte simbólico para clareza, iluminação interior e abertura de percepção.",
+    interpretation:
+      "A seleção de Fiat Lux sugere foco em clareza, lucidez, consciência e transformação pela luz simbólica.",
+    readings: "Fiat Lux, luz, consciência, pensamento, vida e clareza interior.",
+  },
+  "Gráfico dos Mestres": {
+    image: graphImageBank.mestres,
+    description:
+      "Gráfico radiestésico associado aos raios, mestres e arcanjos, usado como mapa simbólico de qualidades espirituais, proteção, cura e transmutação.",
+    interpretation:
+      "A seleção do Gráfico dos Mestres sugere busca de orientação, suporte espiritual e identificação de qualidades sutis a serem trabalhadas.",
+    readings: "Mestres, arcanjos, sete raios, orientação espiritual e qualidades vibracionais.",
+  },
+  "Prosperador": {
+    image: graphImageBank.prosperador,
+    description:
+      "Gráfico com setas circulares e pirâmide central, associado ao movimento de prosperidade, circulação material e ativação de oportunidades.",
+    interpretation:
+      "A seleção de Prosperador sugere foco em fluxo, recursos, trabalho, circulação de oportunidades e reorganização material.",
+    readings: "Prosperador, prosperidade, oportunidades, movimento material e recursos.",
+  },
+  "Prosperidade Divina": {
+    image: "",
+    description:
+      "Gráfico de despertar associado à prosperidade como fluxo espiritual e material, integrando merecimento, abertura, circulação e alinhamento com propósito.",
+    interpretation:
+      "A seleção de Prosperidade Divina sugere trabalho de abertura de caminhos, confiança, merecimento e organização do campo material em diálogo com valores espirituais.",
+    readings: "Prosperidade divina, merecimento, fluxo material, propósito e abertura de caminhos.",
+  },
+  "Selo Misterioso do Sol": {
+    image: "",
+    description:
+      "Gráfico de despertar associado ao simbolismo solar, vitalidade espiritual, brilho pessoal, clareza, consciência e força de manifestação.",
+    interpretation:
+      "A seleção de Selo Misterioso do Sol sugere fortalecimento de identidade, clareza de intenção, energia criativa e presença luminosa no tema trabalhado.",
+    readings: "Selo solar, vitalidade espiritual, consciência, brilho pessoal e manifestação.",
+  },
+  "Sorte e Sucesso": {
+    image: graphImageBank.sorteSucesso,
+    description:
+      "Gráfico associado a abertura de caminhos, oportunidades favoráveis, êxito e alinhamento entre intenção, ação e resultado.",
+    interpretation:
+      "A seleção de Sorte e Sucesso sugere apoio para clareza de direção, confiança e ativação de condições favoráveis.",
+    readings: "Sorte, sucesso, oportunidades, abertura de caminhos e realização.",
+  },
+  "Vórtex": {
+    image: graphImageBank.vortex,
+    description:
+      "Gráfico de movimento espiralado e concêntrico, associado à dinamização, aceleração e reorganização de fluxos energéticos.",
+    interpretation:
+      "A seleção de Vórtex sugere necessidade de movimento, desbloqueio dinâmico e ativação de transformação.",
+    readings: "Vórtex, dinamização energética, movimento, aceleração e transformação.",
   },
 };
 
