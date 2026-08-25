@@ -913,6 +913,31 @@ button:focus-visible {
   padding: 10px;
 }
 
+.visual-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.visual-data-table th,
+.visual-data-table td {
+  border: 1px solid var(--line);
+  padding: 5px 7px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.visual-data-table th {
+  width: 110px;
+  background: var(--green-2);
+  color: var(--green);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
 .visual-card,
 .graph-report-card {
   border: 1px solid var(--line);
@@ -1287,6 +1312,11 @@ button:focus-visible {
     font-size: 11pt;
   }
 
+  body.print-report-only .visual-report section {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
   body.print-report-only .visual-report-header {
     display: none;
   }
@@ -1301,11 +1331,11 @@ button:focus-visible {
     font-size: 30pt;
   }
 
-  body.print-report-only .visual-report section,
   body.print-report-only .visual-card,
   body.print-report-only .graph-report-card,
   body.print-report-only .promo-card,
   body.print-report-only .visual-data-grid p,
+  body.print-report-only .visual-data-table,
   body.print-report-only .visual-bovis-table,
   body.print-report-only .report-chakra-layout,
   body.print-report-only .report-detail-block {
@@ -1339,6 +1369,15 @@ button:focus-visible {
     min-width: 0;
     max-width: 520px;
     font-size: 9pt;
+  }
+
+  body.print-report-only .visual-data-table {
+    font-size: 8.5pt;
+  }
+
+  body.print-report-only .visual-data-table th,
+  body.print-report-only .visual-data-table td {
+    padding: 3px 5px;
   }
 
   body.print-report-only .visual-bovis-table th,

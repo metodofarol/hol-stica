@@ -1312,13 +1312,26 @@ function buildVisualReport() {
 
       <section>
         <h3>1. Dados da sessão</h3>
-        <div class="visual-data-grid">
-          <p><strong>Cliente:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Nascimento:</strong> ${escapeHtml(birth)}</p>
-          <p><strong>Terapeuta:</strong> ${escapeHtml(therapist)}</p>
-          <p><strong>Data da sessão:</strong> ${escapeHtml(sessionDate)}</p>
-          <p><strong>Tema:</strong> ${escapeHtml(sessionTheme || "não informado")}</p>
-        </div>
+        <table class="visual-data-table">
+          <tbody>
+            <tr>
+              <th>Cliente</th>
+              <td>${escapeHtml(name)}</td>
+              <th>Nascimento</th>
+              <td>${escapeHtml(birth)}</td>
+            </tr>
+            <tr>
+              <th>Terapeuta</th>
+              <td>${escapeHtml(therapist)}</td>
+              <th>Data da sessão</th>
+              <td>${escapeHtml(sessionDate)}</td>
+            </tr>
+            <tr>
+              <th>Tema</th>
+              <td colspan="3">${escapeHtml(sessionTheme || "não informado")}</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section>
